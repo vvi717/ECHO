@@ -8,6 +8,17 @@
     <!-- Background Grid -->
     <div class="absolute inset-0 bg-[linear-gradient(to_right,rgba(0,184,217,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,184,217,0.05)_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,rgba(15,23,42,0.4)_1px,transparent_1px),linear-gradient(to_bottom,rgba(15,23,42,0.4)_1px,transparent_1px)] bg-[size:4rem_4rem] pointer-events-none z-0"></div>
 
+    <!-- Echo Butterfly Decoration (Exclusive to Research Notes) -->
+    <transition name="slide-fade">
+      <div v-if="id === '04_research_notes'" class="fixed bottom-0 -left-16 md:-left-32 lg:-left-64 xl:-left-80 w-[100vw] sm:w-[80vw] lg:w-[50vw] xl:w-[45vw] max-w-[900px] pointer-events-none z-[5] opacity-[0.85] dark:opacity-40 transition-all duration-1000 mix-blend-darken dark:mix-blend-lighten">
+        <img src="/echo_butterfly.png" alt="Echo Decoration" class="w-full h-auto object-contain object-bottom translate-y-8 lg:translate-y-20 pr-10" />
+        <!-- Bottom fade gradient to blend seamlessly -->
+        <div class="absolute bottom-0 left-0 w-full h-48 bg-gradient-to-t from-[#F0FAFB] dark:from-[#000B1D] via-[#F0FAFB]/80 dark:via-[#000B1D]/80 to-transparent"></div>
+        <!-- Left fade gradient -->
+        <div class="absolute left-0 top-0 w-24 h-full bg-gradient-to-r from-[#F0FAFB] dark:from-[#000B1D] to-transparent"></div>
+      </div>
+    </transition>
+
     <!-- Header Section -->
     <header class="relative z-10 p-8 md:px-16 md:pt-12 flex flex-col justify-start items-start">
       <div class="flex items-center justify-between w-full">

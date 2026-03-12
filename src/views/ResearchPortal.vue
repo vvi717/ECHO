@@ -9,16 +9,19 @@
     <!-- Header Section -->
     <header class="relative z-10 p-8 pt-16 md:px-16 md:pt-24 flex flex-col justify-start items-start" v-motion-fade-visible-once>
       <div class="flex items-center justify-between w-full">
-        <div>
-          <h1 class="text-7xl md:text-9xl font-black tracking-tighter text-slate-800 dark:text-slate-100 leading-none relative group transition-colors">
-            ECHO
-            <span class="absolute top-0 left-0 w-full h-full text-transparent bg-clip-text bg-gradient-to-r from-[#00F5FF] to-[#0088CC] opacity-0 group-hover:opacity-100 animate-pulse-glitch transition-opacity duration-500 select-none pointer-events-none">ECHO</span>
-          </h1>
-          <p class="mt-4 text-xl md:text-2xl font-medium text-slate-500 tracking-widest uppercase relative after:content-[''] after:absolute after:bottom-[-8px] after:left-0 after:w-16 after:h-[3px] after:bg-[#00F5FF]">
-            Empathetic Conversational Human Operator
-          </p>
+        <div class="flex flex-col md:flex-row items-start md:items-center gap-4 md:gap-6 lg:gap-8">
+          <img src="/icon2.png" alt="ECHO Crest" class="w-24 md:w-40 lg:w-48 drop-shadow-[0_0_20px_rgba(0,245,255,0.4)] md:hover:scale-105 transition-transform duration-500" />
+          <div>
+            <h1 class="text-7xl md:text-9xl font-black tracking-tighter text-slate-800 dark:text-slate-100 leading-none relative group transition-colors">
+              ECHO
+              <span class="absolute top-0 left-0 w-full h-full text-transparent bg-clip-text bg-gradient-to-r from-[#00F5FF] to-[#0088CC] opacity-0 group-hover:opacity-100 animate-pulse-glitch transition-opacity duration-500 select-none pointer-events-none">ECHO</span>
+            </h1>
+            <p class="mt-4 text-xl md:text-2xl font-medium text-slate-500 tracking-widest uppercase relative after:content-[''] after:absolute after:bottom-[-8px] after:left-0 after:w-16 after:h-[3px] after:bg-[#00F5FF]">
+              Empathetic Conversational Human Operator
+            </p>
+          </div>
         </div>
-        <router-link to="/protocol-echo" class="hidden md:flex items-center gap-2 text-xs font-mono font-bold text-slate-400 hover:text-[#00F5FF] transition-colors uppercase py-2 px-4 rounded border border-transparent hover:border-[#00F5FF]/30">
+        <router-link to="/protocol-echo" class="hidden md:flex items-center gap-2 text-xs font-mono font-bold text-slate-400 hover:text-[#00F5FF] transition-colors uppercase py-2 px-4 rounded border border-transparent hover:border-[#00F5FF]/30 mt-4 md:mt-0">
           <Terminal class="w-4 h-4" />
           Developer Login
         </router-link>
@@ -115,13 +118,17 @@
             <!-- Holographic scanning line effect -->
             <div class="absolute inset-0 bg-gradient-to-b from-transparent via-[#00F5FF]/10 to-transparent h-[200%] w-full animate-float opacity-50"></div>
             
-            <div class="text-center z-10 flex flex-col items-center gap-6">
+            <div class="text-center z-10 flex flex-col items-center gap-6 mt-8 relative">
               <div class="relative w-24 h-24 border-2 border-[#00F5FF]/60 rounded-full flex items-center justify-center shadow-[0_0_30px_rgba(0,245,255,0.2)]">
+                <!-- Holographic Face Overlay -->
+                <!-- We perfectly align its HUD circle to our core via a precise translate-y -->
+                <img src="/icon3.png" alt="Echo Hologram Mask" class="absolute top-1/2 left-1/2 w-[31px] md:w-[380px] max-w-none -translate-x-1/2 -translate-y-[53%] opacity-60 mix-blend-screen pointer-events-none drop-shadow-[0_0_15px_#00F5FF] z-[-1]" />
+                
                 <div class="w-20 h-20 border border-dashed border-[#00F5FF] rounded-full animate-spin-slow absolute"></div>
                 <div class="w-14 h-14 bg-[#00F5FF]/20 rounded-full animate-ping absolute"></div>
                 <div class="w-6 h-6 bg-[#00F5FF] rounded-full absolute" style="box-shadow: 0 0 25px #00F5FF, 0 0 50px #00F5FF;"></div>
               </div>
-              <p class="font-mono text-sm font-bold tracking-widest text-[#00F5FF] uppercase animate-pulse drop-shadow-[0_0_8px_#00F5FF]">
+              <p class="font-mono text-sm font-bold tracking-widest text-[#00F5FF] uppercase animate-pulse drop-shadow-[0_0_8px_#00F5FF] mt-10 md:mt-14 relative z-10">
                 System Ready... Empathy Engine Active
               </p>
             </div>
