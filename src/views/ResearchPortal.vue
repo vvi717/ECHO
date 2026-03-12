@@ -122,10 +122,10 @@
               <div class="relative w-24 h-24 border-2 border-[#00F5FF]/60 rounded-full flex items-center justify-center shadow-[0_0_30px_rgba(0,245,255,0.2)]">
                 <!-- Holographic Face Overlay -->
                 <!-- We perfectly align its HUD circle to our core via a precise translate-y -->
-                <img src="/icon3.png" alt="Echo Hologram Mask" class="absolute top-1/2 left-1/2 w-[31px] md:w-[380px] max-w-none -translate-x-1/2 -translate-y-[53%] opacity-60 mix-blend-screen pointer-events-none drop-shadow-[0_0_15px_#00F5FF] z-[-1]" />
+                <img src="/icon3.png" alt="Echo Hologram Mask" class="absolute top-1/2 left-1/2 w-[310px] md:w-[360px] max-w-none -translate-x-[49.5%] -translate-y-[57%] opacity-60 mix-blend-screen pointer-events-none drop-shadow-[0_0_15px_#00F5FF] z-[-1]" />
                 
                 <div class="w-20 h-20 border border-dashed border-[#00F5FF] rounded-full animate-spin-slow absolute"></div>
-                <div class="w-14 h-14 bg-[#00F5FF]/20 rounded-full animate-ping absolute"></div>
+                <div class="w-15 h-20 bg-[#00F5FF]/20 rounded-full animate-ping absolute"></div>
                 <div class="w-6 h-6 bg-[#00F5FF] rounded-full absolute" style="box-shadow: 0 0 25px #00F5FF, 0 0 50px #00F5FF;"></div>
               </div>
               <p class="font-mono text-sm font-bold tracking-widest text-[#00F5FF] uppercase animate-pulse drop-shadow-[0_0_8px_#00F5FF] mt-10 md:mt-14 relative z-10">
