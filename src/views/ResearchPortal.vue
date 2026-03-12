@@ -21,10 +21,12 @@
             </p>
           </div>
         </div>
+        <!-- 
         <router-link to="/protocol-echo" class="hidden md:flex items-center gap-2 text-xs font-mono font-bold text-slate-400 hover:text-[#00F5FF] transition-colors uppercase py-2 px-4 rounded border border-transparent hover:border-[#00F5FF]/30 mt-4 md:mt-0">
           <Terminal class="w-4 h-4" />
           Developer Login
-        </router-link>
+        </router-link> 
+        -->
       </div>
     </header>
 
@@ -122,7 +124,7 @@
               <div class="relative w-24 h-24 border-2 border-[#00F5FF]/60 rounded-full flex items-center justify-center shadow-[0_0_30px_rgba(0,245,255,0.2)]">
                 <!-- Holographic Face Overlay -->
                 <!-- We perfectly align its HUD circle to our core via a precise translate-y -->
-                <img src="/icon3.png" alt="Echo Hologram Mask" class="absolute top-1/2 left-1/2 w-[310px] md:w-[360px] max-w-none -translate-x-[49.5%] -translate-y-[57%] opacity-60 mix-blend-screen pointer-events-none drop-shadow-[0_0_15px_#00F5FF] z-[-1]" />
+                <img src="/icon3.png" alt="Echo Hologram Mask" class="absolute top-1/2 left-1/2 w-[310px] md:w-[360px] max-w-none -translate-x-[49.5%] -translate-y-[56.5%] opacity-60 mix-blend-screen pointer-events-none drop-shadow-[0_0_15px_#00F5FF] z-[-1]" />
                 
                 <div class="w-20 h-20 border border-dashed border-[#00F5FF] rounded-full animate-spin-slow absolute"></div>
                 <div class="w-15 h-20 bg-[#00F5FF]/20 rounded-full animate-ping absolute"></div>
