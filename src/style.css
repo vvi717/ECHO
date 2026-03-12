@@ -1,0 +1,92 @@
+@import "tailwindcss";
+
+@theme {
+  --color-echo-dark: #000B1D;
+  --color-echo-blue: #002759;
+  --color-echo-light: #00F5FF;
+  --color-echo-white: #FFFFFF;
+  --color-echo-gray: #E0E0E0;
+
+  --animate-pulse-glitch: pulse-glitch 4s infinite ease-in-out;
+  --animate-float: float 6s infinite ease-in-out;
+
+  @keyframes pulse-glitch {
+
+    0%,
+    100% {
+      opacity: 1;
+      text-shadow: 0 0 10px rgba(0, 245, 255, 0.7), 0 0 20px rgba(0, 245, 255, 0.5);
+    }
+
+    50% {
+      opacity: 0.8;
+      text-shadow: 0 0 20px rgba(0, 245, 255, 0.9), 0 0 30px rgba(0, 245, 255, 0.7), 2px 2px 5px rgba(255, 255, 255, 0.5);
+    }
+
+    80% {
+      opacity: 0.9;
+      text-shadow: 0 0 5px rgba(255, 255, 255, 0.8), -2px -2px 5px rgba(0, 245, 255, 0.8);
+    }
+  }
+
+  @keyframes float {
+
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background-color: var(--color-echo-dark);
+}
+
+/* Glassmorphism utility classes */
+.glass-panel {
+  background-color: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.glass-panel-glow {
+  background-color: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(0, 245, 255, 0.3);
+  border-radius: 1rem;
+  box-shadow: 0 0 15px rgba(0, 245, 255, 0.15);
+  transition: all 0.5s ease-out;
+}
+
+.glass-panel-glow:hover {
+  box-shadow: 0 0 25px rgba(0, 245, 255, 0.3);
+  border-color: rgba(0, 245, 255, 0.5);
+}
+
+/* Scrollbar customization */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 11, 29, 0.5);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 245, 255, 0.3);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 245, 255, 0.6);
+}
