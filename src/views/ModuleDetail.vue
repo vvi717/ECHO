@@ -178,7 +178,7 @@
                 >
                   <span v-if="note.status === 'Confirmed'" class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span>
                   <span v-else class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
-                  {{ note.status === 'Confirmed' ? 'Confirmed with Supervisor' : 'Draft' }}
+                  {{ note.status === 'Confirmed' ? 'Confirmed' : 'Draft' }}
                 </span>
                 <span v-if="note.associatedLiterature" class="flex items-center gap-1.5 text-[10px] font-mono font-bold text-indigo-600 dark:text-indigo-400 bg-indigo-50/80 dark:bg-indigo-900/30 px-2 py-0.5 rounded-md border border-indigo-100 dark:border-indigo-800/50 mt-1 mb-1">
                   <BookOpen class="w-3 h-3" />
@@ -203,20 +203,67 @@
       </section>
 
       <!-- TOC Sidebar Area (Right Col) -->
-      <aside v-if="id !== '03_literature'" class="hidden lg:block w-72 shrink-0 sticky top-8">
-        <div class="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl p-6 rounded-3xl border border-white dark:border-slate-800 shadow-[0_4px_30px_rgba(0,184,217,0.05)] dark:shadow-none max-h-[calc(100vh-6rem)] overflow-y-auto custom-scrollbar">
-          <div class="flex items-center gap-2 mb-6 border-b border-slate-100 dark:border-slate-800 pb-3">
+      <aside v-if="id !== '03_literature'" class="hidden lg:flex w-72 shrink-0 sticky top-8 flex-col gap-6 h-[calc(100vh-6rem)]">
+        
+        <!-- Document Index Card: fixed height, max 6 items visible, scroll for more -->
+        <div class="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl p-6 rounded-3xl border border-white dark:border-slate-800 shadow-[0_4px_30px_rgba(0,184,217,0.05)] dark:shadow-none flex flex-col max-h-[16.5rem] overflow-hidden">
+          <div class="flex items-center gap-2 mb-4 border-b border-slate-100 dark:border-slate-800 pb-3 shrink-0">
             <ListTree class="w-4 h-4 text-[#00B8D9] dark:text-[#00F5FF]" />
             <h3 class="text-xs font-mono font-bold tracking-widest text-[#1C3A4B] dark:text-slate-400 uppercase">Document Index</h3>
           </div>
-          <ul class="flex flex-col gap-3 font-mono text-xs">
-            <li v-for="note in sortedNotesByTitle" :key="'toc-'+note.id" class="group/toc">
+          <ul class="flex flex-col gap-3 font-mono text-xs overflow-y-auto custom-scrollbar min-h-0 flex-1">
+            <li v-for="note in sortedNotesByTitle" :key="'toc-'+note.id" class="group/toc shrink-0">
                <a href="#" @click.prevent="openReader(note)" class="flex items-center gap-2 text-slate-500 hover:text-[#00B8D9] dark:hover:text-[#00F5FF] transition-colors truncate font-bold">
-                 <span class="w-1.5 h-1.5 rounded-full bg-slate-300 dark:bg-slate-700 group-hover/toc:bg-[#00B8D9] dark:group-hover/toc:bg-[#00F5FF] transition-colors"></span>
+                 <span class="w-1.5 h-1.5 rounded-full bg-slate-300 dark:bg-slate-700 group-hover/toc:bg-[#00B8D9] dark:group-hover/toc:bg-[#00F5FF] transition-colors shrink-0"></span>
                  <span class="truncate">{{ note.title || 'Untitled Session' }}</span>
                </a>
             </li>
           </ul>
+        </div>
+
+        <!-- Notes Template Card (Only for 04_research_notes) -->
+        <div v-if="id === '04_research_notes'" class="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl p-5 rounded-3xl border border-white dark:border-slate-800 shadow-[0_4px_30px_rgba(0,184,217,0.05)] dark:shadow-none shrink-0 flex flex-col gap-3 max-h-[50%] overflow-y-auto custom-scrollbar">
+          <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3 sticky top-0 bg-white/90 dark:bg-slate-900/90 z-10 backdrop-blur-md">
+            <div class="flex items-center gap-2">
+              <PenLine class="w-4 h-4 text-[#00B8D9] dark:text-[#00F5FF]" />
+              <h3 class="text-[10px] md:text-xs font-mono font-bold tracking-widest text-[#1C3A4B] dark:text-slate-400 uppercase">Templates & Prompts</h3>
+            </div>
+            <button @click="isEditingSettings = !isEditingSettings" class="text-xs text-slate-400 hover:text-[#00F5FF] transition-colors p-1 rounded hover:bg-slate-100 dark:hover:bg-slate-800" title="Configure Templates" :class="isEditingSettings ? 'text-[#00F5FF]' : ''">
+               <Settings class="w-4 h-4" />
+            </button>
+          </div>
+          
+          <div v-if="!isEditingSettings" class="text-xs text-slate-500 font-mono flex flex-col gap-2 relative mt-2">
+             <div class="flex items-center gap-2 p-2 bg-slate-50 dark:bg-slate-800/50 rounded-lg border border-slate-100 dark:border-slate-800">
+               <div class="w-1.5 h-1.5 rounded-full bg-[#00F5FF]"></div>
+               <span class="truncate">Default Note Template</span>
+             </div>
+             <div class="flex items-center gap-2 p-2 bg-slate-50 dark:bg-slate-800/50 rounded-lg border border-slate-100 dark:border-slate-800">
+               <div class="w-1.5 h-1.5 rounded-full bg-purple-500"></div>
+               <span class="truncate">Default AI Prompt</span>
+             </div>
+             <p class="mt-2 text-[9px] font-bold uppercase tracking-widest text-center" :class="templatesSyncedFromFirebase ? 'text-emerald-500 dark:text-emerald-400' : 'text-slate-400'">
+               {{ templatesSyncedFromFirebase ? 'Synced with Firebase' : 'Locally Synced Setup' }}
+             </p>
+          </div>
+          
+          <div v-else class="flex flex-col gap-4 mt-2">
+             <div class="flex flex-col gap-1.5">
+               <label class="text-[9px] font-mono font-bold uppercase text-slate-500 flex justify-between">
+                 <span>Default Template</span>
+                 <span class="text-[#00F5FF]">Applies on Create</span>
+               </label>
+               <textarea v-model="defaultNoteTemplate" class="w-full h-24 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl p-3 text-[10px] font-mono text-slate-600 dark:text-slate-400 resize-none focus:outline-none focus:border-[#00F5FF] custom-scrollbar"></textarea>
+             </div>
+             
+             <div class="flex flex-col gap-1.5">
+               <label class="text-[9px] font-mono font-bold uppercase text-slate-500 flex justify-between">
+                 <span>AI Core Prompt</span>
+                 <span class="text-purple-500">JSON Format Reg.</span>
+               </label>
+               <textarea v-model="defaultSystemPrompt" class="w-full h-32 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl p-3 text-[10px] font-mono text-slate-600 dark:text-slate-400 resize-none focus:outline-none focus:border-purple-500 custom-scrollbar"></textarea>
+             </div>
+          </div>
         </div>
       </aside>
 
@@ -312,7 +359,7 @@
                     :class="currentReadingNote?.status === 'Confirmed' ? 'border-green-500/30 text-green-600 dark:text-green-400 bg-green-500/10' : 'border-amber-500/30 text-amber-600 dark:text-amber-400 bg-amber-500/10'"
                   >
                     <span v-if="currentReadingNote?.status === 'Confirmed'" class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span>
-                    {{ currentReadingNote?.status === 'Confirmed' ? 'Confirmed with Supervisor' : 'Draft' }}
+                    {{ currentReadingNote?.status === 'Confirmed' ? 'Confirmed' : 'Draft' }}
                  </span>
                  
                  <span v-if="currentReadingNote?.associatedLiterature" class="flex items-center gap-1.5 text-[10px] font-mono font-bold text-indigo-600 dark:text-indigo-300 bg-indigo-50 dark:bg-indigo-900/30 px-2 py-1 rounded-full border border-indigo-200 dark:border-indigo-800/50">
@@ -465,9 +512,9 @@
 <script setup>
 import { ref, onMounted, computed, watch, onUnmounted } from 'vue';
 import { useRoute } from 'vue-router';
-import { ArrowLeft, CalendarDays, BookOpen, FileText, TrendingUp, Activity, Terminal, Plus, X, Save, Upload, Download, ListTree, PenLine, Sparkles, UploadCloud } from 'lucide-vue-next';
+import { ArrowLeft, CalendarDays, BookOpen, FileText, TrendingUp, Activity, Terminal, Plus, X, Save, Upload, Download, ListTree, PenLine, Sparkles, UploadCloud, Settings } from 'lucide-vue-next';
 import { db } from '../firebase';
-import { collection, onSnapshot, addDoc, updateDoc, deleteDoc, doc, serverTimestamp } from 'firebase/firestore';
+import { collection, onSnapshot, addDoc, updateDoc, deleteDoc, doc, getDoc, setDoc, serverTimestamp } from 'firebase/firestore';
 import { isDark } from '../composables/useTheme';
 
 import { marked } from 'marked';
@@ -510,6 +557,19 @@ const fileInputRef = ref(null);
 const literatureInputRef = ref(null);
 const isParsingAI = ref(false);
 
+const defaultNoteTemplate = ref(localStorage.getItem('echo_note_template') || '## Basic Information\n- **Project/Paper**:\n- **Author(s)**:\n- **Date**:\n\n## Abstract / Summary\n\n## Architecture & Methodology\n\n## Key Findings\n\n## Personal Notes & Limitations\n');
+const defaultSystemPrompt = ref(localStorage.getItem('echo_system_prompt') || 'You are an advanced academic assistant. Your task is to take the user\'s raw text/note, intelligently parse it, and extract structured information. You MUST output a valid JSON object containing exactly these fields:\n1. "title": A concise, accurate title inferred from the text.\n2. "associatedLiterature": Any mentioned papers, articles, authors, or literature context (or an empty string if none are found).\n3. "date": The mentioned date in "YYYY-MM-DD" format (or current date if not found).\n4. "content": A beautifully formatted, highly professional Markdown document correcting typos and structuring the information properly with headings, bold text, bullet points.\nDo NOT output any other markdown wrappers around the JSON.');
+const isEditingSettings = ref(false);
+
+// Firebase path for Research Notes templates (same pattern as project: research_data / module / subcollection / doc)
+const TEMPLATES_DOC_PATH = () => doc(db, 'research_data', '04_research_notes', 'settings', 'templates');
+const templatesSyncedFromFirebase = ref(false);
+const isUpdatingFromRemote = ref(false);
+let templatesUnsubscribe = null;
+
+watch(defaultNoteTemplate, (newVal) => localStorage.setItem('echo_note_template', newVal));
+watch(defaultSystemPrompt, (newVal) => localStorage.setItem('echo_system_prompt', newVal));
+
 // Modules config
 const moduleConfigs = {
   '02_meetings': { title: 'Meetings & Logs', icon: CalendarDays },
@@ -545,16 +605,81 @@ const setupListener = (documentId) => {
   });
 };
 
+// Load & sync Research Notes templates with Firebase (bidirectional)
+const setupTemplatesSync = () => {
+  if (templatesUnsubscribe) templatesUnsubscribe();
+  templatesSyncedFromFirebase.value = false;
+  const templatesRef = TEMPLATES_DOC_PATH();
+
+  const applyRemoteToLocal = (data) => {
+    if (data.defaultNoteTemplate != null) {
+      defaultNoteTemplate.value = data.defaultNoteTemplate;
+      localStorage.setItem('echo_note_template', data.defaultNoteTemplate);
+    }
+    if (data.defaultSystemPrompt != null) {
+      defaultSystemPrompt.value = data.defaultSystemPrompt;
+      localStorage.setItem('echo_system_prompt', data.defaultSystemPrompt);
+    }
+  };
+
+  getDoc(templatesRef).then((snap) => {
+    if (snap.exists() && snap.data()) {
+      isUpdatingFromRemote.value = true;
+      applyRemoteToLocal(snap.data());
+      isUpdatingFromRemote.value = false;
+    } else {
+      setDoc(templatesRef, {
+        defaultNoteTemplate: defaultNoteTemplate.value,
+        defaultSystemPrompt: defaultSystemPrompt.value,
+        updatedAt: serverTimestamp()
+      }, { merge: true }).catch(console.error);
+    }
+    templatesSyncedFromFirebase.value = true;
+  }).catch(console.error);
+
+  templatesUnsubscribe = onSnapshot(templatesRef, (snap) => {
+    if (!snap.exists() || !templatesSyncedFromFirebase.value) return;
+    isUpdatingFromRemote.value = true;
+    applyRemoteToLocal(snap.data());
+    setTimeout(() => { isUpdatingFromRemote.value = false; }, 0);
+  }, (err) => console.error('Templates snapshot error:', err));
+};
+
+let saveTemplatesToFirebaseTimeout = null;
+const saveTemplatesToFirebase = () => {
+  if (!templatesSyncedFromFirebase.value || isUpdatingFromRemote.value) return;
+  const templatesRef = TEMPLATES_DOC_PATH();
+  setDoc(templatesRef, {
+    defaultNoteTemplate: defaultNoteTemplate.value,
+    defaultSystemPrompt: defaultSystemPrompt.value,
+    updatedAt: serverTimestamp()
+  }, { merge: true }).catch(console.error);
+};
+
 onMounted(() => {
   if (id.value) setupListener(id.value);
+  if (id.value === '04_research_notes') setupTemplatesSync();
 });
 
 watch(() => route.params.id, (newId) => {
   if (newId) setupListener(newId);
+  if (newId === '04_research_notes') setupTemplatesSync();
+  else if (templatesUnsubscribe) {
+    templatesUnsubscribe();
+    templatesUnsubscribe = null;
+    templatesSyncedFromFirebase.value = false;
+  }
+});
+
+watch([defaultNoteTemplate, defaultSystemPrompt], () => {
+  if (saveTemplatesToFirebaseTimeout) clearTimeout(saveTemplatesToFirebaseTimeout);
+  saveTemplatesToFirebaseTimeout = setTimeout(saveTemplatesToFirebase, 600);
 });
 
 onUnmounted(() => {
   if (unsubscribe) unsubscribe();
+  if (templatesUnsubscribe) templatesUnsubscribe();
+  if (saveTemplatesToFirebaseTimeout) clearTimeout(saveTemplatesToFirebaseTimeout);
 });
 
 // Filter and Sorting State
@@ -686,7 +811,13 @@ const openEditor = (note = null) => {
     };
   } else {
     editingNoteId.value = null;
-    editForm.value = { title: '', associatedLiterature: '', content: '', status: 'Draft', meetingDate: new Date() };
+    editForm.value = { 
+       title: '', 
+       associatedLiterature: '', 
+       content: id.value === '04_research_notes' ? defaultNoteTemplate.value : '', 
+       status: 'Draft', 
+       meetingDate: new Date() 
+    };
   }
   isEditorOpen.value = true;
 };
@@ -769,7 +900,7 @@ const parseWithAI = async (rawText) => {
         messages: [
           {
             role: 'system',
-            content: 'You are an advanced academic assistant. Your task is to take the user\'s raw text/note, intelligently parse it, and extract structured information. You MUST output a valid JSON object containing exactly these fields:\n1. "title": A concise, accurate title inferred from the text.\n2. "associatedLiterature": Any mentioned papers, articles, authors, or literature context (or an empty string if none are found).\n3. "date": The mentioned date in "YYYY-MM-DD" format (or current date if not found).\n4. "content": A beautifully formatted, highly professional Markdown document correcting typos and structuring the information properly with headings, bold text, bullet points.\nDo NOT output any other markdown wrappers around the JSON.'
+            content: defaultSystemPrompt.value
           },
           {
             role: 'user',
