@@ -17,7 +17,7 @@
               <span class="absolute top-0 left-0 w-full h-full text-transparent bg-clip-text bg-gradient-to-r from-[#00F5FF] to-[#0088CC] opacity-0 group-hover:opacity-100 animate-pulse-glitch transition-opacity duration-500 select-none pointer-events-none">ECHO</span>
             </h1>
             <p class="mt-4 text-xl md:text-2xl font-medium text-slate-500 tracking-widest uppercase relative after:content-[''] after:absolute after:bottom-[-8px] after:left-0 after:w-16 after:h-[3px] after:bg-[#00F5FF]">
-              Empathetic Conversational Human Operator
+              Shared Workspace | Empathetic Conversational Human Operator
             </p>
           </div>
         </div>
