@@ -115,40 +115,73 @@
             </div>
           </div>
 
-          <!-- Empty State (moves into flex-1 when calendar is present) -->
-          <div v-if="notes.length === 0" class="flex-1 flex flex-col items-center justify-center py-32 text-slate-400 dark:text-slate-500 gap-4 opacity-70 border border-slate-300 dark:border-slate-800 border-dashed rounded-xl bg-slate-50/50 dark:bg-slate-900/20">
-             <Terminal class="w-12 h-12 text-slate-400 dark:text-slate-600" />
-             <p class="font-mono text-sm uppercase tracking-widest">[ NOTE FRAGMENTS MISSING ]</p>
-          </div>
-          
-          <div v-else class="flex-1 min-w-0">
-             <div class="flex items-center justify-between mb-4 max-w-3xl">
-                <div class="flex items-center gap-3">
-                  <span class="text-xs font-mono text-slate-500 uppercase flex gap-2 items-center">
-                     SORT BY TIME:
-                     <button @click="sortOrder = sortOrder === 'desc' ? 'asc' : 'desc'" class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-[#00B8D9] dark:hover:border-[#00F5FF] text-slate-700 dark:text-slate-300 px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1.5 font-bold shadow-[0_2px_10px_rgba(0,0,0,0.03)] dark:shadow-none">
-                       {{ sortOrder === 'desc' ? 'NEWEST FIRST' : 'OLDEST FIRST' }}
-                       <TrendingUp v-if="sortOrder === 'asc'" class="w-3.5 h-3.5" />
-                       <Activity v-else class="w-3.5 h-3.5 transform -scale-y-100" />
-                     </button>
-                  </span>
-                </div>
-                <div v-if="selectedDateFilter">
-                  <button @click="selectedDateFilter = null" class="text-xs font-mono font-bold text-[#00B8D9] dark:text-[#00F5FF] px-3 py-1.5 rounded-lg border border-[#00B8D9]/30 dark:border-[#00F5FF]/30 bg-[#00F5FF]/10 hover:bg-[#00F5FF]/20 transition-colors flex items-center gap-1.5">
-                    <X class="w-3.5 h-3.5" />
-                    CLEAR DATE FILTER
-                  </button>
-                </div>
+          <div class="flex-1 min-w-0 flex flex-col">
+             <!-- NEW CATEGORY TABS HERE -->
+             <div v-if="id === '04_research_notes'" class="flex flex-col gap-2 mb-6 max-w-3xl">
+                 <div class="flex items-center gap-6 border-b border-slate-200 dark:border-slate-800 pb-2">
+                    <button @click="activeTab = 'notes'; selectedFolder = null" :class="activeTab === 'notes' ? 'text-[#00F5FF] border-b-2 border-[#00F5FF]' : 'text-slate-500 hover:text-slate-300'" class="pb-2 font-bold tracking-widest uppercase text-xs transition-colors">Notes</button>
+                    <button @click="activeTab = 'document'; selectedFolder = null" :class="activeTab === 'document' ? 'text-[#00F5FF] border-b-2 border-[#00F5FF]' : 'text-slate-500 hover:text-slate-300'" class="pb-2 font-bold tracking-widest uppercase text-xs transition-colors">Document</button>
+                    <button @click="activeTab = 'misc'; selectedFolder = null" :class="activeTab === 'misc' ? 'text-[#00F5FF] border-b-2 border-[#00F5FF]' : 'text-slate-500 hover:text-slate-300'" class="pb-2 font-bold tracking-widest uppercase text-xs transition-colors">Misc</button>
+                 </div>
+                 
+                 <!-- Folders view for current tab -->
+                 <div class="flex flex-wrap gap-2 mt-2" v-if="availableFolders.length > 0">
+                    <button @click="selectedFolder = null" :class="selectedFolder === null ? 'bg-[#00F5FF]/20 text-[#00F5FF] border-[#00F5FF]/50' : 'bg-slate-100 dark:bg-slate-800 text-slate-500 border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700'" class="px-3 py-1 rounded-full text-[10px] font-mono font-bold uppercase border transition-colors">
+                      All {{ activeTab }}
+                    </button>
+                    <button v-for="folder in availableFolders" :key="folder" @click="selectedFolder = folder" :class="selectedFolder === folder ? 'bg-[#00F5FF]/20 text-[#00F5FF] border-[#00F5FF]/50' : 'bg-slate-100 dark:bg-slate-800 text-slate-500 border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700'" class="px-3 py-1 rounded-full text-[10px] font-mono font-bold uppercase border transition-colors">
+                      {{ folder || 'Uncategorized' }}
+                    </button>
+                 </div>
+                 <!-- NEW DRAG AND DROP UPLOAD BANNER FOR DOCUMENTS/MISC -->
+                 <div 
+                   v-if="activeTab === 'document' || activeTab === 'misc'"
+                   class="w-full mt-6 border-2 border-dashed rounded-3xl p-8 flex flex-col items-center justify-center transition-colors cursor-pointer group relative overflow-hidden" 
+                   :class="isDragging ? 'border-[#00F5FF] bg-[#00F5FF]/10' : 'border-[#00B8D9]/40 dark:border-[#00F5FF]/30 bg-[#00B8D9]/5 dark:bg-[#00F5FF]/5 hover:bg-[#00B8D9]/10 dark:hover:bg-[#00F5FF]/10'"
+                   @click="triggerDocumentUpload"
+                   @dragover.prevent="isDragging = true"
+                   @dragleave.prevent="isDragging = false"
+                   @drop.prevent="handleDocumentDrop"
+                 >
+                   <div class="absolute inset-0 bg-gradient-to-br from-transparent to-[#00F5FF]/5 pointer-events-none"></div>
+                   <UploadCloud class="w-12 h-12 text-[#00B8D9] dark:text-[#00F5FF] mb-4 group-hover:scale-110 transition-transform duration-300" />
+                   <h3 class="text-lg md:text-xl font-black tracking-tight text-[#1C3A4B] dark:text-slate-200">Upload {{ activeTab === 'document' ? 'Document' : 'File' }}</h3>
+                   <p class="text-[10px] md:text-xs text-slate-500 font-mono mt-2 max-w-sm text-center">
+                     Drag & drop or Click to upload. The file will be added to the {{ activeTab === 'document' ? 'Document' : 'Misc' }} collection.
+                   </p>
+                   <input type="file" class="hidden" ref="documentUploadRef" @change="handleDocumentFileChange" />
+                 </div>
              </div>
 
-             <!-- Empty state for no filter results -->
-             <div v-if="displayedNotes.length === 0" class="flex flex-col items-center justify-center py-20 text-slate-400 dark:text-slate-500 gap-4 opacity-70 border border-slate-300 dark:border-slate-800 border-dashed rounded-xl bg-slate-50/50 dark:bg-slate-900/20 max-w-3xl">
-                 <CalendarDays class="w-8 h-8 text-slate-400 dark:text-slate-600" />
-                 <p class="font-mono text-xs uppercase tracking-widest">No entries found for this date.</p>
+             <!-- Empty State OR Notes Grid -->
+             <div v-if="displayedNotes.length === 0" class="flex-1 flex flex-col items-center justify-center py-32 text-slate-400 dark:text-slate-500 gap-4 opacity-70 border border-slate-300 dark:border-slate-800 border-dashed rounded-xl bg-slate-50/50 dark:bg-slate-900/20 max-w-3xl">
+               <Terminal class="w-12 h-12 text-slate-400 dark:text-slate-600" v-if="notes.length === 0" />
+               <CalendarDays class="w-8 h-8 text-slate-400 dark:text-slate-600" v-else />
+               <p class="font-mono text-sm uppercase tracking-widest">{{ notes.length === 0 ? '[ NOTE FRAGMENTS MISSING ]' : 'No entries found.' }}</p>
              </div>
+             
+             <div v-else class="flex w-full flex-col">
+               <div class="flex items-center justify-between mb-4 max-w-3xl">
+                  <div class="flex items-center gap-3">
+                    <span class="text-xs font-mono text-slate-500 uppercase flex gap-2 items-center">
+                       SORT BY TIME:
+                       <button @click="sortOrder = sortOrder === 'desc' ? 'asc' : 'desc'" class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-[#00B8D9] dark:hover:border-[#00F5FF] text-slate-700 dark:text-slate-300 px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1.5 font-bold shadow-[0_2px_10px_rgba(0,0,0,0.03)] dark:shadow-none">
+                         {{ sortOrder === 'desc' ? 'NEWEST FIRST' : 'OLDEST FIRST' }}
+                         <TrendingUp v-if="sortOrder === 'asc'" class="w-3.5 h-3.5" />
+                         <Activity v-else class="w-3.5 h-3.5 transform -scale-y-100" />
+                       </button>
+                    </span>
+                  </div>
+                  <div v-if="selectedDateFilter">
+                    <button @click="selectedDateFilter = null" class="text-xs font-mono font-bold text-[#00B8D9] dark:text-[#00F5FF] px-3 py-1.5 rounded-lg border border-[#00B8D9]/30 dark:border-[#00F5FF]/30 bg-[#00F5FF]/10 hover:bg-[#00F5FF]/20 transition-colors flex items-center gap-1.5">
+                      <X class="w-3.5 h-3.5" />
+                      CLEAR DATE FILTER
+                    </button>
+                  </div>
+               </div>
 
-             <!-- Notes Grid -->
-             <TransitionGroup name="list" tag="div" class="flex flex-col gap-6 relative z-10 w-full max-w-3xl">
+               <!-- Notes Grid -->
+               <TransitionGroup name="list" tag="div" class="flex flex-col gap-6 relative z-10 w-full max-w-3xl">
           <div 
             v-for="note in displayedNotes" 
             :key="note.id"
@@ -200,7 +233,8 @@
         </TransitionGroup>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
       <!-- TOC Sidebar Area (Right Col) -->
       <aside v-if="id !== '03_literature'" class="hidden lg:flex w-72 shrink-0 sticky top-8 flex-col gap-6 h-[calc(100vh-6rem)]">
@@ -410,7 +444,7 @@
                 placeholder="Document Title..."
               />
               
-              <div v-if="id === '04_research_notes'" class="flex items-center gap-1.5 w-full md:w-48 lg:w-64 relative border-b border-transparent focus-within:border-[#00F5FF]/50 transition-colors">
+              <div v-if="id === '04_research_notes'" class="flex items-center gap-1.5 w-full md:w-32 lg:w-48 relative border-b border-transparent focus-within:border-[#00F5FF]/50 transition-colors">
                 <BookOpen class="w-3.5 h-3.5 text-indigo-400 absolute left-0" />
                 <input 
                   v-model="editForm.associatedLiterature" 
@@ -419,14 +453,31 @@
                   placeholder="Associated Literature..."
                 />
               </div>
+
+              <!-- New Category and Folder Pickers -->
+              <div v-if="id === '04_research_notes'" class="flex items-center gap-2 max-w-sm mr-2 shrink-0">
+                <select v-model="editForm.category" class="bg-slate-100 dark:bg-slate-900 text-[10px] font-mono font-bold text-[#00F5FF] border border-[#00F5FF]/30 px-2 py-1 rounded outline-none h-7">
+                  <option value="notes">Notes</option>
+                  <option value="document">Doc</option>
+                  <option value="misc">Misc</option>
+                </select>
+                <div class="relative flex items-center">
+                  <input 
+                    v-model="editForm.folder" 
+                    type="text" 
+                    class="bg-transparent text-[10px] font-mono font-bold text-slate-600 dark:text-slate-300 focus:outline-none placeholder-slate-400 border-b border-slate-300 dark:border-slate-700 focus:border-[#00F5FF]/50 px-1 py-1 w-16"
+                    placeholder="Folder..."
+                  />
+                </div>
+              </div>
               
               <!-- Date Picker for Meeting Date (Required) -->
               <VDatePicker v-model="editForm.meetingDate" mode="date" :is-dark="isDark">
                 <template #default="{ inputValue, inputEvents }">
-                   <div class="relative flex items-center group cursor-pointer">
+                   <div class="relative flex items-center group cursor-pointer mr-2 shrink-0">
                      <CalendarDays class="w-4 h-4 text-slate-400 mr-2 group-hover:text-[#00B8D9] transition-colors" />
                      <input
-                       class="text-[10px] font-mono font-bold text-slate-600 dark:text-slate-300 bg-transparent focus:outline-none cursor-pointer w-28 placeholder-slate-400"
+                       class="text-[10px] font-mono font-bold text-slate-600 dark:text-slate-300 bg-transparent focus:outline-none cursor-pointer w-[68px] placeholder-slate-400"
                        :value="inputValue"
                        v-on="inputEvents"
                        placeholder="Select Date"
@@ -552,9 +603,11 @@ const isEditorOpen = ref(false);
 const isReaderOpen = ref(false);
 const currentReadingNote = ref(null);
 const editingNoteId = ref(null);
-const editForm = ref({ title: '', associatedLiterature: '', content: '', status: 'Draft', meetingDate: new Date() });
+const editForm = ref({ title: '', associatedLiterature: '', content: '', status: 'Draft', meetingDate: new Date(), category: 'notes', folder: '' });
 const fileInputRef = ref(null);
 const literatureInputRef = ref(null);
+const documentUploadRef = ref(null);
+const isDragging = ref(false);
 const isParsingAI = ref(false);
 
 const defaultNoteTemplate = ref(localStorage.getItem('echo_note_template') || '## Basic Information\n- **Project/Paper**:\n- **Author(s)**:\n- **Date**:\n\n## Abstract / Summary\n\n## Architecture & Methodology\n\n## Key Findings\n\n## Personal Notes & Limitations\n');
@@ -574,7 +627,7 @@ watch(defaultSystemPrompt, (newVal) => localStorage.setItem('echo_system_prompt'
 const moduleConfigs = {
   '02_meetings': { title: 'Meetings & Logs', icon: CalendarDays },
   '03_literature': { title: 'Literature Review', icon: BookOpen },
-  '04_research_notes': { title: 'Research Notes', icon: FileText },
+  '04_research_notes': { title: 'Research Documents', icon: FileText },
   '05_weekly_progress': { title: 'Weekly Progress', icon: TrendingUp }
 };
 
@@ -683,6 +736,8 @@ onUnmounted(() => {
 });
 
 // Filter and Sorting State
+const activeTab = ref('notes');
+const selectedFolder = ref(null);
 const selectedDateFilter = ref(null);
 const sortOrder = ref('desc');
 
@@ -706,8 +761,31 @@ const toggleDateFilter = (date) => {
   }
 };
 
+const availableFolders = computed(() => {
+  if (id.value !== '04_research_notes') return [];
+  const folders = new Set();
+  notes.value.forEach(note => {
+    if ((note.category || 'notes') === activeTab.value) {
+      if (note.folder && note.folder.trim() !== '') {
+        folders.add(note.folder.trim());
+      }
+    }
+  });
+  return Array.from(folders).sort();
+});
+
 const displayedNotes = computed(() => {
   let filtered = [...notes.value];
+
+  if (id.value === '04_research_notes') {
+    filtered = filtered.filter(note => {
+      const cat = note.category || 'notes';
+      return cat.toLowerCase() === activeTab.value.toLowerCase();
+    });
+    if (selectedFolder.value) {
+      filtered = filtered.filter(note => (note.folder || '').trim() === selectedFolder.value);
+    }
+  }
 
   if (selectedDateFilter.value) {
     const filterDateStr = selectedDateFilter.value.toISOString().split('T')[0];
@@ -807,7 +885,9 @@ const openEditor = (note = null) => {
       associatedLiterature: note.associatedLiterature || '',
       content: note.content || '', 
       status: note.status || 'Draft',
-      meetingDate: note.meetingDate ? note.meetingDate.toDate() : new Date()
+      meetingDate: note.meetingDate ? note.meetingDate.toDate() : new Date(),
+      category: note.category || 'notes',
+      folder: note.folder || ''
     };
   } else {
     editingNoteId.value = null;
@@ -816,7 +896,9 @@ const openEditor = (note = null) => {
        associatedLiterature: '', 
        content: id.value === '04_research_notes' ? defaultNoteTemplate.value : '', 
        status: 'Draft', 
-       meetingDate: new Date() 
+       meetingDate: new Date(),
+       category: activeTab.value || 'notes',
+       folder: selectedFolder.value || ''
     };
   }
   isEditorOpen.value = true;
@@ -842,6 +924,8 @@ const saveNote = async () => {
     content: editForm.value.content,
     status: editForm.value.status,
     meetingDate: typeof editForm.value.meetingDate === 'object' ? editForm.value.meetingDate : new Date(editForm.value.meetingDate),
+    category: editForm.value.category || 'notes',
+    folder: editForm.value.folder || '',
     updatedAt: serverTimestamp()
   };
 
@@ -985,6 +1069,53 @@ const handleLiteratureUpload = async (event) => {
      if (literatureInputRef.value) literatureInputRef.value.value = '';
    } catch(e) {
      console.error("Literature PDF Mock Upload Error:", e);
+   }
+};
+
+// Research Document specific upload
+const triggerDocumentUpload = () => {
+   if (documentUploadRef.value) documentUploadRef.value.click();
+};
+
+const processDocumentFile = async (file) => {
+   if (!file) return;
+
+   const fakeTitle = file.name.replace(/\.[^/.]+$/, "");
+   const notesCollectionRef = collection(db, 'research_data', id.value, 'notes');
+   
+   const payload = {
+      title: fakeTitle,
+      associatedLiterature: '',
+      content: `> **System Note:** File \`${file.name}\` uploaded successfully. \n> Preview and processing capabilities will be added in future updates.\n\n### File Details\n- **File Size:** ${(file.size / 1024 / 1024).toFixed(3)} MB\n- **Type:** ${file.type || 'Unknown'}\n\n*(You can edit this manual review section below)*`,
+      status: 'Confirmed',
+      meetingDate: new Date(),
+      category: activeTab.value === 'notes' ? 'document' : activeTab.value,
+      folder: selectedFolder.value || '',
+      createdAt: serverTimestamp(),
+      updatedAt: serverTimestamp()
+   };
+
+   try {
+     loading.value = true;
+     await addDoc(notesCollectionRef, payload);
+   } catch(e) {
+     console.error("Document Upload Error:", e);
+   } finally {
+     loading.value = false;
+   }
+};
+
+const handleDocumentFileChange = (event) => {
+   const file = event.target.files[0];
+   processDocumentFile(file);
+   if (documentUploadRef.value) documentUploadRef.value.value = '';
+};
+
+const handleDocumentDrop = (event) => {
+   isDragging.value = false;
+   if (event.dataTransfer && event.dataTransfer.files.length > 0) {
+     const file = event.dataTransfer.files[0];
+     processDocumentFile(file);
    }
 };
 

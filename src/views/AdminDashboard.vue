@@ -164,7 +164,7 @@ const loginError = ref('');
 const modules = [
   { id: '02_meetings', name: '02 Meetings', icon: CalendarDays },
   { id: '03_literature', name: '03 Literature Review', icon: BookOpen },
-  { id: '04_research_notes', name: '04 Research Notes', icon: FileText },
+  { id: '04_research_notes', name: '04 Research Documents', icon: FileText },
   { id: '05_weekly_progress', name: '05 Weekly Progress', icon: TrendingUp }
 ];
 
