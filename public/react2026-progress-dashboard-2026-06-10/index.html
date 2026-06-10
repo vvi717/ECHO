@@ -359,6 +359,60 @@
       font-size: 13px;
     }
 
+    .fixed-contract {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fbfbfa;
+      padding: 14px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .fixed-contract h4 {
+      margin: 0;
+      font-family: var(--mono);
+      color: var(--accent);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .contract-grid {
+      display: grid;
+      gap: 10px;
+    }
+
+    .contract-item {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+      padding: 12px;
+    }
+
+    .contract-label {
+      display: block;
+      margin-bottom: 8px;
+      font-family: var(--mono);
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .contract-item strong {
+      display: block;
+      margin-bottom: 4px;
+      line-height: 1.25;
+    }
+
+    .contract-item span {
+      display: block;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.35;
+    }
+
     .matrix {
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -859,14 +913,25 @@
               <span class="tag green">verified</span>
             </div>
             <p id="flowText" class="lede" style="font-size: 20px;">The task is to generate ten plausible listener facial reaction sequences from each speaker behaviour stream. The expected output shape is [10, T, 25].</p>
-            <div class="table-wrap">
-              <table>
-                <thead><tr><th>Input</th><th>Target</th><th>Safety</th></tr></thead>
-                <tbody>
-                  <tr><td>speaker audio features [768]</td><td>listener facial attributes [25]</td><td>no test personality in training</td></tr>
-                  <tr><td>speaker facial attributes [25]</td><td>10 exported reactions</td><td>EEG audit-only</td></tr>
-                </tbody>
-              </table>
+            <div class="fixed-contract" aria-label="Fixed workflow contract">
+              <h4>Fixed project contract</h4>
+              <div class="contract-grid">
+                <div class="contract-item">
+                  <span class="contract-label">Input stream</span>
+                  <strong>speaker audio features [768]</strong>
+                  <span>speaker facial attributes [25]</span>
+                </div>
+                <div class="contract-item">
+                  <span class="contract-label">Prediction target</span>
+                  <strong>listener facial attributes [25]</strong>
+                  <span>10 exported reactions in [10, T, 25] shape</span>
+                </div>
+                <div class="contract-item">
+                  <span class="contract-label">Safety boundary</span>
+                  <strong>no test personality in training</strong>
+                  <span>EEG remains audit-only for this stage</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
