@@ -481,6 +481,59 @@
       border-bottom: 0;
     }
 
+    .compact-result-table {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+      overflow: hidden;
+    }
+
+    .compact-result-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 86px 86px;
+      align-items: stretch;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .compact-result-row:last-child {
+      border-bottom: 0;
+    }
+
+    .compact-result-row.header {
+      background: #efefeb;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .compact-result-cell {
+      min-width: 0;
+      padding: 11px 12px;
+      border-right: 1px solid var(--line);
+      overflow-wrap: anywhere;
+    }
+
+    .compact-result-cell:last-child {
+      border-right: 0;
+    }
+
+    .compact-result-cell.value-cell {
+      font-family: var(--mono);
+      text-align: right;
+      white-space: nowrap;
+      font-size: 12px;
+    }
+
+    .compact-result-cell.run-name {
+      font-weight: 700;
+      line-height: 1.25;
+    }
+
+    .compact-result-row.best .run-name {
+      color: var(--accent-ink);
+    }
+
     .callout {
       border-left: 5px solid var(--accent);
       background: #fff;
@@ -891,16 +944,32 @@
               <h3>Cropped-validation result</h3>
               <span class="tag green">MSE 5/5 wins</span>
             </div>
-            <div class="table-wrap">
-              <table>
-                <thead><tr><th>Run</th><th>Mean MSE</th><th>Mean MAE</th></tr></thead>
-                <tbody>
-                  <tr><td>official-scale true Big-Five</td><td class="num">0.097068</td><td class="num">0.205434</td></tr>
-                  <tr><td>zero Big-Five</td><td class="num">0.097980</td><td class="num">0.208921</td></tr>
-                  <tr><td>no-condition identity</td><td class="num">0.098257</td><td class="num">0.209627</td></tr>
-                  <tr><td>shuffled Big-Five</td><td class="num">0.099136</td><td class="num">0.208335</td></tr>
-                </tbody>
-              </table>
+            <div class="compact-result-table" aria-label="Cropped validation aggregate">
+              <div class="compact-result-row header">
+                <div class="compact-result-cell">Run</div>
+                <div class="compact-result-cell value-cell">Mean MSE</div>
+                <div class="compact-result-cell value-cell">Mean MAE</div>
+              </div>
+              <div class="compact-result-row best">
+                <div class="compact-result-cell run-name">official-scale true Big-Five</div>
+                <div class="compact-result-cell value-cell">0.097068</div>
+                <div class="compact-result-cell value-cell">0.205434</div>
+              </div>
+              <div class="compact-result-row">
+                <div class="compact-result-cell run-name">zero Big-Five</div>
+                <div class="compact-result-cell value-cell">0.097980</div>
+                <div class="compact-result-cell value-cell">0.208921</div>
+              </div>
+              <div class="compact-result-row">
+                <div class="compact-result-cell run-name">no-condition identity</div>
+                <div class="compact-result-cell value-cell">0.098257</div>
+                <div class="compact-result-cell value-cell">0.209627</div>
+              </div>
+              <div class="compact-result-row">
+                <div class="compact-result-cell run-name">shuffled Big-Five</div>
+                <div class="compact-result-cell value-cell">0.099136</div>
+                <div class="compact-result-cell value-cell">0.208335</div>
+              </div>
             </div>
             <div class="callout" style="margin-top: 16px; box-shadow: none;">
               <h3>Readout</h3>
@@ -928,16 +997,32 @@
               <h3>Full-export aggregate</h3>
               <span class="tag">571 samples/run</span>
             </div>
-            <div class="table-wrap">
-              <table>
-                <thead><tr><th>Condition</th><th>Mean MSE</th><th>Mean MAE</th></tr></thead>
-                <tbody>
-                  <tr><td>official-scale true Big-Five</td><td class="num">0.102098</td><td class="num">0.209444</td></tr>
-                  <tr><td>zero Big-Five</td><td class="num">0.102750</td><td class="num">0.212741</td></tr>
-                  <tr><td>no-condition identity</td><td class="num">0.103249</td><td class="num">0.213226</td></tr>
-                  <tr><td>shuffled Big-Five</td><td class="num">0.104126</td><td class="num">0.211850</td></tr>
-                </tbody>
-              </table>
+            <div class="compact-result-table" aria-label="Full export aggregate">
+              <div class="compact-result-row header">
+                <div class="compact-result-cell">Condition</div>
+                <div class="compact-result-cell value-cell">Mean MSE</div>
+                <div class="compact-result-cell value-cell">Mean MAE</div>
+              </div>
+              <div class="compact-result-row best">
+                <div class="compact-result-cell run-name">official-scale true Big-Five</div>
+                <div class="compact-result-cell value-cell">0.102098</div>
+                <div class="compact-result-cell value-cell">0.209444</div>
+              </div>
+              <div class="compact-result-row">
+                <div class="compact-result-cell run-name">zero Big-Five</div>
+                <div class="compact-result-cell value-cell">0.102750</div>
+                <div class="compact-result-cell value-cell">0.212741</div>
+              </div>
+              <div class="compact-result-row">
+                <div class="compact-result-cell run-name">no-condition identity</div>
+                <div class="compact-result-cell value-cell">0.103249</div>
+                <div class="compact-result-cell value-cell">0.213226</div>
+              </div>
+              <div class="compact-result-row">
+                <div class="compact-result-cell run-name">shuffled Big-Five</div>
+                <div class="compact-result-cell value-cell">0.104126</div>
+                <div class="compact-result-cell value-cell">0.211850</div>
+              </div>
             </div>
             <div class="note" style="margin-top: 16px;">
               <h3>Conservative detail</h3>
@@ -1013,10 +1098,14 @@
     const sections = document.querySelectorAll(".section");
     let currentIndex = 0;
 
-    function showSection(id) {
+    function showSection(id, options = {}) {
+      if (!sectionIds.includes(id)) id = "overview";
       currentIndex = sectionIds.indexOf(id);
       nav.forEach((button) => button.classList.toggle("active", button.dataset.section === id));
       sections.forEach((section) => section.classList.toggle("active", section.id === id));
+      if (options.updateHash !== false) {
+        history.replaceState(null, "", `#${id}`);
+      }
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
@@ -1026,6 +1115,18 @@
 
     document.querySelectorAll("[data-jump]").forEach((button) => {
       button.addEventListener("click", () => showSection(button.dataset.jump));
+    });
+
+    const initialSection = window.location.hash.replace("#", "");
+    if (initialSection) {
+      showSection(initialSection, { updateHash: false });
+    }
+
+    window.addEventListener("hashchange", () => {
+      const hashSection = window.location.hash.replace("#", "");
+      if (hashSection) {
+        showSection(hashSection, { updateHash: false });
+      }
     });
 
     document.addEventListener("keydown", (event) => {
