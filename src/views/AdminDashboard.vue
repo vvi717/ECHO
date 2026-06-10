@@ -54,7 +54,7 @@
           <span class="text-xs font-mono bg-[#00F5FF]/10 text-[#00F5FF] px-2 py-0.5 rounded border border-[#00F5FF]/30">ONLINE</span>
         </div>
         <div class="flex items-center gap-6">
-          <router-link to="/" class="text-xs font-mono text-slate-500 hover:text-[#00F5FF] transition-colors uppercase">
+          <router-link to="/echo" class="text-xs font-mono text-slate-500 hover:text-[#00F5FF] transition-colors uppercase">
             Home Portal
           </router-link>
           <button @click="logout" class="text-xs font-mono text-slate-500 hover:text-red-400 transition-colors uppercase">

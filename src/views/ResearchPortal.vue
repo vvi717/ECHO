@@ -54,7 +54,7 @@
             </div>
             <div class="relative z-10">
               <h3 class="text-xl font-black text-slate-800 dark:text-slate-100 mb-2 tracking-wide group-hover:text-[#00B8D9] transition-colors">Meetings & Logs</h3>
-              <p class="text-sm text-slate-500 dark:text-slate-400 font-medium">Weekly supervisor meetings and agenda logs.</p>
+              <p class="text-sm text-slate-500 dark:text-slate-400 font-medium">Supervisor updates, group meeting prep, and branch decisions.</p>
             </div>
           </router-link>
 
@@ -71,7 +71,7 @@
             </div>
             <div class="relative z-10">
               <h3 class="text-xl font-black text-slate-800 dark:text-slate-100 mb-2 tracking-wide group-hover:text-[#00B8D9] transition-colors">Literature Review</h3>
-              <p class="text-sm text-slate-500 dark:text-slate-400 font-medium">Research paper summaries and citations.</p>
+              <p class="text-sm text-slate-500 dark:text-slate-400 font-medium">MAFRG, PerFRDiff, personality, EEG, and challenge framing.</p>
             </div>
           </router-link>
 
@@ -87,8 +87,8 @@
               <span class="text-xs font-mono font-bold text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded border border-slate-300 dark:border-slate-700 transition-colors">04</span>
             </div>
             <div class="relative z-10">
-              <h3 class="text-xl font-black text-slate-800 dark:text-slate-100 mb-2 tracking-wide group-hover:text-[#00B8D9] transition-colors">Research Documents</h3>
-              <p class="text-sm text-slate-500 dark:text-slate-400 font-medium">Daily findings, ideas, and architecture drafts.</p>
+              <h3 class="text-xl font-black text-slate-800 dark:text-slate-100 mb-2 tracking-wide group-hover:text-[#00B8D9] transition-colors">Research Notes</h3>
+              <p class="text-sm text-slate-500 dark:text-slate-400 font-medium">Data audits, model notes, adapter results, and risk registers.</p>
             </div>
           </router-link>
 
@@ -105,9 +105,51 @@
             </div>
             <div class="relative z-10">
               <h3 class="text-xl font-black text-slate-800 dark:text-slate-100 mb-2 tracking-wide group-hover:text-[#00B8D9] transition-colors">Weekly Progress</h3>
-              <p class="text-sm text-slate-500 dark:text-slate-400 font-medium">Milestones tracking and sprint updates.</p>
+              <p class="text-sm text-slate-500 dark:text-slate-400 font-medium">Weekly milestones from tiny validation to 5-seed controls.</p>
             </div>
           </router-link>
+        </div>
+
+        <!-- Presentation Dashboard Entry -->
+        <router-link to="/react2026-progress-dashboard" class="glass-panel-glow group relative overflow-hidden p-6 rounded-xl border-l-4 border-[#00F5FF] hover:shadow-[0_16px_50px_rgba(0,245,255,0.18)] hover:-translate-y-1 transition-all duration-300">
+          <div class="absolute -right-8 -top-10 opacity-5 group-hover:opacity-10 transition-opacity">
+            <MonitorPlay class="w-44 h-44 text-[#00B8D9]" />
+          </div>
+          <div class="relative z-10 flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
+            <div class="flex items-start gap-4">
+              <div class="p-3 bg-[#00F5FF]/10 text-[#00B8D9] rounded-xl group-hover:bg-[#00F5FF]/20 group-hover:shadow-[0_0_15px_#00F5FF] transition-all duration-300">
+                <MonitorPlay class="w-6 h-6" />
+              </div>
+              <div>
+                <div class="text-[10px] font-mono font-bold tracking-widest text-[#00B8D9] uppercase mb-2">Presentation Entry</div>
+                <h3 class="text-2xl font-black text-slate-800 dark:text-slate-100 tracking-wide group-hover:text-[#00B8D9] transition-colors">REACT2026 Progress Dashboard</h3>
+                <p class="text-sm text-slate-500 dark:text-slate-400 font-medium mt-2 max-w-2xl">June 10 group meeting dashboard with 5-seed validation, full-export evidence, caveats, and supervisor questions.</p>
+              </div>
+            </div>
+            <div class="inline-flex w-fit items-center gap-2 rounded-full border border-[#00F5FF]/35 bg-[#00F5FF]/10 px-4 py-2 text-xs font-mono font-black uppercase tracking-widest text-[#00B8D9]">
+              Open Dashboard
+              <ArrowUpRight class="w-4 h-4" />
+            </div>
+          </div>
+        </router-link>
+
+        <!-- Current Research Snapshot -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-2">
+          <div class="glass-panel-glow p-5 rounded-xl">
+            <div class="text-[10px] font-mono font-bold tracking-widest text-[#00B8D9] uppercase mb-2">Locked Control</div>
+            <div class="text-2xl font-black text-slate-800 dark:text-slate-100">Generic V0</div>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">Full 571-row validation export complete; no personality or EEG.</p>
+          </div>
+          <div class="glass-panel-glow p-5 rounded-xl">
+            <div class="text-[10px] font-mono font-bold tracking-widest text-[#00B8D9] uppercase mb-2">Main V1 Candidate</div>
+            <div class="text-2xl font-black text-slate-800 dark:text-slate-100">Official-Scale FiLM</div>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">Best 5-seed local validation branch against matched controls.</p>
+          </div>
+          <div class="glass-panel-glow p-5 rounded-xl">
+            <div class="text-[10px] font-mono font-bold tracking-widest text-[#00B8D9] uppercase mb-2">Next Gate</div>
+            <div class="text-2xl font-black text-slate-800 dark:text-slate-100">Metric Alignment</div>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">Official-style evaluation remains the main caveat before claims.</p>
+          </div>
         </div>
 
         <!-- The Nexus / Demo Pane (Dark contrast area!) -->
@@ -131,7 +173,7 @@
                 <div class="w-6 h-6 bg-[#00F5FF] rounded-full absolute" style="box-shadow: 0 0 25px #00F5FF, 0 0 50px #00F5FF;"></div>
               </div>
               <p class="font-mono text-sm font-bold tracking-widest text-[#00F5FF] uppercase animate-pulse drop-shadow-[0_0_8px_#00F5FF] mt-10 md:mt-14 relative z-10">
-                System Ready... Empathy Engine Active
+                Official-Scale Big-Five Candidate Active
               </p>
             </div>
             
@@ -224,14 +266,14 @@
     <!-- Footer -->
     <footer class="mt-20 text-center relative z-10 text-xs font-mono font-bold text-slate-400 tracking-widest uppercase">
       <router-link to="/protocol-echo" class="md:hidden block mb-4 text-[#00F5FF] hover:underline">Sys.Admin</router-link>
-      <p>The ECHO AI Research Labs &bullet; Iteration 0.1</p>
+      <p>The ECHO AI Research Labs &bullet; Iteration 0.8</p>
     </footer>
   </div>
 </template>
 
 <script setup>
 import { ref, computed, onMounted } from 'vue';
-import { BrainCircuit, User, Activity, Terminal, CalendarDays, BookOpen, FileText, TrendingUp, PenLine, Check, Plus, X, Trash2, Save } from 'lucide-vue-next';
+import { Activity, Terminal, CalendarDays, BookOpen, FileText, TrendingUp, PenLine, Check, Plus, Trash2, Save, MonitorPlay, ArrowUpRight } from 'lucide-vue-next';
 import { db } from '../firebase';
 import { doc, getDoc, setDoc, serverTimestamp } from 'firebase/firestore';
 

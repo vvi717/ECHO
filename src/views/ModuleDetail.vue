@@ -23,7 +23,7 @@
     <header class="relative z-10 p-8 md:px-16 md:pt-12 flex flex-col justify-start items-start">
       <div class="flex items-center justify-between w-full">
         <div>
-          <button @click="$router.push('/')" class="flex items-center gap-2 text-xs font-bold text-slate-500 dark:text-slate-400 hover:text-[#00B8D9] dark:hover:text-[#00F5FF] transition-colors uppercase mb-8 px-4 py-2 rounded-full border border-slate-200 dark:border-slate-700/50 bg-white/70 dark:bg-slate-900/50 backdrop-blur-md shadow-sm">
+          <button @click="$router.push('/echo')" class="flex items-center gap-2 text-xs font-bold text-slate-500 dark:text-slate-400 hover:text-[#00B8D9] dark:hover:text-[#00F5FF] transition-colors uppercase mb-8 px-4 py-2 rounded-full border border-slate-200 dark:border-slate-700/50 bg-white/70 dark:bg-slate-900/50 backdrop-blur-md shadow-sm">
             <ArrowLeft class="w-4 h-4" />
             Back to Portal
           </button>
