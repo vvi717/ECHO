@@ -186,7 +186,7 @@
         </div>
       </section>
 
-      <!-- ECHO Todo List (Right Col) -->
+      <!-- Research Timeline (Right Col) -->
       <aside class="lg:col-span-4 lg:mt-10" v-motion-slide-visible-once-right>
         <div class="glass-panel h-full p-8 pb-12 relative overflow-hidden flex flex-col rounded-2xl border-t-4 border-t-[#00B8D9] dark:border-t-[#00F5FF]">
           
@@ -195,68 +195,35 @@
           
           <div class="flex items-center justify-between mb-8 pb-4 border-b border-slate-200 dark:border-slate-800 transition-colors relative z-10">
             <div class="flex flex-col">
-              <h2 class="text-xl font-bold tracking-widest text-[#1C3A4B] dark:text-slate-200 uppercase">Action Plan</h2>
+              <h2 class="text-xl font-bold tracking-widest text-[#1C3A4B] dark:text-slate-200 uppercase">Progress Timeline</h2>
               <span class="text-xs font-mono font-bold text-[#00B8D9] mt-1 tracking-widest uppercase">
-                Week {{ weekNumber }} &bull; {{ currentDay }}
+                March - June 2026 &bull; Week {{ weekNumber }}
               </span>
             </div>
-            <button v-if="!isEditing" @click="enterEditMode" class="text-slate-400 hover:text-[#00B8D9] dark:hover:text-[#00F5FF] transition-colors p-2 bg-slate-100 dark:bg-slate-800 rounded-lg">
-                <PenLine class="w-4 h-4" />
-            </button>
-          </div>
-          
-          <!-- View Toggle -->
-          <div class="flex items-center gap-2 mb-6 bg-slate-100 dark:bg-slate-900/50 p-1 rounded-xl relative z-10">
-             <button @click="activeView = 'today'" :class="activeView === 'today' ? 'bg-white dark:bg-slate-800 shadow text-[#00B8D9] dark:text-[#00F5FF]' : 'text-slate-500 hover:text-slate-400'" class="flex-1 py-1.5 text-[10px] font-mono font-bold uppercase tracking-widest rounded-lg transition-all">Today</button>
-             <button @click="activeView = 'week'" :class="activeView === 'week' ? 'bg-white dark:bg-slate-800 shadow text-[#00B8D9] dark:text-[#00F5FF]' : 'text-slate-500 hover:text-slate-400'" class="flex-1 py-1.5 text-[10px] font-mono font-bold uppercase tracking-widest rounded-lg transition-all">This Week</button>
+            <span class="text-[10px] font-mono font-black uppercase tracking-[0.18em] text-[#00B8D9] dark:text-[#00F5FF] bg-[#00F5FF]/10 border border-[#00F5FF]/20 rounded-full px-3 py-1">Updated</span>
           </div>
 
-          <!-- List Area -->
-          <div class="relative flex-1 overflow-y-auto custom-scrollbar pr-2 min-h-[300px]">
-             
-             <!-- VIEW MODE -->
-             <ul v-if="!isEditing" class="flex flex-col gap-4 relative z-10">
-               <li v-if="activeTodoList.length === 0" class="text-xs font-mono text-slate-400 italic text-center mt-10 opacity-60">
-                 [ No tasks allocated ]
-               </li>
-               <li v-for="t in activeTodoList" :key="t.id" class="group flex items-start gap-4 p-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors cursor-pointer border border-transparent hover:border-slate-100 dark:hover:border-slate-800" @click="toggleDone(t)">
-                 <div class="mt-0.5 w-4 h-4 rounded border flex items-center justify-center shrink-0 transition-all font-bold" :class="t.done ? 'border-[#00B8D9] dark:border-[#00F5FF] bg-[#00B8D9] dark:bg-[#00F5FF] text-white dark:text-slate-900 shadow-[0_0_10px_rgba(0,245,255,0.4)]' : 'border-slate-300 dark:border-slate-600 group-hover:border-[#00B8D9] dark:group-hover:border-[#00F5FF]'">
-                    <Check v-if="t.done" class="w-3 h-3" />
+          <div class="relative flex-1 overflow-y-auto custom-scrollbar pr-2 min-h-[480px]">
+             <ol class="relative z-10 flex flex-col gap-7">
+               <li v-for="(item, index) in progressTimeline" :key="item.phase" class="relative grid grid-cols-[1.25rem_1fr] gap-4">
+                 <div class="relative flex justify-center">
+                   <div v-if="index !== progressTimeline.length - 1" class="absolute top-5 h-[calc(100%+1.75rem)] w-px bg-gradient-to-b from-[#00B8D9]/50 to-slate-200 dark:to-slate-800"></div>
+                   <div class="relative z-10 mt-1 h-4 w-4 rounded-full border-2" :class="item.status === 'current' ? 'border-[#00F5FF] bg-[#00F5FF] shadow-[0_0_18px_rgba(0,245,255,0.75)]' : 'border-[#00B8D9]/60 bg-white dark:bg-slate-950'"></div>
                  </div>
-                 <div class="text-sm font-medium transition-all" :class="t.done ? 'text-slate-400 dark:text-slate-500 line-through' : 'text-slate-700 dark:text-slate-300'">
-                    {{ t.text }}
-                 </div>
+                 <article class="rounded-xl border border-slate-200/80 bg-white/55 p-4 shadow-sm backdrop-blur-sm dark:border-slate-800 dark:bg-slate-900/45">
+                   <div class="mb-2 flex items-start justify-between gap-3">
+                     <div>
+                       <p class="font-mono text-[10px] font-black uppercase tracking-[0.18em] text-[#00B8D9]">{{ item.phase }}</p>
+                       <h3 class="mt-1 text-base font-black leading-tight text-slate-800 dark:text-slate-100">{{ item.title }}</h3>
+                     </div>
+                     <span class="shrink-0 rounded-full border px-2 py-1 font-mono text-[9px] font-black uppercase tracking-[0.12em]" :class="item.status === 'current' ? 'border-[#00F5FF]/40 bg-[#00F5FF]/10 text-[#00B8D9] dark:text-[#00F5FF]' : 'border-slate-200 bg-slate-50 text-slate-500 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-400'">
+                       {{ item.badge }}
+                     </span>
+                   </div>
+                   <p class="text-sm leading-relaxed text-slate-600 dark:text-slate-400">{{ item.summary }}</p>
+                 </article>
                </li>
-             </ul>
-
-             <!-- EDIT MODE -->
-             <div v-else class="flex flex-col gap-4 relative z-10">
-               <ul class="flex flex-col gap-3">
-                 <li v-for="t in tempActiveTodoList" :key="t.id" class="flex items-center gap-2">
-                   <div class="w-2 h-2 rounded-full bg-slate-300 dark:bg-slate-700 shrink-0"></div>
-                   <input v-model="t.text" class="flex-1 bg-slate-50 dark:bg-slate-900/50 text-sm font-medium text-slate-700 dark:text-slate-300 px-3 py-2 border border-slate-200 dark:border-slate-700 rounded-lg focus:outline-none focus:border-[#00F5FF]" />
-                   <button @click="removeTodo(t.id)" class="text-slate-400 hover:text-red-500 p-2 shrink-0 transition-colors">
-                     <Trash2 class="w-4 h-4" />
-                   </button>
-                 </li>
-               </ul>
-
-               <!-- Add new -->
-               <form @submit.prevent="addTodo" class="flex items-center gap-3 mt-2 pt-4 border-t border-slate-100 dark:border-slate-800">
-                 <input v-model="newTodoText" placeholder="Add a new task..." class="flex-1 bg-transparent text-sm font-medium text-slate-700 dark:text-slate-300 border-b border-slate-300 dark:border-slate-700 focus:border-[#00F5FF] px-2 py-2 focus:outline-none placeholder-slate-400" />
-                 <button type="submit" class="p-2 text-white dark:text-slate-900 bg-[#00B8D9] dark:bg-[#00F5FF] rounded-lg shrink-0 font-bold hover:shadow-[0_0_15px_rgba(0,245,255,0.4)] transition-all">
-                   <Plus class="w-4 h-4" />
-                 </button>
-               </form>
-             </div>
-          </div>
-          
-          <!-- Edit Controls -->
-          <div v-if="isEditing" class="flex items-center gap-3 mt-6 pt-6 border-t border-slate-200 dark:border-slate-800 relative z-10">
-             <button @click="cancelEdit" class="flex-1 py-3 text-xs font-mono font-bold text-slate-500 uppercase tracking-widest border border-slate-200 dark:border-slate-700 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">Cancel</button>
-             <button @click="saveTodos" class="flex-1 py-3 text-xs font-mono font-bold text-white dark:text-slate-900 bg-[#00B8D9] dark:bg-[#00F5FF] uppercase tracking-widest rounded-xl hover:shadow-[0_0_20px_rgba(0,245,255,0.4)] transition-all flex items-center justify-center gap-2">
-                 <Save class="w-4 h-4" /> Save
-             </button>
+             </ol>
           </div>
 
         </div>
@@ -272,17 +239,9 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue';
-import { Activity, Terminal, CalendarDays, BookOpen, FileText, TrendingUp, PenLine, Check, Plus, Trash2, Save, MonitorPlay, ArrowUpRight } from 'lucide-vue-next';
-import { db } from '../firebase';
-import { doc, getDoc, setDoc, serverTimestamp } from 'firebase/firestore';
-
-const activeView = ref('today'); // 'today' or 'week'
-const isEditing = ref(false);
+import { Activity, Terminal, CalendarDays, BookOpen, FileText, TrendingUp, MonitorPlay, ArrowUpRight } from 'lucide-vue-next';
 
 const currentDate = new Date();
-const currentDay = currentDate.toLocaleDateString('en-US', { weekday: 'long' });
-const formatFullDate = currentDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
 
 const getWeekNumber = (d) => {
     // Project started roughly on Mar 9, 2026 (Week 0). Mar 23 is Week 2.
@@ -293,110 +252,50 @@ const getWeekNumber = (d) => {
 };
 const weekNumber = getWeekNumber(currentDate);
 
-const todos = ref({
-   today: [],
-   week: []
-});
-const tempTodos = ref({ today: [], week: [] });
-const newTodoText = ref('');
-
-const activeTodoList = computed(() => todos.value[activeView.value]);
-const tempActiveTodoList = computed(() => tempTodos.value[activeView.value]);
-
-const TODO_DOC_PATH = () => doc(db, 'research_data', '05_weekly_progress', 'settings', 'dashboard_todos');
-
-const fetchTodos = async () => {
-    try {
-        const docSnap = await getDoc(TODO_DOC_PATH());
-        if (docSnap.exists() && docSnap.data().data) {
-            todos.value = JSON.parse(docSnap.data().data);
-        } else {
-            todos.value = { today: [], week: [] };
-        }
-    } catch (e) {
-        console.error("Error fetching todos:", e);
-    }
-};
-
-const enterEditMode = () => {
-    tempTodos.value = JSON.parse(JSON.stringify(todos.value));
-    isEditing.value = true;
-};
-
-const cancelEdit = () => {
-    isEditing.value = false;
-    newTodoText.value = '';
-};
-
-const addTodo = () => {
-    if (!newTodoText.value.trim()) return;
-    tempTodos.value[activeView.value].push({
-        id: Date.now().toString(),
-        text: newTodoText.value.trim(),
-        done: false
-    });
-    newTodoText.value = '';
-};
-
-const removeTodo = (id) => {
-    tempTodos.value[activeView.value] = tempTodos.value[activeView.value].filter(t => t.id !== id);
-};
-
-const toggleDone = async (todo) => {
-    if (isEditing.value) return;
-    todo.done = !todo.done;
-    todos.value[activeView.value] = [...todos.value[activeView.value]]; // trigger reactivity
-    await saveToFirebase();
-};
-
-const saveTodos = async () => {
-    todos.value = JSON.parse(JSON.stringify(tempTodos.value));
-    isEditing.value = false;
-    newTodoText.value = '';
-    await saveToFirebase();
-};
-
-const saveToFirebase = async () => {
-    try {
-        // 1. Save JSON to persistent settings
-        await setDoc(TODO_DOC_PATH(), {
-            data: JSON.stringify(todos.value),
-            updatedAt: serverTimestamp()
-        }, { merge: true });
-
-        // 2. Sync to a weekly progress note
-        const noteDocId = `todo_sync_w${weekNumber}_${currentDate.getFullYear()}`;
-        const noteDocPath = doc(db, 'research_data', '05_weekly_progress', 'notes', noteDocId);
-        
-        let markdownContent = `> **Auto-synced from Action Plan**\n\n### Today (${formatFullDate})\n`;
-        if (todos.value.today.length === 0) markdownContent += `*No tasks allocated.*\n`;
-        todos.value.today.forEach(t => {
-            markdownContent += `- [${t.done ? 'x' : ' '}] ${t.text}\n`;
-        });
-        markdownContent += `\n### This Week\n`;
-        if (todos.value.week.length === 0) markdownContent += `*No tasks allocated.*\n`;
-        todos.value.week.forEach(t => {
-            markdownContent += `- [${t.done ? 'x' : ' '}] ${t.text}\n`;
-        });
-
-        await setDoc(noteDocPath, {
-            title: `Action Plan - Week ${weekNumber}`,
-            associatedLiterature: `Week ${weekNumber}`,
-            content: markdownContent,
-            status: 'Confirmed',
-            category: 'todos',
-            folder: 'Action Plans',
-            meetingDate: currentDate,
-            updatedAt: serverTimestamp()
-        }, { merge: true });
-    } catch (e) {
-        console.error("Error saving todos:", e);
-    }
-};
-
-onMounted(() => {
-    fetchTodos();
-});
+const progressTimeline = [
+  {
+    phase: 'Mar 2026',
+    title: 'Monash onboarding and ECHO workspace',
+    badge: 'foundation',
+    status: 'done',
+    summary: 'Built the research rhythm: meetings, literature notes, progress logs, and the ECHO website as the shared project workspace.'
+  },
+  {
+    phase: 'Apr 2026',
+    title: 'PerFRDiff and REACT/MARS feasibility',
+    badge: 'data path',
+    status: 'done',
+    summary: 'Moved from paper reading into real data checks, loader audits, smoke tests, and early overfit experiments on the facial reaction pipeline.'
+  },
+  {
+    phase: 'May 2026',
+    title: 'Generic V0 baseline locked',
+    badge: 'baseline',
+    status: 'done',
+    summary: 'Established a clean no-personality and no-EEG baseline using speaker audio and speaker facial attributes as the stable comparison point.'
+  },
+  {
+    phase: 'Jun 04-08',
+    title: 'Official baseline and metadata audit',
+    badge: 'audit',
+    status: 'done',
+    summary: 'Reviewed the official REACT2026 baseline updates, clarified personality and EEG boundaries, and kept test personality out of training and selection.'
+  },
+  {
+    phase: 'Jun 09-10',
+    title: 'Big-Five V1 controlled experiments',
+    badge: 'current',
+    status: 'current',
+    summary: 'Injected listener Big-Five through FiLM, compared true traits against zero, shuffled, and no-condition controls, and ran five matched seeds.'
+  },
+  {
+    phase: 'Next',
+    title: 'Official-style metric alignment',
+    badge: 'next',
+    status: 'next',
+    summary: 'Keep the current claim conservative while packaging the V1 evidence, checking official metrics, and preparing the next supervisor-facing update.'
+  }
+];
 </script>
 
 <style scoped>
