@@ -420,6 +420,29 @@
       align-items: stretch;
     }
 
+    .method-figure {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fff;
+      overflow: hidden;
+      margin: 18px 0;
+    }
+
+    .method-figure img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .method-figure figcaption {
+      border-top: 1px solid var(--line);
+      padding: 11px 13px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.4;
+      background: #fbfbfa;
+    }
+
     .method-lane {
       border: 1px solid var(--line);
       border-radius: var(--radius);
@@ -1055,6 +1078,11 @@
             <span class="tag red">method diagram</span>
           </div>
           <p class="lede">The target is unchanged in both paths: generate 10 plausible listener facial reaction sequences in [10, T, 25] shape. The difference is whether listener personality is injected into the generation pathway.</p>
+
+          <figure class="method-figure">
+            <img src="assets/big-five-conditioning-architecture.png" alt="Big-Five personality conditioning architecture for listener facial reaction generation">
+            <figcaption>Full architecture overview: Generic Baseline V0 remains the clean speaker-only reference, while listener Big-Five traits generate FiLM gamma and beta to modulate the GRU hidden representation before reaction decoding.</figcaption>
+          </figure>
 
           <div class="method-compare" aria-label="Baseline and Big-Five injection comparison">
             <div class="method-lane">
