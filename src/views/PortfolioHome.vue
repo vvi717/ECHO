@@ -1,275 +1,474 @@
 <template>
-  <div class="min-h-[100dvh] overflow-x-hidden bg-[#070a0d] text-slate-100 selection:bg-cyan-300 selection:text-[#061014]">
-    <div class="fixed inset-0 pointer-events-none overflow-hidden">
-      <div class="absolute inset-0 bg-[radial-gradient(circle_at_18%_10%,rgba(77,214,232,0.16),transparent_27%),radial-gradient(circle_at_84%_14%,rgba(124,246,178,0.12),transparent_24%),linear-gradient(135deg,#070a0d_0%,#0d1417_48%,#050607_100%)]"></div>
-      <div class="absolute inset-0 bg-[linear-gradient(to_right,rgba(148,163,184,0.07)_1px,transparent_1px),linear-gradient(to_bottom,rgba(148,163,184,0.055)_1px,transparent_1px)] bg-[size:4rem_4rem] opacity-45"></div>
-      <div class="noise-layer absolute inset-0 opacity-[0.07]"></div>
+  <div class="portfolio-root min-h-[100dvh] overflow-x-hidden bg-[#060810] text-slate-100 selection:bg-cyan-300/30 selection:text-cyan-100">
+
+    <!-- ═══════════════════════════════════════════ BACKGROUND LAYERS ══ -->
+    <div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
+      <!-- Deep space gradient -->
+      <div class="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_-20%,rgba(56,189,248,0.14),transparent),radial-gradient(ellipse_60%_50%_at_80%_60%,rgba(34,211,238,0.07),transparent),radial-gradient(ellipse_40%_40%_at_10%_80%,rgba(99,102,241,0.08),transparent),linear-gradient(180deg,#060810_0%,#080c14_50%,#050709_100%)]"></div>
+      <!-- Mesh grid -->
+      <div class="absolute inset-0 bg-[linear-gradient(to_right,rgba(148,163,184,0.055)_1px,transparent_1px),linear-gradient(to_bottom,rgba(148,163,184,0.04)_1px,transparent_1px)] bg-[size:5rem_5rem]"></div>
+      <!-- Noise texture -->
+      <div class="noise-overlay absolute inset-0 opacity-[0.035]"></div>
+      <!-- Aurora top -->
+      <div class="aurora-1 absolute -top-40 left-[10%] w-[70vw] h-[50vh] rounded-full blur-[120px] opacity-[0.18] bg-gradient-to-br from-cyan-400 via-sky-500 to-indigo-600"></div>
+      <!-- Aurora accent -->
+      <div class="aurora-2 absolute top-[40%] right-[5%] w-[35vw] h-[30vh] rounded-full blur-[100px] opacity-[0.1] bg-gradient-to-br from-emerald-400 to-cyan-300"></div>
     </div>
 
-    <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-full focus:bg-cyan-200 focus:px-4 focus:py-2 focus:text-sm focus:font-bold focus:text-[#071012]">
+    <!-- ═══════════════════════════════════════════════════ SKIP LINK ══ -->
+    <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-full focus:bg-cyan-300 focus:px-4 focus:py-2 focus:text-sm focus:font-bold focus:text-[#060810]">
       跳到主要内容
     </a>
 
-    <nav class="portfolio-nav fixed top-4 z-50 rounded-full border border-white/10 bg-[#081015]/78 px-3 py-2 shadow-[0_18px_70px_rgba(0,0,0,0.35)] backdrop-blur-2xl">
-      <div class="flex items-center justify-between gap-3">
-        <a href="#overview" class="flex items-center gap-2 rounded-full px-3 py-2 text-sm font-bold text-slate-100 transition hover:text-cyan-100">
-          <span class="h-2 w-2 rounded-full bg-cyan-300 shadow-[0_0_20px_rgba(77,214,232,0.85)]"></span>
+    <!-- ═══════════════════════════════════════════════════ NAV BAR ══ -->
+    <nav
+      class="portfolio-nav fixed top-4 z-50 transition-all duration-500"
+      :class="scrolled ? 'nav-scrolled' : 'nav-transparent'"
+    >
+      <div class="flex items-center justify-between gap-2">
+        <!-- Brand -->
+        <a href="#overview" class="flex items-center gap-2.5 rounded-full px-3.5 py-2 text-sm font-black text-white transition hover:text-cyan-200">
+          <span class="relative flex h-2.5 w-2.5">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-300 opacity-60"></span>
+            <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-cyan-300 shadow-[0_0_12px_rgba(103,232,249,0.9)]"></span>
+          </span>
           Wei Liu
         </a>
 
-        <div class="hidden items-center gap-1 md:flex">
-          <a v-for="item in navItems" :key="item.href" :href="item.href" class="rounded-full px-3.5 py-2 text-sm font-semibold text-slate-300 transition hover:bg-white/8 hover:text-cyan-100 focus:outline-none focus:ring-2 focus:ring-cyan-200/50">
+        <!-- Desktop nav items -->
+        <div class="hidden items-center gap-0.5 md:flex">
+          <a
+            v-for="item in navItems"
+            :key="item.href"
+            :href="item.href"
+            class="nav-link group relative rounded-full px-3.5 py-2 text-sm font-semibold text-slate-400 transition-all duration-200 hover:text-cyan-200 focus:outline-none focus:ring-2 focus:ring-cyan-300/40"
+          >
             {{ item.label }}
+            <span class="nav-underline absolute bottom-1 left-1/2 h-[2px] w-0 -translate-x-1/2 rounded-full bg-gradient-to-r from-cyan-300 to-sky-400 transition-all duration-300 group-hover:w-4/5"></span>
           </a>
         </div>
 
-        <router-link to="/echo" class="inline-flex items-center gap-2 rounded-full border border-cyan-200/30 bg-cyan-200/10 px-3.5 py-2 text-sm font-bold text-cyan-100 transition hover:border-cyan-100/70 hover:bg-cyan-200/16 active:translate-y-px focus:outline-none focus:ring-2 focus:ring-cyan-200/50">
-          <FolderKanban class="h-4 w-4" />
+        <!-- ECHO CTA -->
+        <router-link
+          to="/echo"
+          class="inline-flex items-center gap-2 rounded-full border border-cyan-300/30 bg-cyan-300/10 px-4 py-2 text-sm font-bold text-cyan-200 transition-all duration-300 hover:border-cyan-200/60 hover:bg-cyan-300/18 hover:shadow-[0_0_24px_rgba(103,232,249,0.2)] active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-cyan-300/50"
+        >
+          <FolderKanban class="h-3.5 w-3.5" />
           <span class="hidden sm:inline">ECHO</span>
         </router-link>
       </div>
     </nav>
 
+    <!-- ══════════════════════════════════════════════════════ MAIN ══ -->
     <main id="main" class="relative z-10">
-      <section id="overview" class="mx-auto grid min-h-[100dvh] w-full max-w-7xl items-center gap-10 px-4 pb-12 pt-28 sm:px-6 lg:grid-cols-[0.88fr_1.12fr] lg:px-8">
-        <div class="reveal space-y-7">
-          <div class="inline-flex max-w-full items-center gap-2 rounded-full border border-cyan-200/25 bg-cyan-200/8 px-4 py-2 text-sm font-semibold text-cyan-100 backdrop-blur-xl">
-            <Sparkles class="h-4 w-4 shrink-0" />
-            <span class="truncate">AI researcher / full-stack developer / data systems builder</span>
+
+      <!-- ─────────────────────────────────── HERO / OVERVIEW ──── -->
+      <section
+        id="overview"
+        class="mx-auto grid min-h-[100dvh] w-full max-w-7xl items-center gap-12 px-4 pb-16 pt-28 sm:px-6 lg:grid-cols-[1fr_1.05fr] lg:px-8"
+      >
+        <!-- Left: Text content -->
+        <div class="hero-left space-y-8">
+          <!-- Badge pill -->
+          <div class="inline-flex max-w-full items-center gap-2.5 rounded-full border border-cyan-300/20 bg-gradient-to-r from-cyan-300/10 to-sky-400/8 px-4 py-2 text-xs font-semibold text-cyan-200 backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]">
+            <Sparkles class="h-3.5 w-3.5 shrink-0 text-cyan-300" />
+            <span class="truncate">AI researcher · full-stack developer · data systems builder</span>
           </div>
 
+          <!-- Name + Headline -->
           <div class="space-y-5">
-            <p class="text-sm font-semibold uppercase tracking-[0.32em] text-cyan-100/75">Wei Liu</p>
-            <h1 class="max-w-4xl text-pretty text-5xl font-black leading-[0.98] tracking-normal text-white sm:text-7xl lg:text-8xl">
-              Building empathetic AI through multimodal intelligence.
+            <p class="flex items-center gap-3 text-xs font-black uppercase tracking-[0.35em] text-cyan-300/70">
+              <span class="h-px w-8 bg-gradient-to-r from-cyan-300/60 to-transparent"></span>
+              Wei Liu
+            </p>
+            <h1 class="hero-headline text-pretty text-3xl sm:text-4xl lg:text-5xl font-black leading-[1.15] tracking-tight text-white">
+              Building <span class="gradient-text">empathetic AI</span> through multimodal intelligence.
             </h1>
-            <p class="max-w-2xl text-base leading-8 text-slate-300 sm:text-lg">
+            <p class="max-w-lg text-base leading-8 text-slate-400 sm:text-[17px]">
               我关注多模态情绪识别、共情对话智能体、人本 AI 系统，以及把研究原型做成可部署、可维护的全栈产品。
             </p>
           </div>
 
+          <!-- CTA Row -->
           <div class="flex flex-col gap-3 sm:flex-row">
-            <a href="#research" class="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-cyan-200 px-6 py-3 text-sm font-bold text-[#071012] transition hover:bg-white hover:shadow-[0_0_36px_rgba(77,214,232,0.34)] active:translate-y-px focus:outline-none focus:ring-2 focus:ring-cyan-200/70">
+            <a
+              href="#research"
+              class="group inline-flex min-h-12 items-center justify-center gap-2.5 overflow-hidden rounded-full bg-gradient-to-r from-cyan-300 to-sky-400 px-7 py-3 text-sm font-bold text-[#060810] transition-all duration-300 hover:shadow-[0_0_40px_rgba(56,189,248,0.45)] hover:scale-[1.03] active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-cyan-300/60 relative"
+            >
+              <span class="btn-shine absolute inset-0 -translate-x-full skew-x-[-20deg] bg-white/20 transition-transform duration-700 group-hover:translate-x-[130%]"></span>
               查看研究方向
-              <ArrowRight class="h-4 w-4" />
+              <ArrowRight class="h-4 w-4 transition-transform group-hover:translate-x-1" />
             </a>
-            <router-link to="/echo" class="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-white/14 bg-white/7 px-6 py-3 text-sm font-bold text-white backdrop-blur-xl transition hover:border-cyan-200/50 hover:bg-cyan-200/10 active:translate-y-px focus:outline-none focus:ring-2 focus:ring-cyan-200/50">
+            <router-link
+              to="/echo"
+              class="inline-flex min-h-12 items-center justify-center gap-2.5 rounded-full border border-white/12 bg-white/6 px-7 py-3 text-sm font-bold text-white backdrop-blur-xl transition-all duration-300 hover:border-cyan-300/50 hover:bg-cyan-300/10 hover:shadow-[0_0_24px_rgba(103,232,249,0.15)] active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-cyan-300/40"
+            >
               进入 ECHO 工作台
               <FolderKanban class="h-4 w-4" />
             </router-link>
           </div>
+
+          <!-- Scroll indicator -->
+          <div class="hidden lg:flex items-center gap-3 pt-4">
+            <div class="scroll-mouse relative flex h-8 w-5 items-start justify-center rounded-full border border-slate-600/60 pt-1.5">
+              <div class="scroll-dot h-1.5 w-1 rounded-full bg-cyan-300"></div>
+            </div>
+            <span class="text-[11px] font-semibold uppercase tracking-[0.3em] text-slate-600">Scroll</span>
+          </div>
         </div>
 
-        <div class="reveal-delay">
-          <div class="console-shell rounded-[2rem] border border-white/10 bg-white/[0.055] p-3 shadow-[0_32px_110px_rgba(0,0,0,0.48)] backdrop-blur-2xl">
-            <div class="overflow-hidden rounded-[1.55rem] border border-white/10 bg-[#060b0d]">
-              <div class="flex items-center justify-between border-b border-white/10 bg-white/[0.045] px-5 py-4">
-                <div>
-                  <p class="font-mono text-xs uppercase tracking-[0.24em] text-slate-500">research console</p>
-                  <h2 class="mt-1 text-xl font-black text-white">Human-centred AI portfolio</h2>
+        <!-- Right: Console terminal card -->
+        <div class="hero-right">
+          <div class="console-shell relative rounded-[2rem] border border-white/[0.08] bg-white/[0.04] p-3 shadow-[0_40px_120px_rgba(0,0,0,0.6)] backdrop-blur-2xl">
+            <!-- Glow behind card -->
+            <div class="absolute -inset-px rounded-[2rem] bg-gradient-to-br from-cyan-400/10 via-transparent to-sky-600/8 pointer-events-none"></div>
+
+            <div class="overflow-hidden rounded-[1.55rem] border border-white/[0.07] bg-[#050810]">
+              <!-- Terminal header bar -->
+              <div class="flex items-center justify-between border-b border-white/[0.07] bg-white/[0.03] px-5 py-4">
+                <div class="flex items-center gap-2">
+                  <div class="flex gap-1.5">
+                    <span class="h-3 w-3 rounded-full bg-red-500/70"></span>
+                    <span class="h-3 w-3 rounded-full bg-amber-500/70"></span>
+                    <span class="h-3 w-3 rounded-full bg-emerald-500/70"></span>
+                  </div>
+                  <div class="ml-3">
+                    <p class="font-mono text-[11px] uppercase tracking-[0.28em] text-slate-600">research console</p>
+                    <h2 class="mt-0.5 text-lg font-black text-white">Human-centred AI portfolio</h2>
+                  </div>
                 </div>
-                <span class="rounded-full border border-emerald-200/25 bg-emerald-200/10 px-3 py-1 text-xs font-bold text-emerald-100">开放合作</span>
+                <span class="rounded-full border border-emerald-400/25 bg-emerald-400/10 px-3 py-1 text-[11px] font-bold text-emerald-300 flex items-center gap-1.5">
+                  <span class="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                  开放合作
+                </span>
               </div>
 
+              <!-- Signal metrics + nodes -->
               <div class="grid gap-4 p-4 md:grid-cols-[1.15fr_0.85fr] md:p-6">
-                <div class="rounded-[1.25rem] border border-white/10 bg-[#0b1316]/90 p-5">
-                  <div class="mb-6 flex items-center justify-between">
+                <!-- Left metric panel -->
+                <div class="rounded-[1.25rem] border border-white/[0.07] bg-[#0a0f1c]/80 p-5">
+                  <div class="mb-5 flex items-center justify-between">
                     <div>
                       <p class="text-sm font-semibold text-slate-300">Multimodal signal stack</p>
-                      <p class="mt-1 text-xs text-slate-500">text / audio / vision / context</p>
+                      <p class="mt-1 text-[11px] text-slate-600">text / audio / vision / context</p>
                     </div>
-                    <Activity class="h-5 w-5 text-cyan-200" />
+                    <Activity class="h-5 w-5 text-cyan-300" />
                   </div>
 
                   <div class="space-y-4">
-                    <div v-for="metric in signalMetrics" :key="metric.label">
-                      <div class="mb-2 flex items-center justify-between font-mono text-xs text-slate-400">
-                        <span>{{ metric.label }}</span>
-                        <span>{{ metric.value }}%</span>
+                    <div v-for="(metric, i) in signalMetrics" :key="metric.label">
+                      <div class="mb-2 flex items-center justify-between font-mono text-[11px] text-slate-500">
+                        <span class="text-slate-400">{{ metric.label }}</span>
+                        <span class="text-cyan-300 font-bold">{{ metric.value }}%</span>
                       </div>
-                      <div class="h-2 overflow-hidden rounded-full bg-white/8">
-                        <div class="h-full rounded-full bg-gradient-to-r from-cyan-200 to-emerald-200" :style="{ width: `${metric.value}%` }"></div>
+                      <div class="h-1.5 overflow-hidden rounded-full bg-white/[0.06]">
+                        <div
+                          class="metric-bar h-full rounded-full bg-gradient-to-r from-cyan-300 to-emerald-300"
+                          :style="{ width: `${metric.value}%`, transitionDelay: `${i * 120}ms` }"
+                        ></div>
                       </div>
                     </div>
                   </div>
 
-                  <div class="mt-7 grid grid-cols-3 gap-3">
-                    <div v-for="node in aiNodes" :key="node" class="rounded-2xl border border-white/10 bg-white/[0.045] p-3 text-center">
-                      <p class="font-mono text-[11px] text-cyan-100">{{ node }}</p>
+                  <!-- AI nodes grid -->
+                  <div class="mt-6 grid grid-cols-3 gap-2">
+                    <div
+                      v-for="node in aiNodes"
+                      :key="node"
+                      class="node-chip rounded-xl border border-white/[0.07] bg-white/[0.04] p-2.5 text-center transition-all duration-300 hover:border-cyan-300/30 hover:bg-cyan-300/8"
+                    >
+                      <p class="font-mono text-[10px] font-bold text-cyan-200/80">{{ node }}</p>
                     </div>
                   </div>
                 </div>
 
-                <div class="grid gap-4">
-                  <div class="rounded-[1.25rem] border border-white/10 bg-white/[0.045] p-5">
-                    <GraduationCap class="mb-7 h-7 w-7 text-cyan-200" />
+                <!-- Right side cards -->
+                <div class="grid gap-3">
+                  <div class="rounded-[1.25rem] border border-white/[0.07] bg-white/[0.04] p-5">
+                    <GraduationCap class="mb-5 h-6 w-6 text-cyan-300" />
                     <p class="font-mono text-4xl font-black text-white">2</p>
-                    <p class="mt-2 text-sm leading-6 text-slate-400">海外计算机教育背景：Monash MIT 与 University of Ottawa CS。</p>
+                    <p class="mt-2 text-xs leading-5 text-slate-500">海外计算机教育背景：Monash MIT 与 University of Ottawa CS。</p>
                   </div>
 
-                  <router-link to="/echo" class="group rounded-[1.25rem] border border-cyan-200/20 bg-cyan-200/10 p-5 transition hover:-translate-y-1 hover:border-cyan-100/70 hover:bg-cyan-200/15">
-                    <div class="flex items-start justify-between gap-4">
+                  <router-link
+                    to="/echo"
+                    class="group rounded-[1.25rem] border border-cyan-300/15 bg-cyan-300/8 p-5 transition-all duration-300 hover:-translate-y-1 hover:border-cyan-200/50 hover:bg-cyan-300/14 hover:shadow-[0_12px_40px_rgba(103,232,249,0.15)]"
+                  >
+                    <div class="flex items-start justify-between gap-3">
                       <div>
-                        <p class="text-sm font-bold text-cyan-100">ECHO research workspace</p>
-                        <p class="mt-2 text-sm leading-6 text-slate-400">项目管理、文献笔记、进度追踪和研究资料入口。</p>
+                        <p class="text-sm font-bold text-cyan-200">ECHO research workspace</p>
+                        <p class="mt-2 text-xs leading-5 text-slate-500">项目管理、文献笔记、进度追踪和研究资料入口。</p>
                       </div>
-                      <ArrowRight class="mt-1 h-5 w-5 text-cyan-100 transition group-hover:translate-x-1" />
+                      <ArrowRight class="mt-0.5 h-4 w-4 shrink-0 text-cyan-300 transition-transform group-hover:translate-x-1" />
                     </div>
                   </router-link>
                 </div>
               </div>
 
-              <div class="grid gap-3 border-t border-white/10 bg-[#040809] p-4 font-mono text-xs text-slate-400 md:grid-cols-3">
-                <p><span class="text-cyan-200">title:</span> Personal Research Portfolio</p>
-                <p><span class="text-emerald-200">category:</span> AI / Human-Centred Computing</p>
-                <p><span class="text-cyan-200">status:</span> Available for collaboration</p>
+              <!-- Footer meta bar -->
+              <div class="grid gap-3 border-t border-white/[0.06] bg-[#030509] p-4 font-mono text-[11px] text-slate-600 md:grid-cols-3">
+                <p><span class="text-cyan-300">title:</span> Personal Research Portfolio</p>
+                <p><span class="text-emerald-400">category:</span> AI / Human-Centred Computing</p>
+                <p><span class="text-cyan-300">status:</span> Available for collaboration</p>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section id="research" class="mx-auto w-full max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
-        <div class="section-heading">
-          <p class="section-kicker">研究方向</p>
-          <h2>从情绪理解，到可部署的智能系统。</h2>
-          <p>研究兴趣覆盖大数据可视化、深度学习、LLMs、实时数据处理、DevOps、软件质量、微服务与云计算架构。</p>
-        </div>
-
-        <div class="grid gap-4 md:grid-cols-3">
-          <article v-for="focus in researchFocus" :key="focus.title" class="surface-card rounded-[1.5rem] p-6">
-            <component :is="focus.icon" class="mb-10 h-7 w-7 text-cyan-200" />
-            <h3 class="text-xl font-bold text-white">{{ focus.title }}</h3>
-            <p class="mt-3 text-sm leading-7 text-slate-400">{{ focus.description }}</p>
-          </article>
-        </div>
-      </section>
-
-      <section id="projects" class="mx-auto w-full max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
-        <div class="mb-10 flex flex-col justify-between gap-5 md:flex-row md:items-end">
-          <div class="section-heading mb-0">
-            <p class="section-kicker">精选项目</p>
-            <h2>把研究、产品和工程放在同一个工作流里。</h2>
+      <!-- ────────────────────────────────── RESEARCH SECTION ──── -->
+      <section id="research" class="section-wrapper">
+        <div class="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div class="section-heading reveal-section">
+            <p class="section-kicker">研究方向</p>
+            <h2 class="section-title">从情绪理解，到可部署的智能系统。</h2>
+            <p class="section-subtitle">研究兴趣覆盖大数据可视化、深度学习、LLMs、实时数据处理、DevOps、软件质量、微服务与云计算架构。</p>
           </div>
-          <router-link to="/echo" class="inline-flex w-fit items-center gap-2 rounded-full border border-cyan-200/30 bg-cyan-200/10 px-5 py-3 text-sm font-bold text-cyan-100 transition hover:border-cyan-100/70 hover:bg-cyan-200/15 active:translate-y-px">
-            打开 ECHO
-            <ExternalLink class="h-4 w-4" />
-          </router-link>
-        </div>
 
-        <div class="grid gap-5 lg:grid-cols-[1.08fr_0.92fr]">
-          <router-link to="/echo" class="group relative min-h-[28rem] overflow-hidden rounded-[2rem] border border-cyan-200/20 bg-[#0b1517] p-7 transition hover:-translate-y-1 hover:border-cyan-100/65">
-            <div class="absolute inset-0 bg-[radial-gradient(circle_at_78%_18%,rgba(77,214,232,0.2),transparent_28%),linear-gradient(135deg,rgba(255,255,255,0.08),transparent_52%)]"></div>
-            <div class="relative flex h-full flex-col justify-between">
-              <div class="flex items-start justify-between">
-                <div class="rounded-2xl border border-white/10 bg-white/8 p-3">
-                  <FolderKanban class="h-7 w-7 text-cyan-200" />
-                </div>
-                <ArrowRight class="h-6 w-6 text-cyan-100 transition group-hover:translate-x-1" />
-              </div>
-              <div>
-                <p class="text-sm font-semibold uppercase tracking-[0.24em] text-cyan-100/70">Project management portal</p>
-                <h3 class="mt-4 text-4xl font-black text-white">ECHO 研究工作区</h3>
-                <p class="mt-4 max-w-xl text-sm leading-7 text-slate-300">原有项目管理页面，保留为主页里的核心入口，用于管理会议记录、文献笔记、研究日志、每周进展和 Firebase 支持的研究数据。</p>
-              </div>
-            </div>
-          </router-link>
+          <div class="grid gap-5 md:grid-cols-3">
+            <article
+              v-for="(focus, i) in researchFocus"
+              :key="focus.title"
+              class="research-card reveal-section group relative overflow-hidden rounded-[1.75rem] border border-white/[0.07] bg-white/[0.04] p-7 backdrop-blur-sm transition-all duration-500 hover:-translate-y-2 hover:border-cyan-300/30 hover:shadow-[0_24px_80px_rgba(0,0,0,0.35)]"
+              :style="{ transitionDelay: `${i * 80}ms` }"
+            >
+              <!-- Card index -->
+              <span class="absolute top-5 right-5 font-mono text-[11px] font-black text-slate-700">{{ String(i + 1).padStart(2, '0') }}</span>
+              <!-- Shimmer sweep on hover -->
+              <div class="card-shimmer absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/[0.04] to-transparent transition-transform duration-700 group-hover:translate-x-full"></div>
+              <!-- Inner glow -->
+              <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-cyan-300/20 to-transparent"></div>
 
-          <div class="grid gap-5">
-            <router-link to="/pureflow" class="surface-card rounded-[2rem] p-6">
-              <ExternalLink class="mb-8 h-7 w-7 text-cyan-200" />
-              <p class="text-xs font-bold uppercase tracking-[0.22em] text-cyan-100/70">Interactive hero demo</p>
-              <h3 class="mt-3 text-2xl font-bold text-white">PureFlow 聚光交互页面</h3>
-              <p class="mt-3 text-sm leading-7 text-slate-400">保留原提示词实现的单页 Hero，包含鼠标跟随网格、canvas 径向 mask、双背景图切换和响应式菜单。</p>
-            </router-link>
+              <component :is="focus.icon" class="mb-8 h-7 w-7 text-cyan-300" />
+              <h3 class="text-xl font-bold text-white">{{ focus.title }}</h3>
+              <p class="mt-3 text-sm leading-7 text-slate-500">{{ focus.description }}</p>
 
-            <article v-for="project in featuredProjects" :key="project.title" class="surface-card rounded-[2rem] p-6">
-              <component :is="project.icon" class="mb-8 h-7 w-7 text-emerald-200" />
-              <p class="text-xs font-bold uppercase tracking-[0.22em] text-cyan-100/70">{{ project.period }}</p>
-              <h3 class="mt-3 text-2xl font-bold text-white">{{ project.title }}</h3>
-              <p class="mt-3 text-sm leading-7 text-slate-400">{{ project.description }}</p>
+              <!-- Bottom accent line -->
+              <div class="mt-8 h-px w-12 rounded-full bg-gradient-to-r from-cyan-300/60 to-transparent transition-all duration-500 group-hover:w-24"></div>
             </article>
           </div>
         </div>
       </section>
 
-      <section id="experience" class="mx-auto w-full max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
-        <div class="section-heading">
-          <p class="section-kicker">经历时间线</p>
-          <h2>AI 视觉、机器人、网络工程与 AGV 中间件。</h2>
-        </div>
+      <!-- ─────────────────────────────────── PROJECTS SECTION ──── -->
+      <section id="projects" class="section-wrapper">
+        <div class="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div class="mb-12 flex flex-col justify-between gap-5 md:flex-row md:items-end reveal-section">
+            <div class="section-heading mb-0">
+              <p class="section-kicker">精选项目</p>
+              <h2 class="section-title">把研究、产品和工程放在同一个工作流里。</h2>
+            </div>
+            <router-link
+              to="/echo"
+              class="inline-flex w-fit items-center gap-2 rounded-full border border-cyan-300/25 bg-cyan-300/8 px-5 py-2.5 text-sm font-bold text-cyan-200 transition-all duration-300 hover:border-cyan-200/60 hover:bg-cyan-300/14 hover:shadow-[0_0_24px_rgba(103,232,249,0.18)] active:scale-[0.98]"
+            >
+              打开 ECHO
+              <ExternalLink class="h-3.5 w-3.5" />
+            </router-link>
+          </div>
 
-        <div class="space-y-4">
-          <article v-for="item in workExperiences" :key="item.title" class="timeline-card grid gap-4 rounded-[1.5rem] border border-white/10 bg-white/[0.045] p-5 md:grid-cols-[14rem_1fr]">
-            <div>
-              <p class="font-mono text-sm font-bold text-cyan-100">{{ item.period }}</p>
-              <p class="mt-2 text-sm text-slate-500">{{ item.company }}</p>
-            </div>
-            <div>
-              <h3 class="text-xl font-black text-white">{{ item.title }}</h3>
-              <p class="mt-3 text-sm leading-7 text-slate-300">{{ item.description }}</p>
-            </div>
-          </article>
+          <!-- Row 1: ECHO hero card + PureFlow side-by-side -->
+          <div class="grid gap-5 lg:grid-cols-[1.08fr_0.92fr] items-start">
+            <!-- ECHO hero project card -->
+            <router-link
+              to="/echo"
+              class="group reveal-section relative overflow-hidden rounded-[2rem] border border-cyan-300/15 bg-[#0a0f1c] p-8 transition-all duration-500 hover:-translate-y-1 hover:border-cyan-200/40 hover:shadow-[0_32px_100px_rgba(0,0,0,0.5)]"
+            >
+              <!-- Background glow -->
+              <div class="absolute inset-0 bg-[radial-gradient(circle_at_75%_20%,rgba(56,189,248,0.18),transparent_50%),linear-gradient(135deg,rgba(255,255,255,0.06),transparent_55%)]"></div>
+              <!-- Shimmer -->
+              <div class="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/[0.04] to-transparent transition-transform duration-1000 group-hover:translate-x-full"></div>
+              <!-- Top border glow -->
+              <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-cyan-300/30 to-transparent"></div>
+
+              <div class="relative flex h-full flex-col justify-between">
+                <div class="flex items-start justify-between">
+                  <div class="rounded-2xl border border-white/[0.08] bg-white/[0.06] p-3">
+                    <FolderKanban class="h-7 w-7 text-cyan-300" />
+                  </div>
+                  <ArrowRight class="h-5 w-5 text-cyan-200 transition-transform group-hover:translate-x-1.5" />
+                </div>
+                <div>
+                  <p class="text-xs font-black uppercase tracking-[0.26em] text-cyan-300/60">Project management portal</p>
+                  <h3 class="mt-4 text-4xl font-black text-white">ECHO 研究工作区</h3>
+                  <p class="mt-4 max-w-xl text-sm leading-7 text-slate-400">原有项目管理页面，保留为主页里的核心入口，用于管理会议记录、文献笔记、研究日志、每周进展和 Firebase 支持的研究数据。</p>
+                </div>
+              </div>
+            </router-link>
+
+            <!-- Right column: PureFlow only -->
+            <router-link
+              to="/pureflow"
+              class="reveal-section surface-card group rounded-[2rem] p-8 transition-all duration-500 hover:-translate-y-1"
+            >
+              <ExternalLink class="mb-8 h-6 w-6 text-cyan-300" />
+              <p class="text-[11px] font-black uppercase tracking-[0.24em] text-cyan-200/60">Interactive hero demo</p>
+              <h3 class="mt-3 text-2xl font-bold text-white">PureFlow 聚光交互页面</h3>
+              <p class="mt-4 text-sm leading-7 text-slate-500">保留原提示词实现的单页 Hero，包含鼠标跟随网格、canvas 径向 mask、双背景图切换和响应式菜单。</p>
+            </router-link>
+          </div>
+
+          <!-- Row 2: remaining projects in 3-col grid -->
+          <div class="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            <article
+              v-for="(project, i) in featuredProjects"
+              :key="project.title"
+              class="reveal-section surface-card rounded-[2rem] p-6 transition-all duration-500 hover:-translate-y-1"
+              :style="{ transitionDelay: `${i * 55}ms` }"
+            >
+              <component :is="project.icon" class="mb-6 h-6 w-6 text-emerald-400" />
+              <p class="text-[10px] font-black uppercase tracking-[0.22em] text-cyan-200/55">{{ project.period }}</p>
+              <h3 class="mt-2.5 text-lg font-bold text-white leading-snug">{{ project.title }}</h3>
+              <p class="mt-3 text-sm leading-6 text-slate-500">{{ project.description }}</p>
+            </article>
+          </div>
         </div>
       </section>
 
-      <section id="skills" class="mx-auto w-full max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
-        <div class="rounded-[2rem] border border-white/10 bg-[#0b1114]/78 p-6 backdrop-blur-xl md:p-8">
-          <div class="section-heading">
-            <p class="section-kicker">技术能力</p>
-            <h2>编程、云平台、数据科学与项目管理。</h2>
+      <!-- ──────────────────────────────── EXPERIENCE SECTION ──── -->
+      <section id="experience" class="section-wrapper">
+        <div class="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div class="section-heading reveal-section">
+            <p class="section-kicker">经历时间线</p>
+            <h2 class="section-title">AI 视觉、机器人、网络工程<br/>与 AGV 中间件。</h2>
           </div>
 
-          <div class="grid gap-6 md:grid-cols-2">
-            <div v-for="group in skillGroups" :key="group.title" class="rounded-[1.25rem] border border-white/10 bg-white/[0.035] p-5">
-              <h3 class="mb-4 text-lg font-bold text-slate-200">{{ group.title }}</h3>
-              <div class="flex flex-wrap gap-3">
-                <span v-for="skill in group.items" :key="skill" class="skill-pill">{{ skill }}</span>
+          <!-- Timeline -->
+          <div class="relative pl-6 md:pl-0">
+            <!-- Vertical line (desktop) -->
+            <div class="timeline-track hidden md:block absolute left-[8.5rem] top-0 bottom-0 w-px bg-gradient-to-b from-cyan-300/30 via-slate-700/50 to-transparent"></div>
+
+            <div class="space-y-5">
+              <article
+                v-for="(item, i) in workExperiences"
+                :key="item.title"
+                class="reveal-section group grid gap-6 rounded-[1.5rem] border border-white/[0.06] bg-white/[0.03] p-6 transition-all duration-500 hover:border-cyan-300/25 hover:bg-white/[0.055] hover:shadow-[0_16px_60px_rgba(0,0,0,0.3)] md:grid-cols-[8rem_1fr] backdrop-blur-sm"
+                :style="{ transitionDelay: `${i * 60}ms` }"
+              >
+                <!-- Date column -->
+                <div class="relative">
+                  <!-- Timeline dot (desktop) -->
+                  <div class="timeline-dot hidden md:block absolute -right-[1.85rem] top-1.5 h-3.5 w-3.5 rounded-full border-2 border-cyan-300/50 bg-[#060810] transition-all duration-300 group-hover:border-cyan-300 group-hover:shadow-[0_0_12px_rgba(103,232,249,0.5)]"></div>
+                  <p class="font-mono text-xs font-bold text-cyan-200/80">{{ item.period }}</p>
+                  <p class="mt-2 text-[11px] text-slate-600 leading-5">{{ item.company }}</p>
+                </div>
+                <!-- Content column -->
+                <div>
+                  <h3 class="text-lg font-black text-white group-hover:text-cyan-100 transition-colors">{{ item.title }}</h3>
+                  <p class="mt-3 text-sm leading-7 text-slate-500">{{ item.description }}</p>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ────────────────────────────────────── SKILLS SECTION ──── -->
+      <section id="skills" class="section-wrapper">
+        <div class="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div class="relative overflow-hidden rounded-[2.5rem] border border-white/[0.07] bg-[#080c18]/80 p-7 backdrop-blur-xl md:p-10 reveal-section">
+            <!-- Inner glow effects -->
+            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[60%] h-px bg-gradient-to-r from-transparent via-cyan-300/25 to-transparent"></div>
+            <div class="absolute -top-20 left-1/2 -translate-x-1/2 w-[40%] h-40 rounded-full blur-3xl bg-cyan-400/8 pointer-events-none"></div>
+
+            <div class="section-heading">
+              <p class="section-kicker">技术能力</p>
+              <h2 class="section-title">编程、云平台、数据科学与项目管理。</h2>
+            </div>
+
+            <div class="grid gap-5 md:grid-cols-2">
+              <div
+                v-for="(group, i) in skillGroups"
+                :key="group.title"
+                class="reveal-section skill-group rounded-[1.5rem] border border-white/[0.06] bg-white/[0.03] p-6 transition-all duration-300 hover:border-cyan-300/20"
+                :style="{ transitionDelay: `${i * 60}ms` }"
+              >
+                <h3 class="mb-5 text-sm font-black uppercase tracking-[0.18em] text-slate-300">{{ group.title }}</h3>
+                <div class="flex flex-wrap gap-2.5">
+                  <span
+                    v-for="skill in group.items"
+                    :key="skill"
+                    class="skill-pill"
+                  >{{ skill }}</span>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section id="education" class="mx-auto w-full max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
-        <div class="section-heading">
-          <p class="section-kicker">教育背景</p>
-          <h2>计算机与信息技术的双阶段训练。</h2>
-        </div>
+      <!-- ─────────────────────────────────── EDUCATION SECTION ──── -->
+      <section id="education" class="section-wrapper">
+        <div class="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div class="section-heading reveal-section">
+            <p class="section-kicker">教育背景</p>
+            <h2 class="section-title">计算机与信息技术的<br/>双阶段训练。</h2>
+          </div>
 
-        <div class="grid gap-5 md:grid-cols-2">
-          <article v-for="item in education" :key="item.school" class="surface-card rounded-[1.5rem] p-6">
-            <div class="flex flex-col justify-between gap-4 sm:flex-row sm:items-start">
+          <div class="grid gap-5 md:grid-cols-2">
+            <article
+              v-for="(item, i) in education"
+              :key="item.school"
+              class="reveal-section surface-card group relative overflow-hidden rounded-[1.75rem] p-8 transition-all duration-500 hover:-translate-y-1"
+              :style="{ transitionDelay: `${i * 100}ms` }"
+            >
+              <!-- Shimmer -->
+              <div class="card-shimmer absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/[0.05] to-transparent transition-transform duration-700 group-hover:translate-x-full"></div>
+              <!-- Corner geo decoration -->
+              <div class="absolute -top-10 -right-10 h-32 w-32 rounded-full border border-cyan-300/8 opacity-50"></div>
+              <div class="absolute -top-6 -right-6 h-20 w-20 rounded-full border border-cyan-300/12 opacity-50"></div>
+
+              <div class="relative flex flex-col justify-between gap-4 sm:flex-row sm:items-start">
+                <div>
+                  <h3 class="text-2xl font-black text-white">{{ item.school }}</h3>
+                  <p class="mt-1.5 text-sm text-slate-600">{{ item.location }}</p>
+                </div>
+                <span class="w-fit rounded-full border border-cyan-300/20 bg-cyan-300/8 px-3 py-1.5 text-[11px] font-bold text-cyan-200 whitespace-nowrap">{{ item.period }}</span>
+              </div>
+              <p class="relative mt-6 text-lg font-bold text-cyan-200">{{ item.degree }}</p>
+              <p class="relative mt-2 text-sm leading-7 text-slate-500">{{ item.detail }}</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ──────────────────────────────────── CONTACT SECTION ──── -->
+      <section id="contact" class="section-wrapper pb-28">
+        <div class="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div class="reveal-section relative overflow-hidden rounded-[2.5rem] border border-cyan-300/15 bg-gradient-to-br from-cyan-300/8 via-sky-400/5 to-indigo-500/8 p-8 md:p-12">
+            <!-- Background blob -->
+            <div class="absolute -top-24 -right-24 h-64 w-64 rounded-full bg-cyan-400/10 blur-3xl pointer-events-none"></div>
+            <div class="absolute -bottom-16 -left-16 h-48 w-48 rounded-full bg-sky-500/8 blur-2xl pointer-events-none"></div>
+            <!-- Top glow line -->
+            <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-cyan-300/30 to-transparent"></div>
+
+            <div class="relative grid gap-8 md:grid-cols-[1fr_auto] md:items-center">
               <div>
-                <h3 class="text-2xl font-black text-white">{{ item.school }}</h3>
-                <p class="mt-2 text-sm text-slate-400">{{ item.location }}</p>
+                <p class="section-kicker">联系</p>
+                <h2 class="mt-5 text-4xl font-black leading-tight text-white md:text-5xl">
+                  研究合作、全栈项目<br/>和 AI 产品原型。
+                </h2>
+                <p class="mt-5 max-w-xl text-sm leading-8 text-slate-400">如果你想了解我的研究方向、项目管理工作台，或需要一个更完整的个人网站部署方案，可以从邮件开始。</p>
               </div>
-              <span class="w-fit rounded-full border border-cyan-200/25 bg-cyan-200/10 px-3 py-1 text-xs font-bold text-cyan-100">{{ item.period }}</span>
+              <a
+                href="mailto:18136652206@163.com"
+                class="group inline-flex items-center gap-3 rounded-full bg-gradient-to-r from-cyan-300 to-sky-400 px-7 py-4 text-sm font-bold text-[#060810] transition-all duration-300 hover:shadow-[0_0_48px_rgba(56,189,248,0.5)] hover:scale-[1.04] active:scale-[0.98] relative overflow-hidden"
+              >
+                <span class="btn-shine absolute inset-0 -translate-x-full skew-x-[-20deg] bg-white/25 transition-transform duration-700 group-hover:translate-x-[130%]"></span>
+                <Mail class="h-4 w-4 relative z-10" />
+                <span class="relative z-10">18136652206@163.com</span>
+              </a>
             </div>
-            <p class="mt-5 text-lg font-semibold text-cyan-100">{{ item.degree }}</p>
-            <p class="mt-2 text-sm leading-7 text-slate-400">{{ item.detail }}</p>
-          </article>
+          </div>
         </div>
       </section>
 
-      <section id="contact" class="mx-auto w-full max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
-        <div class="grid gap-5 rounded-[2rem] border border-cyan-200/20 bg-cyan-200/8 p-6 md:grid-cols-[1fr_auto] md:items-center md:p-8">
-          <div>
-            <p class="section-kicker">联系</p>
-            <h2 class="mt-5 text-4xl font-black leading-tight text-white md:text-5xl">研究合作、全栈项目和 AI 产品原型。</h2>
-            <p class="mt-4 max-w-2xl text-sm leading-7 text-slate-300">如果你想了解我的研究方向、项目管理工作台，或需要一个更完整的个人网站部署方案，可以从邮件开始。</p>
-          </div>
-          <a href="mailto:18136652206@163.com" class="inline-flex items-center justify-center gap-2 rounded-full bg-cyan-200 px-6 py-3 text-sm font-bold text-[#071012] transition hover:bg-white active:translate-y-px">
-            <Mail class="h-4 w-4" />
-            18136652206@163.com
-          </a>
-        </div>
-      </section>
     </main>
   </div>
 </template>
 
 <script setup>
+import { ref, onMounted, onUnmounted } from 'vue';
 import {
   Activity,
   ArrowRight,
@@ -288,6 +487,44 @@ import {
   Sparkles,
 } from 'lucide-vue-next';
 
+// ─── Scroll state ───────────────────────────────────────────────────────────
+const scrolled = ref(false);
+const handleScroll = () => { scrolled.value = window.scrollY > 40; };
+
+// ─── Intersection observer for reveal animations ────────────────────────────
+let observer = null;
+
+onMounted(() => {
+  window.addEventListener('scroll', handleScroll, { passive: true });
+
+  observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
+  );
+
+  document.querySelectorAll('.reveal-section').forEach((el) => observer.observe(el));
+
+  // Metric bar animation
+  setTimeout(() => {
+    document.querySelectorAll('.metric-bar').forEach((el) => {
+      el.style.transition = 'width 1.2s cubic-bezier(0.16, 1, 0.3, 1)';
+    });
+  }, 300);
+});
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', handleScroll);
+  if (observer) observer.disconnect();
+});
+
+// ─── Data ────────────────────────────────────────────────────────────────────
 const navItems = [
   { label: '概览', href: '#overview' },
   { label: '研究', href: '#research' },
@@ -421,104 +658,86 @@ const skillGroups = [
 </script>
 
 <style scoped>
+/* ═══════════════════════════════════════ FONTS ══ */
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+.portfolio-root {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+.hero-headline {
+  font-family: 'Syne', 'Inter', system-ui, sans-serif;
+}
+
+/* ═══════════════════════════════════════ BACKGROUND ══ */
+.noise-overlay {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+}
+
+.aurora-1 {
+  animation: aurora-drift 18s ease-in-out infinite alternate;
+}
+.aurora-2 {
+  animation: aurora-drift 24s ease-in-out 3s infinite alternate-reverse;
+}
+@keyframes aurora-drift {
+  0%   { transform: translate(0, 0) scale(1); }
+  50%  { transform: translate(3%, 2%) scale(1.08); }
+  100% { transform: translate(-2%, -3%) scale(0.95); }
+}
+
+/* ═══════════════════════════════════════ NAV ══ */
 .portfolio-nav {
   left: 0.75rem;
   width: calc(100% - 1.5rem);
-}
-
-.noise-layer {
-  background-image:
-    radial-gradient(circle at 1px 1px, rgb(255 255 255 / 0.5) 1px, transparent 0);
-  background-size: 16px 16px;
-}
-
-.reveal {
-  animation: reveal-up 0.75s ease-out both;
-}
-
-.reveal-delay {
-  animation: reveal-up 0.75s ease-out 0.1s both;
-}
-
-.console-shell,
-.surface-card,
-.timeline-card {
-  transition: transform 0.28s ease, border-color 0.28s ease, background-color 0.28s ease, box-shadow 0.28s ease;
-}
-
-.surface-card {
-  border: 1px solid rgb(255 255 255 / 0.1);
-  background: rgb(255 255 255 / 0.05);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-}
-
-.surface-card:hover,
-.timeline-card:hover {
-  transform: translateY(-4px);
-  border-color: rgb(103 232 249 / 0.45);
-  background: rgb(255 255 255 / 0.075);
-  box-shadow: 0 18px 70px rgb(0 0 0 / 0.24);
-}
-
-.section-heading {
-  margin-bottom: 2.5rem;
-  max-width: 52rem;
-}
-
-.section-heading h2 {
-  margin-top: 1rem;
-  text-wrap: balance;
-  font-size: clamp(2.15rem, 5vw, 3.75rem);
-  font-weight: 900;
-  line-height: 1.05;
-  color: white;
-}
-
-.section-heading p:not(.section-kicker) {
-  margin-top: 1.25rem;
-  max-width: 45rem;
-  color: rgb(203 213 225);
-  line-height: 1.85;
-}
-
-.section-kicker {
-  border-left: 4px solid #67e8f9;
-  padding-left: 1rem;
-  font-size: 0.875rem;
-  font-weight: 800;
-  letter-spacing: 0.22em;
-  color: rgb(165 243 252 / 0.88);
-}
-
-.skill-pill {
-  cursor: default;
   border-radius: 999px;
-  border: 1px solid rgb(103 232 249 / 0.28);
-  background: rgb(15 23 42 / 0.55);
-  padding: 0.45rem 0.8rem;
-  font-size: 0.875rem;
-  color: rgb(207 250 254);
-  transition: background-color 0.2s ease, border-color 0.2s ease;
+  padding: 0.4rem 0.5rem;
 }
 
-.skill-pill:hover {
-  border-color: rgb(167 243 208 / 0.45);
-  background: rgb(103 232 249 / 0.11);
+.nav-transparent {
+  background: rgba(6, 8, 16, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: none;
+}
+
+.nav-scrolled {
+  background: rgba(6, 8, 16, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(103, 232, 249, 0.05);
 }
 
 @media (min-width: 768px) {
   .portfolio-nav {
     left: 50%;
-    max-width: 64rem;
+    max-width: 62rem;
     transform: translateX(-50%);
   }
+}
+
+/* ═══════════════════════════════════════ GRADIENT TEXT ══ */
+.gradient-text {
+  background: linear-gradient(135deg, #67e8f9 0%, #38bdf8 40%, #818cf8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ═══════════════════════════════════════ HERO ANIMATIONS ══ */
+.hero-left {
+  animation: reveal-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.hero-right {
+  animation: reveal-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.12s both;
 }
 
 @keyframes reveal-up {
   from {
     opacity: 0;
-    transform: translateY(18px);
+    transform: translateY(24px);
   }
   to {
     opacity: 1;
@@ -526,17 +745,159 @@ const skillGroups = [
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .reveal,
-  .reveal-delay {
-    animation: none;
-  }
+/* Button shine sweep */
+.btn-shine {
+  pointer-events: none;
+}
 
-  .console-shell,
-  .surface-card,
-  .timeline-card,
-  .skill-pill {
+/* ═══════════════════════════════════════ SCROLL MOUSE ══ */
+.scroll-dot {
+  animation: scroll-bounce 2s ease-in-out infinite;
+}
+@keyframes scroll-bounce {
+  0%, 100% { transform: translateY(0); opacity: 1; }
+  60%       { transform: translateY(6px); opacity: 0; }
+}
+
+/* ═══════════════════════════════════════ CONSOLE SHELL ══ */
+.console-shell {
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+.console-shell:hover {
+  transform: translateY(-4px) rotateX(1deg);
+  box-shadow: 0 60px 140px rgba(0, 0, 0, 0.7), 0 0 80px rgba(56, 189, 248, 0.08);
+}
+
+/* ═══════════════════════════════════════ SECTION LAYOUT ══ */
+.section-wrapper {
+  padding-top: 6rem;
+  padding-bottom: 2rem;
+}
+
+.section-heading {
+  margin-bottom: 3rem;
+  max-width: 54rem;
+}
+
+.section-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.7rem;
+  font-weight: 900;
+  letter-spacing: 0.3em;
+  color: rgba(103, 232, 249, 0.75);
+  text-transform: uppercase;
+}
+.section-kicker::before {
+  content: '';
+  display: block;
+  width: 2rem;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #67e8f9, transparent);
+}
+
+.section-title {
+  margin-top: 1rem;
+  font-family: 'Syne', 'Inter', system-ui, sans-serif;
+  font-size: clamp(2rem, 4.5vw, 3.5rem);
+  font-weight: 900;
+  line-height: 1.06;
+  color: white;
+  text-wrap: balance;
+}
+
+.section-subtitle {
+  margin-top: 1.25rem;
+  max-width: 42rem;
+  font-size: 0.9rem;
+  line-height: 1.9;
+  color: rgb(100, 116, 139);
+}
+
+/* ═══════════════════════════════════════ SURFACE CARD ══ */
+.surface-card {
+  border: 1px solid rgba(255, 255, 255, 0.065);
+  background: rgba(255, 255, 255, 0.038);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  position: relative;
+  overflow: hidden;
+}
+
+.surface-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(103, 232, 249, 0.18), transparent);
+}
+
+.surface-card:hover {
+  border-color: rgba(103, 232, 249, 0.22);
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: 0 20px 70px rgba(0, 0, 0, 0.32);
+}
+
+/* ═══════════════════════════════════════ SKILL PILL ══ */
+.skill-pill {
+  cursor: default;
+  border-radius: 999px;
+  border: 1px solid rgba(103, 232, 249, 0.18);
+  background: rgba(15, 23, 42, 0.6);
+  padding: 0.38rem 0.85rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: rgb(186, 230, 253);
+  transition: all 0.22s ease;
+}
+
+.skill-pill:hover {
+  border-color: rgba(103, 232, 249, 0.5);
+  background: rgba(103, 232, 249, 0.1);
+  color: rgb(224, 242, 254);
+  box-shadow: 0 0 16px rgba(103, 232, 249, 0.12);
+  transform: translateY(-1px);
+}
+
+/* ═══════════════════════════════════════ TIMELINE ══ */
+.timeline-track {
+  left: calc(8.5rem + 1.5rem + 24px);
+}
+
+/* ═══════════════════════════════════════ SCROLL REVEAL ══ */
+.reveal-section {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-section.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ═══════════════════════════════════════ METRIC BAR ══ */
+.metric-bar {
+  width: 0%;
+  transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ═══════════════════════════════════════ REDUCED MOTION ══ */
+@media (prefers-reduced-motion: reduce) {
+  .hero-left,
+  .hero-right,
+  .aurora-1,
+  .aurora-2,
+  .scroll-dot,
+  .reveal-section {
+    animation: none;
     transition: none;
+    opacity: 1;
+    transform: none;
   }
 }
 </style>
