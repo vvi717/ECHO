@@ -6,13 +6,21 @@
       <!-- Deep space gradient -->
       <div class="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_-20%,rgba(56,189,248,0.14),transparent),radial-gradient(ellipse_60%_50%_at_80%_60%,rgba(34,211,238,0.07),transparent),radial-gradient(ellipse_40%_40%_at_10%_80%,rgba(99,102,241,0.08),transparent),linear-gradient(180deg,#060810_0%,#080c14_50%,#050709_100%)]"></div>
       <!-- Mesh grid -->
-      <div class="absolute inset-0 bg-[linear-gradient(to_right,rgba(148,163,184,0.055)_1px,transparent_1px),linear-gradient(to_bottom,rgba(148,163,184,0.04)_1px,transparent_1px)] bg-[size:5rem_5rem]"></div>
+      <div class="absolute inset-0 bg-[linear-gradient(to_right,rgba(148,163,184,0.055)_1px,transparent_1px),linear-gradient(to_bottom,rgba(148,163,184,0.04)_1px,transparent_1px)] bg-[size:5rem_5rem] [mask-image:radial-gradient(ellipse_85%_70%_at_50%_0%,black_25%,transparent_80%)]"></div>
       <!-- Noise texture -->
       <div class="noise-overlay absolute inset-0 opacity-[0.035]"></div>
       <!-- Aurora top -->
       <div class="aurora-1 absolute -top-40 left-[10%] w-[70vw] h-[50vh] rounded-full blur-[120px] opacity-[0.18] bg-gradient-to-br from-cyan-400 via-sky-500 to-indigo-600"></div>
       <!-- Aurora accent -->
       <div class="aurora-2 absolute top-[40%] right-[5%] w-[35vw] h-[30vh] rounded-full blur-[100px] opacity-[0.1] bg-gradient-to-br from-emerald-400 to-cyan-300"></div>
+    </div>
+
+    <!-- ═══════════════════════════════════════ SCROLL PROGRESS BAR ══ -->
+    <div class="fixed top-0 left-0 z-[70] h-[2px] w-full bg-transparent">
+      <div
+        class="h-full bg-gradient-to-r from-cyan-300 via-sky-400 to-indigo-400 shadow-[0_0_12px_rgba(103,232,249,0.6)] transition-[width] duration-100 ease-out"
+        :style="{ width: `${scrollProgress}%` }"
+      ></div>
     </div>
 
     <!-- ═══════════════════════════════════════════════════ SKIP LINK ══ -->
@@ -41,23 +49,60 @@
             v-for="item in navItems"
             :key="item.href"
             :href="item.href"
-            class="nav-link group relative rounded-full px-3.5 py-2 text-sm font-semibold text-slate-400 transition-all duration-200 hover:text-cyan-200 focus:outline-none focus:ring-2 focus:ring-cyan-300/40"
+            class="nav-link group relative rounded-full px-3.5 py-2 text-sm font-semibold transition-all duration-200 hover:text-cyan-200 focus:outline-none focus:ring-2 focus:ring-cyan-300/40"
+            :class="activeSection === item.href.slice(1) ? 'text-cyan-200 bg-white/[0.06]' : 'text-slate-400'"
           >
             {{ item.label }}
-            <span class="nav-underline absolute bottom-1 left-1/2 h-[2px] w-0 -translate-x-1/2 rounded-full bg-gradient-to-r from-cyan-300 to-sky-400 transition-all duration-300 group-hover:w-4/5"></span>
+            <span
+              class="nav-underline absolute bottom-1 left-1/2 h-[2px] -translate-x-1/2 rounded-full bg-gradient-to-r from-cyan-300 to-sky-400 transition-all duration-300"
+              :class="activeSection === item.href.slice(1) ? 'w-4/5' : 'w-0 group-hover:w-4/5'"
+            ></span>
           </a>
         </div>
 
-        <!-- ECHO CTA -->
-        <router-link
-          to="/echo"
-          class="inline-flex items-center gap-2 rounded-full border border-cyan-300/30 bg-cyan-300/10 px-4 py-2 text-sm font-bold text-cyan-200 transition-all duration-300 hover:border-cyan-200/60 hover:bg-cyan-300/18 hover:shadow-[0_0_24px_rgba(103,232,249,0.2)] active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-cyan-300/50"
-        >
-          <FolderKanban class="h-3.5 w-3.5" />
-          <span class="hidden sm:inline">ECHO</span>
-        </router-link>
+        <div class="flex items-center gap-1.5">
+          <!-- ECHO CTA -->
+          <router-link
+            to="/echo"
+            class="inline-flex items-center gap-2 rounded-full border border-cyan-300/30 bg-cyan-300/10 px-4 py-2 text-sm font-bold text-cyan-200 transition-all duration-300 hover:border-cyan-200/60 hover:bg-cyan-300/18 hover:shadow-[0_0_24px_rgba(103,232,249,0.2)] active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-cyan-300/50"
+          >
+            <FolderKanban class="h-3.5 w-3.5" />
+            <span class="hidden sm:inline">ECHO</span>
+          </router-link>
+
+          <!-- Mobile menu toggle -->
+          <button
+            @click="mobileOpen = !mobileOpen"
+            class="grid h-9 w-9 place-items-center rounded-full border border-white/10 bg-white/[0.04] text-slate-300 transition-colors hover:text-cyan-200 md:hidden"
+            :aria-expanded="mobileOpen"
+            aria-label="菜单"
+          >
+            <X v-if="mobileOpen" class="h-4 w-4" />
+            <Menu v-else class="h-4 w-4" />
+          </button>
+        </div>
       </div>
     </nav>
+
+    <!-- Mobile nav panel -->
+    <Transition name="mobile-panel">
+      <div
+        v-if="mobileOpen"
+        class="fixed left-3 right-3 top-[4.6rem] z-40 rounded-3xl border border-white/[0.08] bg-[#080c16]/95 p-3 shadow-[0_30px_80px_rgba(0,0,0,0.6)] backdrop-blur-2xl md:hidden"
+      >
+        <a
+          v-for="item in navItems"
+          :key="item.href"
+          :href="item.href"
+          @click="mobileOpen = false"
+          class="flex items-center justify-between rounded-2xl px-4 py-3.5 text-sm font-bold transition-colors"
+          :class="activeSection === item.href.slice(1) ? 'bg-cyan-300/10 text-cyan-200' : 'text-slate-300 hover:bg-white/[0.05]'"
+        >
+          {{ item.label }}
+          <ArrowRight class="h-3.5 w-3.5 opacity-40" />
+        </a>
+      </div>
+    </Transition>
 
     <!-- ══════════════════════════════════════════════════════ MAIN ══ -->
     <main id="main" class="relative z-10">
@@ -119,7 +164,12 @@
 
         <!-- Right: Console terminal card -->
         <div class="hero-right">
-          <div class="console-shell relative rounded-[2rem] border border-white/[0.08] bg-white/[0.04] p-3 shadow-[0_40px_120px_rgba(0,0,0,0.6)] backdrop-blur-2xl">
+          <div
+            ref="consoleRef"
+            @mousemove="onConsoleMove"
+            @mouseleave="onConsoleLeave"
+            class="console-shell relative rounded-[2rem] border border-white/[0.08] bg-white/[0.04] p-3 shadow-[0_40px_120px_rgba(0,0,0,0.6)] backdrop-blur-2xl"
+          >
             <!-- Glow behind card -->
             <div class="absolute -inset-px rounded-[2rem] bg-gradient-to-br from-cyan-400/10 via-transparent to-sky-600/8 pointer-events-none"></div>
 
@@ -164,7 +214,7 @@
                       <div class="h-1.5 overflow-hidden rounded-full bg-white/[0.06]">
                         <div
                           class="metric-bar h-full rounded-full bg-gradient-to-r from-cyan-300 to-emerald-300"
-                          :style="{ width: `${metric.value}%`, transitionDelay: `${i * 120}ms` }"
+                          :style="{ width: heroReady ? `${metric.value}%` : '0%', transitionDelay: `${i * 140}ms` }"
                         ></div>
                       </div>
                     </div>
@@ -216,6 +266,20 @@
         </div>
       </section>
 
+      <!-- ─────────────────────────────────── KEYWORD MARQUEE ──── -->
+      <div class="marquee relative z-10 border-y border-white/[0.05] bg-white/[0.015] py-5">
+        <div class="marquee-track">
+          <span
+            v-for="(keyword, i) in [...marqueeKeywords, ...marqueeKeywords]"
+            :key="`${keyword}-${i}`"
+            class="flex shrink-0 items-center gap-10 pr-10 font-mono text-xs font-bold uppercase tracking-[0.3em] text-slate-600"
+          >
+            {{ keyword }}
+            <span class="h-1 w-1 rotate-45 bg-cyan-300/40"></span>
+          </span>
+        </div>
+      </div>
+
       <!-- ────────────────────────────────── RESEARCH SECTION ──── -->
       <section id="research" class="section-wrapper">
         <div class="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -229,13 +293,12 @@
             <article
               v-for="(focus, i) in researchFocus"
               :key="focus.title"
-              class="research-card reveal-section group relative overflow-hidden rounded-[1.75rem] border border-white/[0.07] bg-white/[0.04] p-7 backdrop-blur-sm transition-all duration-500 hover:-translate-y-2 hover:border-cyan-300/30 hover:shadow-[0_24px_80px_rgba(0,0,0,0.35)]"
+              @mousemove="onSpot"
+              class="research-card spot-card reveal-section group relative overflow-hidden rounded-[1.75rem] border border-white/[0.07] bg-white/[0.04] p-7 backdrop-blur-sm transition-all duration-500 hover:-translate-y-2 hover:border-cyan-300/30 hover:shadow-[0_24px_80px_rgba(0,0,0,0.35)]"
               :style="{ transitionDelay: `${i * 80}ms` }"
             >
               <!-- Card index -->
               <span class="absolute top-5 right-5 font-mono text-[11px] font-black text-slate-700">{{ String(i + 1).padStart(2, '0') }}</span>
-              <!-- Shimmer sweep on hover -->
-              <div class="card-shimmer absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/[0.04] to-transparent transition-transform duration-700 group-hover:translate-x-full"></div>
               <!-- Inner glow -->
               <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-cyan-300/20 to-transparent"></div>
 
@@ -272,12 +335,11 @@
             <!-- ECHO hero project card -->
             <router-link
               to="/echo"
-              class="group reveal-section relative overflow-hidden rounded-[2rem] border border-cyan-300/15 bg-[#0a0f1c] p-8 transition-all duration-500 hover:-translate-y-1 hover:border-cyan-200/40 hover:shadow-[0_32px_100px_rgba(0,0,0,0.5)]"
+              @mousemove="onSpot"
+              class="group spot-card reveal-section relative overflow-hidden rounded-[2rem] border border-cyan-300/15 bg-[#0a0f1c] p-8 transition-all duration-500 hover:-translate-y-1 hover:border-cyan-200/40 hover:shadow-[0_32px_100px_rgba(0,0,0,0.5)]"
             >
               <!-- Background glow -->
               <div class="absolute inset-0 bg-[radial-gradient(circle_at_75%_20%,rgba(56,189,248,0.18),transparent_50%),linear-gradient(135deg,rgba(255,255,255,0.06),transparent_55%)]"></div>
-              <!-- Shimmer -->
-              <div class="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/[0.04] to-transparent transition-transform duration-1000 group-hover:translate-x-full"></div>
               <!-- Top border glow -->
               <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-cyan-300/30 to-transparent"></div>
 
@@ -299,7 +361,8 @@
             <!-- Right column: PureFlow only -->
             <router-link
               to="/pureflow"
-              class="reveal-section surface-card group rounded-[2rem] p-8 transition-all duration-500 hover:-translate-y-1"
+              @mousemove="onSpot"
+              class="reveal-section spot-card surface-card group rounded-[2rem] p-8 transition-all duration-500 hover:-translate-y-1"
             >
               <ExternalLink class="mb-8 h-6 w-6 text-cyan-300" />
               <p class="text-[11px] font-black uppercase tracking-[0.24em] text-cyan-200/60">Interactive hero demo</p>
@@ -313,7 +376,8 @@
             <article
               v-for="(project, i) in featuredProjects"
               :key="project.title"
-              class="reveal-section surface-card rounded-[2rem] p-6 transition-all duration-500 hover:-translate-y-1"
+              @mousemove="onSpot"
+              class="reveal-section spot-card surface-card rounded-[2rem] p-6 transition-all duration-500 hover:-translate-y-1"
               :style="{ transitionDelay: `${i * 55}ms` }"
             >
               <component :is="project.icon" class="mb-6 h-6 w-6 text-emerald-400" />
@@ -342,7 +406,8 @@
               <article
                 v-for="(item, i) in workExperiences"
                 :key="item.title"
-                class="reveal-section group grid gap-6 rounded-[1.5rem] border border-white/[0.06] bg-white/[0.03] p-6 transition-all duration-500 hover:border-cyan-300/25 hover:bg-white/[0.055] hover:shadow-[0_16px_60px_rgba(0,0,0,0.3)] md:grid-cols-[8rem_1fr] backdrop-blur-sm"
+                @mousemove="onSpot"
+                class="reveal-section spot-card group relative grid gap-6 overflow-hidden rounded-[1.5rem] border border-white/[0.06] bg-white/[0.03] p-6 transition-all duration-500 hover:border-cyan-300/25 hover:bg-white/[0.055] hover:shadow-[0_16px_60px_rgba(0,0,0,0.3)] md:grid-cols-[8rem_1fr] backdrop-blur-sm"
                 :style="{ transitionDelay: `${i * 60}ms` }"
               >
                 <!-- Date column -->
@@ -380,7 +445,8 @@
               <div
                 v-for="(group, i) in skillGroups"
                 :key="group.title"
-                class="reveal-section skill-group rounded-[1.5rem] border border-white/[0.06] bg-white/[0.03] p-6 transition-all duration-300 hover:border-cyan-300/20"
+                @mousemove="onSpot"
+                class="reveal-section spot-card skill-group relative overflow-hidden rounded-[1.5rem] border border-white/[0.06] bg-white/[0.03] p-6 transition-all duration-300 hover:border-cyan-300/20"
                 :style="{ transitionDelay: `${i * 60}ms` }"
               >
                 <h3 class="mb-5 text-sm font-black uppercase tracking-[0.18em] text-slate-300">{{ group.title }}</h3>
@@ -409,11 +475,10 @@
             <article
               v-for="(item, i) in education"
               :key="item.school"
-              class="reveal-section surface-card group relative overflow-hidden rounded-[1.75rem] p-8 transition-all duration-500 hover:-translate-y-1"
+              @mousemove="onSpot"
+              class="reveal-section spot-card surface-card group relative overflow-hidden rounded-[1.75rem] p-8 transition-all duration-500 hover:-translate-y-1"
               :style="{ transitionDelay: `${i * 100}ms` }"
             >
-              <!-- Shimmer -->
-              <div class="card-shimmer absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/[0.05] to-transparent transition-transform duration-700 group-hover:translate-x-full"></div>
               <!-- Corner geo decoration -->
               <div class="absolute -top-10 -right-10 h-32 w-32 rounded-full border border-cyan-300/8 opacity-50"></div>
               <div class="absolute -top-6 -right-6 h-20 w-20 rounded-full border border-cyan-300/12 opacity-50"></div>
@@ -433,14 +498,12 @@
       </section>
 
       <!-- ──────────────────────────────────── CONTACT SECTION ──── -->
-      <section id="contact" class="section-wrapper pb-28">
+      <section id="contact" class="section-wrapper pb-16">
         <div class="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div class="reveal-section relative overflow-hidden rounded-[2.5rem] border border-cyan-300/15 bg-gradient-to-br from-cyan-300/8 via-sky-400/5 to-indigo-500/8 p-8 md:p-12">
+          <div class="reveal-section beam-card relative overflow-hidden rounded-[2.5rem] border border-cyan-300/15 bg-gradient-to-br from-cyan-300/8 via-sky-400/5 to-indigo-500/8 p-8 md:p-12">
             <!-- Background blob -->
             <div class="absolute -top-24 -right-24 h-64 w-64 rounded-full bg-cyan-400/10 blur-3xl pointer-events-none"></div>
             <div class="absolute -bottom-16 -left-16 h-48 w-48 rounded-full bg-sky-500/8 blur-2xl pointer-events-none"></div>
-            <!-- Top glow line -->
-            <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-cyan-300/30 to-transparent"></div>
 
             <div class="relative grid gap-8 md:grid-cols-[1fr_auto] md:items-center">
               <div>
@@ -463,6 +526,17 @@
         </div>
       </section>
 
+      <!-- ═════════════════════════════════════════════════ FOOTER ══ -->
+      <footer class="relative z-10 border-t border-white/[0.05]">
+        <div class="mx-auto flex w-full max-w-7xl flex-col items-center justify-between gap-3 px-4 py-8 font-mono text-[11px] tracking-wider text-slate-600 sm:flex-row sm:px-6 lg:px-8">
+          <p>© 2026 Wei Liu · Melbourne</p>
+          <a href="#overview" class="flex items-center gap-1.5 transition-colors hover:text-cyan-300">
+            BACK TO TOP
+            <ArrowRight class="h-3 w-3 -rotate-90" />
+          </a>
+        </div>
+      </footer>
+
     </main>
   </div>
 </template>
@@ -480,22 +554,61 @@ import {
   FolderKanban,
   GraduationCap,
   Mail,
+  Menu,
   MessageCircle,
   Microscope,
   Network,
   ShieldCheck,
   Sparkles,
+  X,
 } from 'lucide-vue-next';
 
 // ─── Scroll state ───────────────────────────────────────────────────────────
 const scrolled = ref(false);
-const handleScroll = () => { scrolled.value = window.scrollY > 40; };
+const scrollProgress = ref(0);
+const handleScroll = () => {
+  scrolled.value = window.scrollY > 40;
+  const max = document.documentElement.scrollHeight - window.innerHeight;
+  scrollProgress.value = max > 0 ? Math.min(100, (window.scrollY / max) * 100) : 0;
+};
+
+// ─── Scroll-spy + mobile nav ────────────────────────────────────────────────
+const activeSection = ref('overview');
+const mobileOpen = ref(false);
+let sectionObserver = null;
+
+// ─── Hero metric bars animate in after mount ────────────────────────────────
+const heroReady = ref(false);
+
+// ─── Cursor spotlight on cards ──────────────────────────────────────────────
+const onSpot = (e) => {
+  const rect = e.currentTarget.getBoundingClientRect();
+  e.currentTarget.style.setProperty('--spot-x', `${e.clientX - rect.left}px`);
+  e.currentTarget.style.setProperty('--spot-y', `${e.clientY - rect.top}px`);
+};
+
+// ─── Console card 3D tilt ───────────────────────────────────────────────────
+const consoleRef = ref(null);
+const prefersReducedMotion = typeof window !== 'undefined'
+  && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+const onConsoleMove = (e) => {
+  if (prefersReducedMotion || !consoleRef.value) return;
+  const rect = consoleRef.value.getBoundingClientRect();
+  const rx = ((e.clientY - rect.top) / rect.height - 0.5) * -3.5;
+  const ry = ((e.clientX - rect.left) / rect.width - 0.5) * 5;
+  consoleRef.value.style.transform = `perspective(1100px) rotateX(${rx.toFixed(2)}deg) rotateY(${ry.toFixed(2)}deg) translateY(-2px)`;
+};
+const onConsoleLeave = () => {
+  if (consoleRef.value) consoleRef.value.style.transform = '';
+};
 
 // ─── Intersection observer for reveal animations ────────────────────────────
 let observer = null;
 
 onMounted(() => {
   window.addEventListener('scroll', handleScroll, { passive: true });
+  handleScroll();
 
   observer = new IntersectionObserver(
     (entries) => {
@@ -511,17 +624,26 @@ onMounted(() => {
 
   document.querySelectorAll('.reveal-section').forEach((el) => observer.observe(el));
 
-  // Metric bar animation
-  setTimeout(() => {
-    document.querySelectorAll('.metric-bar').forEach((el) => {
-      el.style.transition = 'width 1.2s cubic-bezier(0.16, 1, 0.3, 1)';
-    });
-  }, 300);
+  // Scroll-spy: highlight the section currently in the middle of the viewport
+  sectionObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) activeSection.value = entry.target.id;
+      });
+    },
+    { rootMargin: '-40% 0px -55% 0px' }
+  );
+  document.querySelectorAll('main section[id]').forEach((el) => sectionObserver.observe(el));
+
+  requestAnimationFrame(() => {
+    setTimeout(() => { heroReady.value = true; }, 350);
+  });
 });
 
 onUnmounted(() => {
   window.removeEventListener('scroll', handleScroll);
   if (observer) observer.disconnect();
+  if (sectionObserver) sectionObserver.disconnect();
 });
 
 // ─── Data ────────────────────────────────────────────────────────────────────
@@ -532,6 +654,17 @@ const navItems = [
   { label: '经历', href: '#experience' },
   { label: '技能', href: '#skills' },
   { label: '联系', href: '#contact' },
+];
+
+const marqueeKeywords = [
+  'Multimodal Emotion',
+  'Empathetic Agents',
+  'LLM Systems',
+  'Realtime Data',
+  'Cloud Native',
+  'DevOps',
+  'Human-Centred AI',
+  'Deep Learning',
 ];
 
 const signalMetrics = [
@@ -718,12 +851,29 @@ const skillGroups = [
   }
 }
 
+/* Mobile panel transition */
+.mobile-panel-enter-active,
+.mobile-panel-leave-active {
+  transition: opacity 0.22s ease, transform 0.22s ease;
+}
+.mobile-panel-enter-from,
+.mobile-panel-leave-to {
+  opacity: 0;
+  transform: translateY(-8px) scale(0.98);
+}
+
 /* ═══════════════════════════════════════ GRADIENT TEXT ══ */
 .gradient-text {
-  background: linear-gradient(135deg, #67e8f9 0%, #38bdf8 40%, #818cf8 100%);
+  background: linear-gradient(135deg, #67e8f9 0%, #38bdf8 35%, #818cf8 70%, #67e8f9 100%);
+  background-size: 220% 220%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  animation: gradient-pan 7s ease-in-out infinite;
+}
+@keyframes gradient-pan {
+  0%, 100% { background-position: 0% 50%; }
+  50%      { background-position: 100% 50%; }
 }
 
 /* ═══════════════════════════════════════ HERO ANIMATIONS ══ */
@@ -761,11 +911,29 @@ const skillGroups = [
 
 /* ═══════════════════════════════════════ CONSOLE SHELL ══ */
 .console-shell {
-  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  will-change: transform;
 }
 .console-shell:hover {
-  transform: translateY(-4px) rotateX(1deg);
   box-shadow: 0 60px 140px rgba(0, 0, 0, 0.7), 0 0 80px rgba(56, 189, 248, 0.08);
+}
+
+/* ═══════════════════════════════════════ MARQUEE ══ */
+.marquee {
+  overflow: hidden;
+  mask-image: linear-gradient(90deg, transparent, black 12%, black 88%, transparent);
+  -webkit-mask-image: linear-gradient(90deg, transparent, black 12%, black 88%, transparent);
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll 30s linear infinite;
+}
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+@keyframes marquee-scroll {
+  to { transform: translateX(-50%); }
 }
 
 /* ═══════════════════════════════════════ SECTION LAYOUT ══ */
@@ -804,8 +972,11 @@ const skillGroups = [
   font-size: clamp(2rem, 4.5vw, 3.5rem);
   font-weight: 900;
   line-height: 1.06;
-  color: white;
   text-wrap: balance;
+  background: linear-gradient(180deg, #ffffff 55%, #b6c2d8);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .section-subtitle {
@@ -840,6 +1011,55 @@ const skillGroups = [
   border-color: rgba(103, 232, 249, 0.22);
   background: rgba(255, 255, 255, 0.06);
   box-shadow: 0 20px 70px rgba(0, 0, 0, 0.32);
+}
+
+/* ═══════════════════════════════════════ CURSOR SPOTLIGHT ══ */
+.spot-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  background: radial-gradient(
+    320px circle at var(--spot-x, 50%) var(--spot-y, 50%),
+    rgba(103, 232, 249, 0.09),
+    transparent 65%
+  );
+}
+.spot-card:hover::after {
+  opacity: 1;
+}
+
+/* ═══════════════════════════════════════ BEAM BORDER (contact) ══ */
+@property --beam-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.beam-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: conic-gradient(
+    from var(--beam-angle),
+    transparent 0%,
+    rgba(103, 232, 249, 0.65) 8%,
+    rgba(56, 189, 248, 0.3) 14%,
+    transparent 22%
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  animation: beam-spin 7s linear infinite;
+  pointer-events: none;
+}
+@keyframes beam-spin {
+  to { --beam-angle: 360deg; }
 }
 
 /* ═══════════════════════════════════════ SKILL PILL ══ */
@@ -882,7 +1102,6 @@ const skillGroups = [
 
 /* ═══════════════════════════════════════ METRIC BAR ══ */
 .metric-bar {
-  width: 0%;
   transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -893,7 +1112,10 @@ const skillGroups = [
   .aurora-1,
   .aurora-2,
   .scroll-dot,
-  .reveal-section {
+  .reveal-section,
+  .gradient-text,
+  .marquee-track,
+  .beam-card::before {
     animation: none;
     transition: none;
     opacity: 1;
