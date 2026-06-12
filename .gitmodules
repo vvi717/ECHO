@@ -1,0 +1,4 @@
+[submodule "ECHO"]
+	path = ECHO
+	url = https://github.com/vvi717/ECHO.git
+	branch = main
