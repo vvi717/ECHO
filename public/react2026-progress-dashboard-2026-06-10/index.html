@@ -900,6 +900,230 @@
       }
     }
 
+    /* ===== Supervisor theory mainline review ===== */
+    .nav-divider {
+      margin: 14px 4px 6px;
+      padding-top: 12px;
+      border-top: 1px solid var(--line);
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .review-conclusion {
+      display: grid;
+      grid-template-columns: 52px 1fr;
+      gap: 16px;
+      align-items: start;
+      border: 1px solid rgba(0, 109, 174, 0.3);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, #f4f9ff, #eef5fc);
+      padding: 18px 20px;
+    }
+    .review-conclusion .rc-star {
+      width: 52px;
+      height: 52px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      font-size: 26px;
+      color: #fff;
+      background: linear-gradient(135deg, var(--blue), #00497a);
+      box-shadow: 0 12px 26px -12px rgba(0, 109, 174, 0.8);
+    }
+    .review-conclusion p {
+      margin: 0;
+      font-size: 15px;
+      line-height: 1.7;
+      color: #243;
+    }
+    .review-conclusion b { color: #00497a; }
+
+    .review-table {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: var(--paper);
+      box-shadow: var(--shadow);
+    }
+    .rt-row {
+      display: grid;
+      grid-template-columns: 1.2fr 1.3fr 1.3fr 1.4fr 0.9fr;
+      border-bottom: 1px solid var(--line);
+    }
+    .rt-row:last-child { border-bottom: 0; }
+    .rt-row.rt-head {
+      background: #eef0ec;
+      font-family: var(--mono);
+      font-size: 10.5px;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .rt-cell {
+      padding: 12px 14px;
+      border-right: 1px solid var(--line);
+      font-size: 13px;
+      line-height: 1.5;
+      color: #2b3038;
+      min-width: 0;
+      overflow-wrap: anywhere;
+    }
+    .rt-cell:last-child { border-right: 0; }
+    .rt-stage { font-weight: 800; color: var(--ink); }
+    .rt-stage small {
+      display: block;
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 3px;
+      letter-spacing: 0.04em;
+    }
+    .rt-cell.rt-status { display: flex; align-items: center; }
+
+    /* status badges (reuse dashboard palette) */
+    .sbadge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 11px;
+      border-radius: 999px;
+      font-size: 11.5px;
+      font-weight: 800;
+      white-space: nowrap;
+      border: 1px solid transparent;
+    }
+    .sbadge::before { content: ""; width: 6px; height: 6px; border-radius: 999px; background: currentColor; }
+    .sb-amber { color: var(--warn); background: rgba(154, 103, 0, 0.1); border-color: rgba(154, 103, 0, 0.28); }
+    .sb-blue  { color: var(--blue); background: rgba(0, 109, 174, 0.1); border-color: rgba(0, 109, 174, 0.28); }
+    .sb-green { color: var(--ok); background: rgba(20, 108, 67, 0.1); border-color: rgba(20, 108, 67, 0.28); }
+    .sb-grey  { color: var(--grey); background: rgba(122, 122, 122, 0.12); border-color: rgba(122, 122, 122, 0.3); }
+
+    /* module detail panels */
+    .mod-panel {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+      box-shadow: var(--shadow);
+      padding: 20px 22px;
+      margin-bottom: 16px;
+    }
+    .mod-head {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      flex-wrap: wrap;
+      padding-bottom: 14px;
+      margin-bottom: 14px;
+      border-bottom: 1px solid var(--line);
+    }
+    .mod-head .mod-grow { flex: 1; min-width: 0; }
+    .mod-kicker {
+      font-family: var(--mono);
+      font-size: 10.5px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--blue);
+    }
+    .mod-head h3 {
+      margin: 5px 0 0;
+      font-size: 22px;
+      line-height: 1.15;
+      color: var(--ink);
+    }
+    .mod-head .mod-sub {
+      margin: 4px 0 0;
+      font-size: 12.5px;
+      color: var(--muted);
+    }
+    .mod-blocks {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 11px;
+    }
+    .mod-block {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #fbfbfa;
+      padding: 13px 15px;
+      border-left: 4px solid var(--line-strong);
+    }
+    .mod-block.full { grid-column: 1 / -1; }
+    .mod-block .mb-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      color: var(--muted);
+    }
+    .mod-block p { margin: 0; font-size: 13px; line-height: 1.6; color: #2b3038; }
+    .mod-block ul { margin: 0; padding-left: 17px; }
+    .mod-block li { font-size: 13px; line-height: 1.6; color: #2b3038; margin: 2px 0; }
+    .mod-block code {
+      font-family: var(--mono);
+      font-size: 0.86em;
+      background: #eef1f6;
+      padding: 1px 5px;
+      border-radius: 5px;
+      color: #00497a;
+    }
+    .mod-block.vision { border-left-color: var(--blue); background: #f6faff; }
+    .mod-block.vision .mb-label { color: var(--blue); }
+    .mod-block.done   { border-left-color: var(--ok); }
+    .mod-block.done   .mb-label { color: var(--ok); }
+    .mod-block.why    { border-left-color: #334; }
+    .mod-block.why    .mb-label { color: #334; }
+    .mod-block.risk   { border-left-color: var(--warn); background: #fffdf6; }
+    .mod-block.risk   .mb-label { color: var(--warn); }
+    .mod-block.next   { border-left-color: var(--accent); }
+    .mod-block.next   .mb-label { color: var(--accent); }
+
+    .review-summary {
+      border: 1px solid rgba(196, 18, 48, 0.25);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, #fff, #fdf4f6);
+      padding: 26px;
+      text-align: center;
+    }
+    .review-summary .rs-tag {
+      display: inline-block;
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      border: 1px solid rgba(196, 18, 48, 0.3);
+      background: rgba(196, 18, 48, 0.06);
+      border-radius: 999px;
+      padding: 5px 14px;
+    }
+    .review-summary p {
+      margin: 16px auto 0;
+      max-width: 640px;
+      font-size: clamp(18px, 2.6vw, 26px);
+      font-weight: 800;
+      line-height: 1.45;
+      color: #1b1b1d;
+    }
+    .review-summary mark { background: linear-gradient(180deg, transparent 60%, rgba(196,18,48,0.16) 60%); color: var(--accent); }
+
+    @media (max-width: 980px) {
+      .rt-row { grid-template-columns: 1fr; }
+      .rt-cell { border-right: 0; border-bottom: 1px solid var(--line); }
+      .rt-row .rt-cell:last-child { border-bottom: 0; }
+      .rt-row.rt-head { display: none; }
+      .mod-blocks { grid-template-columns: 1fr; }
+    }
+
     @media print {
       .sidebar,
       .footer-actions,
@@ -944,6 +1168,9 @@
         <button data-section="results"><span class="nav-index">05</span><span>Evidence Explorer</span></button>
         <button data-section="export"><span class="nav-index">06</span><span>Full Export</span></button>
         <button data-section="next"><span class="nav-index">07</span><span>Next Steps</span></button>
+        <div class="nav-divider">导师理论板块 · 研究主线复盘</div>
+        <button data-section="review"><span class="nav-index">08</span><span>主线复盘 · 一图流</span></button>
+        <button data-section="review-detail"><span class="nav-index">09</span><span>九大流程 · 详情</span></button>
       </nav>
 
       <div class="sidebar-footer">
@@ -1370,11 +1597,500 @@
           <button class="secondary-button" id="printButtonBottom">Print / PDF</button>
         </div>
       </section>
+
+      <!-- ============ 08 · 主线复盘 · 一图流 ============ -->
+      <section class="section" id="review">
+        <div class="panel">
+          <div class="panel-title">
+            <h2>研究主线复盘 · 导师理论板块</h2>
+            <span class="tag red">一图流</span>
+          </div>
+          <p class="caption" style="margin-bottom: 16px;">导师想法 → 当前进度 → 下一步 · 2026-06-10</p>
+          <div class="review-conclusion">
+            <div class="rc-star">★</div>
+            <p><b>核心结论：</b>目前已经落实到 <b>"研究设计 + offline evidence layer"</b>，但还没有进入 <b>"model training intervention"</b>。这不是缺点，而是正确节奏——如果现在直接接入模型，很容易分不清提升究竟来自 personality、intent、FiLM 结构，还是 evaluator 偏差。</p>
+          </div>
+          <p class="lede" style="margin-top: 18px;">导师原始想法：从 speaker 多模态信息和 listener 个性出发，先判断 listener 应产生什么<strong>反应意图</strong>，再把意图作为<strong>条件信号</strong>输入生成模型，最后用 <strong>dyadic evaluator</strong> 判断生成反应是否和 speaker 同步、自然、合理。我们目前完成的是更安全的前置层。</p>
+        </div>
+
+        <div class="panel" style="margin-top: 16px;">
+          <div class="panel-title">
+            <h3>9 大流程 · 状态总览</h3>
+            <span class="tag">左侧「09 详情」可看每步展开</span>
+          </div>
+          <div class="review-table">
+            <div class="rt-row rt-head">
+              <div class="rt-cell">流程</div>
+              <div class="rt-cell">已做准备</div>
+              <div class="rt-cell">当前状态</div>
+              <div class="rt-cell">下一步</div>
+              <div class="rt-cell">状态</div>
+            </div>
+            <div class="rt-row">
+              <div class="rt-cell rt-stage"><small>01 · INPUT</small>Speaker 多模态输入</div>
+              <div class="rt-cell">audio / video / personality 数据管线已有</div>
+              <div class="rt-cell">text / context 还没稳定接入</div>
+              <div class="rt-cell">先保持现有输入稳定，后面再补 text / context</div>
+              <div class="rt-cell rt-status"><span class="sbadge sb-amber">部分完成</span></div>
+            </div>
+            <div class="rt-row">
+              <div class="rt-cell rt-stage"><small>02 · INTENT LLM</small>LLM Reaction Intent Predictor</div>
+              <div class="rt-cell">还没在线调用 LLM</div>
+              <div class="rt-cell">已做 offline intent / affect schema 和 pilot package</div>
+              <div class="rt-cell">先用离线标注做小规模 pilot</div>
+              <div class="rt-cell rt-status"><span class="sbadge sb-blue">安全前置完成</span></div>
+            </div>
+            <div class="rt-row">
+              <div class="rt-cell rt-stage"><small>03 · SCHEMA</small>反应意图 / 时机 / 强度</div>
+              <div class="rt-cell">两层 intent / affect schema 已落地</div>
+              <div class="rt-cell">正在等人工 review</div>
+              <div class="rt-cell">先 review top-20 / top-50 样本</div>
+              <div class="rt-cell rt-status"><span class="sbadge sb-green">合理推进</span></div>
+            </div>
+            <div class="rt-row">
+              <div class="rt-cell rt-stage"><small>04 · CONDITION</small>Conditioning Signal</div>
+              <div class="rt-cell">还没接入模型</div>
+              <div class="rt-cell">先不接，避免过早加复杂度</div>
+              <div class="rt-cell">只有分析结果支持时，才做最小 smoke test</div>
+              <div class="rt-cell rt-status"><span class="sbadge sb-grey">暂不接入</span></div>
+            </div>
+            <div class="rt-row">
+              <div class="rt-cell rt-stage"><small>05 · GENERATOR</small>Generator 主体</div>
+              <div class="rt-cell">Generic V0 locked；Big-Five FiLM 已有 true / shuffled / zero / no-condition controls</div>
+              <div class="rt-cell">已有受控实验基础</div>
+              <div class="rt-cell">先解释结果，不急着大训练</div>
+              <div class="rt-cell rt-status"><span class="sbadge sb-green">已有基础</span></div>
+            </div>
+            <div class="rt-row">
+              <div class="rt-cell rt-stage"><small>06 · OUTPUT</small>Generated Facial Attributes</div>
+              <div class="rt-cell">validation export 已完成</div>
+              <div class="rt-cell">shape [10, T, 25] 之前已经通过</div>
+              <div class="rt-cell">继续作为所有分析的统一输出</div>
+              <div class="rt-cell rt-status"><span class="sbadge sb-green">已完成基础闭环</span></div>
+            </div>
+            <div class="rt-row">
+              <div class="rt-cell rt-stage"><small>07 · EVALUATOR</small>Dyadic Reaction Quality Evaluator</div>
+              <div class="rt-cell">offline synchrony metrics 已实现并跑过</div>
+              <div class="rt-cell">已经有第一版 evaluator</div>
+              <div class="rt-cell">继续作为分析工具，不直接当 loss</div>
+              <div class="rt-cell rt-status"><span class="sbadge sb-green">已完成第一版</span></div>
+            </div>
+            <div class="rt-row">
+              <div class="rt-cell rt-stage"><small>08 · SYNC SCORE</small>Synchrony Score / Quality Rating</div>
+              <div class="rt-cell">已有 synchrony 诊断</div>
+              <div class="rt-cell">与 official-style metric 排名不一致</div>
+              <div class="rt-cell">先做谨慎解释，不能直接下结论</div>
+              <div class="rt-cell rt-status"><span class="sbadge sb-amber">需要谨慎解释</span></div>
+            </div>
+            <div class="rt-row">
+              <div class="rt-cell rt-stage"><small>09 · LOSS / REWARD</small>Loss / Reward Signal</div>
+              <div class="rt-cell">还没有加入训练</div>
+              <div class="rt-cell">当前证据不支持直接加</div>
+              <div class="rt-cell">等 intent 与 synchrony 分析更清楚后再考虑</div>
+              <div class="rt-cell rt-status"><span class="sbadge sb-grey">暂不加入训练</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel" style="margin-top: 16px;">
+          <div class="panel-title"><h3>目前最重要的四个判断</h3></div>
+          <div class="note-grid" style="grid-template-columns: repeat(2, minmax(0, 1fr));">
+            <div class="note">
+              <h3>1 · Generic V0 是 clean baseline</h3>
+              <p>不能随便改。它是所有 personality / intent / synchrony 分析的对照基线。</p>
+            </div>
+            <div class="note">
+              <h3>2 · Big-Five 没被推翻，但不是全面提升</h3>
+              <p>有 controlled evidence，但未在所有指标全面赢。应说 "Big-Five is promising, but its effect is selective and needs interpretation"。</p>
+            </div>
+            <div class="note">
+              <h3>3 · Big-Five 更像影响 style / intensity</h3>
+              <p>影响 reaction style / intensity / reconstruction-like behavior，但不明显改善 temporal synchrony。</p>
+            </div>
+            <div class="note">
+              <h3>4 · Timing / synchrony 需单独机制或单独分析</h3>
+              <p>可能需 intent timing label / dyadic synchrony evaluator / lag-aware objective / separate timing mechanism；现在不能直接加 synchrony loss。</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel" style="margin-top: 16px;">
+          <div class="panel-title"><h3>接下来做什么</h3></div>
+          <div class="note-grid" style="grid-template-columns: repeat(4, minmax(0, 1fr));">
+            <div class="note">
+              <h3>1 · review intent pilot</h3>
+              <p>先把 top-20 / 50 draft labels 变成 reviewed labels。没人工 review，不要训练。</p>
+            </div>
+            <div class="note">
+              <h3>2 · 解释 Big-Five 何时有效</h3>
+              <p>按 intent / affect group 分析：Big-Five / no-condition 各自何时更好？哪些 reaction type 更需 personality？</p>
+            </div>
+            <div class="note">
+              <h3>3 · 最小 smoke test</h3>
+              <p>解释力足够再做，非大训练：Big-Five only / +true / +shuffled / +no intent。</p>
+            </div>
+            <div class="note">
+              <h3>4 · 暂不加 synchrony loss</h3>
+              <p>当前证据不支持把 sync score 当 loss；先让分析层站住，再考虑训练介入。</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="review-summary" style="margin-top: 16px;">
+          <span class="rs-tag">一句话总结</span>
+          <p>现在的重点不是继续堆训练，而是先把 <mark>"为什么有效、什么时候有效"</mark> 解释清楚。</p>
+        </div>
+
+        <div class="footer-actions">
+          <button class="primary-button" data-jump="review-detail">查看九大流程详情</button>
+          <button class="secondary-button" data-jump="overview">回到 Overview</button>
+        </div>
+      </section>
+
+      <!-- ============ 09 · 九大流程 · 详情 ============ -->
+      <section class="section" id="review-detail">
+        <div class="panel" style="margin-bottom: 16px;">
+          <div class="panel-title">
+            <h2>九大流程 · 逐项展开</h2>
+            <span class="tag red">导师想法 / 当前已做 / 为什么 / 风险 / 下一步</span>
+          </div>
+          <p class="caption">每个流程按五块结构复盘。虚线状态参见「08 主线复盘 · 一图流」的总览表。</p>
+        </div>
+
+        <div class="mod-panel">
+          <div class="mod-head">
+            <div class="mod-grow">
+              <div class="mod-kicker">P1 · Pipeline Stage</div>
+              <h3>Speaker 多模态输入</h3>
+            </div>
+            <span class="sbadge sb-amber">部分完成</span>
+          </div>
+          <div class="mod-blocks">
+            <div class="mod-block vision full">
+              <div class="mb-label">导师想法</div>
+              <p>输入应含 <code>speaker audio / video / text / context</code> + <code>listener personality</code>——不只看声音和脸，还看语义文本、上下文，以及 listener 个性信息。</p>
+            </div>
+            <div class="mod-block done">
+              <div class="mb-label">当前已做</div>
+              <p>稳定使用 speaker audio、speaker video / facial、listener facial、listener Big-Five；text / transcript / semantic context <strong>尚未稳定接入</strong>。</p>
+            </div>
+            <div class="mod-block why">
+              <div class="mb-label">为什么这样做</div>
+              <p>挑战核心输入本就是 speaker audio-visual behaviour，text 暂非必须；text / context 留给未来 LLM intent predictor。</p>
+            </div>
+            <div class="mod-block risk">
+              <div class="mb-label">当前风险 / 边界</div>
+              <p><strong>test split 只用于最终官方评估</strong>，不进入训练、调参、schema 设计、模型选择或分析。</p>
+            </div>
+            <div class="mod-block next">
+              <div class="mb-label">下一步动作</div>
+              <p>保持现有输入稳定；若做 LLM intent，再检查 transcript / ASR / session context 能否安全映射到样本。</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="mod-panel">
+          <div class="mod-head">
+            <div class="mod-grow">
+              <div class="mod-kicker">P2 · Pipeline Stage</div>
+              <h3>LLM Reaction Intent Predictor</h3>
+            </div>
+            <span class="sbadge sb-blue">安全前置完成</span>
+          </div>
+          <div class="mod-blocks">
+            <div class="mod-block vision full">
+              <div class="mb-label">导师想法</div>
+              <p>用小 LLM 根据 speaker context + listener personality 预测 listener 应做什么反应（<strong>高层意图，不直接生成脸</strong>）。例：开心 → amusement / agreement；困难经历 → empathy / concern；疑惑 → confusion / attentive。</p>
+            </div>
+            <div class="mod-block done">
+              <div class="mb-label">当前已做</div>
+              <p>还没在线 / 训练时调用 LLM；已做 offline intent/affect schema、top-20/50 pilot package、annotation guide、validator、visual-only draft labels。</p>
+            </div>
+            <div class="mod-block why">
+              <div class="mb-label">为什么这样做</div>
+              <p>我先<strong>替代 LLM 做小规模人工 review</strong>，验证 schema 合理性、类别可理解性、labels 能否解释 Big-Five 何时有效。schema 合理才值得让 LLM 大规模生成 draft。</p>
+            </div>
+            <div class="mod-block risk">
+              <div class="mb-label">当前风险 / 边界</div>
+              <p>暂时不做 online LLM inference；draft labels 不能直接当结论。</p>
+            </div>
+            <div class="mod-block next">
+              <div class="mb-label">下一步动作</div>
+              <p>先人工 review top-20 / 50；验证后再走 <code>LLM offline draft → human review → larger annotation set</code>。</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="mod-panel">
+          <div class="mod-head">
+            <div class="mod-grow">
+              <div class="mod-kicker">P3 · Pipeline Stage</div>
+              <h3>反应意图 / 时机 / 强度</h3>
+              <p class="mod-sub">Reaction Category · Communicative Intent · Timing · Intensity</p>
+            </div>
+            <span class="sbadge sb-green">合理推进</span>
+          </div>
+          <div class="mod-blocks">
+            <div class="mod-block vision full">
+              <div class="mb-label">导师想法</div>
+              <p>predictor 不应只输出单一 emotion label，而要输出 <strong>reaction category / communicative intent / expected timing / expected intensity</strong>——回答"做什么、何时、多强"。</p>
+            </div>
+            <div class="mod-block done">
+              <div class="mb-label">当前已做 · 两层 schema</div>
+              <ul>
+                <li><strong>第一层 affect profile</strong>（对齐官方输出空间）：expected VA、primary + secondary expression、expected AU pattern</li>
+                <li><strong>第二层 communicative intent</strong>：neutral_attention / backchannel / agreement / amusement / empathy_concern / surprise / confusion / discomfort / encouragement / low_response / unclear</li>
+              </ul>
+            </div>
+            <div class="mod-block why">
+              <div class="mb-label">为什么这样做</div>
+              <p>不能把 VA / Ekman emotion 直接等同 intent（Happy 可能 = amusement / agreement / polite backchannel）。<strong>observable form ≠ social function</strong>。</p>
+            </div>
+            <div class="mod-block risk">
+              <div class="mb-label">当前风险 / 边界</div>
+              <p>第二层不是官方 label，是为研究导师 idea 设计的<strong>内部分析字段</strong>；schema 仍需人工 review。</p>
+            </div>
+            <div class="mod-block next">
+              <div class="mb-label">下一步动作</div>
+              <p>先 review top-20 / 50 样本，看 intent / affect labels 是否能解释 Big-Five 何时有效、何时无效。</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="mod-panel">
+          <div class="mod-head">
+            <div class="mod-grow">
+              <div class="mod-kicker">Review Gate · 人工评审环节</div>
+              <h3>★ Top-20 / Top-50 Intent Pilot</h3>
+              <p class="mod-sub">介于 schema 设计（P3）与条件信号接入（P4）之间的评审闸门</p>
+            </div>
+            <span class="sbadge sb-amber">待人工 Review</span>
+          </div>
+          <div class="mod-blocks">
+            <div class="mod-block vision full">
+              <div class="mb-label">这一步是什么</div>
+              <p>不是官方排名、也不是 test set，而是从 <strong>validation samples</strong> 挑出的内部 pilot 样本，用来做 intent / affect annotation。</p>
+            </div>
+            <div class="mod-block why">
+              <div class="mb-label">为什么挑 top（非随机）</div>
+              <ul>
+                <li>Big-Five 与 no-condition 差异大</li>
+                <li>official-style 与 synchrony metrics 冲突</li>
+                <li>模型分歧大；覆盖不同 session、reaction 类型与强度</li>
+              </ul>
+            </div>
+            <div class="mod-block done">
+              <div class="mb-label">样本结构 & review 字段</div>
+              <ul>
+                <li>结构：split、session_id、clip_id、speaker clip+features、listener GT、model predictions、selection_reason、rank_score、draft label</li>
+                <li>review：VA、expression、AU pattern、communicative_intent、timing、duration、intensity、confidence、evidence_notes</li>
+              </ul>
+            </div>
+            <div class="mod-block risk">
+              <div class="mb-label">为什么需要人工 review</div>
+              <p>draft 多为 visual-only / Codex 生成，<strong>不能直接训练、也不能当强结论</strong>。目的是建立小规模可信 reference。</p>
+            </div>
+            <div class="mod-block next">
+              <div class="mb-label">当前状态 + 下一步</div>
+              <p>pilot package 已有基础，reviewed labels 未完成。<strong>先 review top-20</strong>：有规律再扩 top-50；没规律先修 schema。</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="mod-panel">
+          <div class="mod-head">
+            <div class="mod-grow">
+              <div class="mod-kicker">P4 · Pipeline Stage</div>
+              <h3>Conditioning Signal</h3>
+            </div>
+            <span class="sbadge sb-grey">暂不接入</span>
+          </div>
+          <div class="mod-blocks">
+            <div class="mod-block vision full">
+              <div class="mb-label">导师想法</div>
+              <p>intent 最终应变成 conditioning signal：<code>intent label → embedding → generator conditioning</code>，未来接到 Big-Five FiLM 或 PerFRDiff。</p>
+            </div>
+            <div class="mod-block done">
+              <div class="mb-label">当前已做</div>
+              <p>还没把 intent 接进模型；没训练 intent-conditioned model；没改 Baseline_REACT / PerFRDiff / Big-Five FiLM 主训练逻辑。</p>
+            </div>
+            <div class="mod-block why">
+              <div class="mb-label">为什么现在不接</div>
+              <p>还不知 intent label 是否有解释力；没 review 直接接会分不清 schema / 模型 / capacity gain，徒增复杂度、模糊结论。</p>
+            </div>
+            <div class="mod-block risk">
+              <div class="mb-label">当前判断</div>
+              <p>暂时不接是<strong>正确</strong>的。</p>
+            </div>
+            <div class="mod-block next">
+              <div class="mb-label">下一步动作</div>
+              <p>intent-group analysis 证明有解释力后才做最小 smoke test：<code>Big-Five</code> / <code>+true</code> / <code>+shuffled</code> / <code>+zero·no intent</code>。</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="mod-panel">
+          <div class="mod-head">
+            <div class="mod-grow">
+              <div class="mod-kicker">P5 · Pipeline Stage</div>
+              <h3>Generator 主体</h3>
+              <p class="mod-sub">Baseline_REACT · PerFRDiff · Big-Five FiLM</p>
+            </div>
+            <span class="sbadge sb-green">已有基础</span>
+          </div>
+          <div class="mod-blocks">
+            <div class="mod-block vision full">
+              <div class="mb-label">导师想法</div>
+              <p>生成模型可为 Baseline_REACT / PerFRDiff / Big-Five FiLM generator，以 intent / personality 为条件，生成 listener facial attributes。</p>
+            </div>
+            <div class="mod-block done">
+              <div class="mb-label">当前已做 · 本地可控基础</div>
+              <p>Generic V0 clean baseline、Big-Five FiLM branch、true / shuffled / zero controls、no-condition identity control、validation export、shape check、本地 official-style metric alignment。</p>
+            </div>
+            <div class="mod-block why">
+              <div class="mb-label">为什么这样做</div>
+              <p>有足够基础做 controlled analysis，但当前不适合新的大训练；更重要的是解释已有结果（Big-Five 帮了什么？no-condition 为何强？）。</p>
+            </div>
+            <div class="mod-block risk">
+              <div class="mb-label">当前风险 / 边界</div>
+              <p>不能说官方 baseline 已完整复现——做过 dataloader / forward smoke / metric alignment 准备，但 <strong>pretrained weights 不完整</strong>。</p>
+            </div>
+            <div class="mod-block next">
+              <div class="mb-label">下一步动作</div>
+              <p>先解释结果，不急大训练；若 intent review 有价值，再做最小 intent-conditioned FiLM smoke test。</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="mod-panel">
+          <div class="mod-head">
+            <div class="mod-grow">
+              <div class="mod-kicker">P6 · Pipeline Stage</div>
+              <h3>Generated Facial Attributes</h3>
+            </div>
+            <span class="sbadge sb-green">已完成基础闭环</span>
+          </div>
+          <div class="mod-blocks">
+            <div class="mod-block vision full">
+              <div class="mb-label">输出结构</div>
+              <p>输出形状 <code>[10, T, 25]</code>：<strong>10</strong> = 每个 speaker clip 生成 10 条候选 listener reaction；<strong>T</strong> = 帧数；<strong>25</strong> = 15 个 AU + 2 个 Valence/Arousal + 8 个 expression probabilities。</p>
+            </div>
+            <div class="mod-block why">
+              <div class="mb-label">为什么是 10 条</div>
+              <p>listener reaction 是 <strong>one-to-many</strong>：同一 speaker 行为可有多个合理 response——微笑、点头、保持 neutral attention 都可能合理。</p>
+            </div>
+            <div class="mod-block done">
+              <div class="mb-label">当前状态</div>
+              <p>validation export 已完成；shape <code>[10, T, 25]</code> 之前已通过；对齐官方挑战输出空间。</p>
+            </div>
+            <div class="mod-block next full">
+              <div class="mb-label">下一步动作</div>
+              <p>继续把 <code>[10, T, 25]</code> 作为所有分析的<strong>统一输出格式</strong>；后续 intent / synchrony / metric analysis 都基于它。</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="mod-panel">
+          <div class="mod-head">
+            <div class="mod-grow">
+              <div class="mod-kicker">P7 · Pipeline Stage</div>
+              <h3>Dyadic Reaction Quality Evaluator</h3>
+            </div>
+            <span class="sbadge sb-green">已完成第一版</span>
+          </div>
+          <div class="mod-blocks">
+            <div class="mod-block vision full">
+              <div class="mb-label">导师想法 + dyadic 含义</div>
+              <p>判断 listener reaction 与 speaker 是否构成合理 <strong>dyadic relationship</strong>。dyadic ≠ "双向"，而是"双人互动"：speaker = A、listener = B，dyadic quality = <strong>B 的反应是否像在回应 A</strong>。</p>
+            </div>
+            <div class="mod-block done">
+              <div class="mb-label">当前已做 · 原理</div>
+              <p>offline synchrony evaluator——看 <strong>speaker seq vs generated listener seq</strong>；用 lagged correlation、TLCC-like synchrony、DTW 对齐、VA/AU/expression 分块分析。</p>
+            </div>
+            <div class="mod-block why">
+              <div class="mb-label">当前结果</div>
+              <p>Generic V0 / no-condition 在部分 timing / synchrony 指标更强；true Big-Five 不明显改善 temporal synchrony；Big-Five 更影响 style / intensity。</p>
+            </div>
+            <div class="mod-block next full">
+              <div class="mb-label">风险 / 边界 + 下一步</div>
+              <p>它只是 <strong>offline diagnostic</strong>，不是最终质量评价器、也不是 loss。继续作分析工具，<strong>暂不直接当 training loss</strong>。</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="mod-panel">
+          <div class="mod-head">
+            <div class="mod-grow">
+              <div class="mod-kicker">P8 · Pipeline Stage</div>
+              <h3>Synchrony Score / Quality Rating</h3>
+            </div>
+            <span class="sbadge sb-amber">需要谨慎解释</span>
+          </div>
+          <div class="mod-blocks">
+            <div class="mod-block vision full">
+              <div class="mb-label">这是什么 + 与官方 metric 关系</div>
+              <p>自己做的 <strong>offline diagnostic score</strong>，不是官方最终 metric；参考官方 synchrony 维度 + 经典时序对齐。官方 evaluation 本身含 synchrony（TLCC / FRSyn），主要用于最终评估 / 排名。</p>
+            </div>
+            <div class="mod-block risk">
+              <div class="mb-label">当前问题</div>
+              <p>offline synchrony ranking 与 official-style ranking <strong>不完全一致</strong>——不同指标捕捉不同维度（official-style = 最终评价；MAE = reconstruction/style；FRC 受整体趋势影响）。</p>
+            </div>
+            <div class="mod-block why">
+              <div class="mb-label">当前判断 · 三层结合</div>
+              <ul>
+                <li>L1 official / official-style metrics</li>
+                <li>L2 经典时序：TLCC / lagged corr / DTW / Soft-DTW</li>
+                <li>L3 task-specific：按 VA / AU / expression / intent group</li>
+              </ul>
+            </div>
+            <div class="mod-block next full">
+              <div class="mb-label">下一步 · 表述口径</div>
+              <p>不说"sync score 证明 Big-Five 无效"。应说：<em>offline synchrony diagnostic suggests Big-Five does not clearly improve timing alignment in the current setting, while official-style metrics and synchrony metrics capture different aspects of reaction quality.</em></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="mod-panel">
+          <div class="mod-head">
+            <div class="mod-grow">
+              <div class="mod-kicker">P9 · Pipeline Stage</div>
+              <h3>Loss / Reward Signal</h3>
+            </div>
+            <span class="sbadge sb-grey">暂不加入训练</span>
+          </div>
+          <div class="mod-blocks">
+            <div class="mod-block vision full">
+              <div class="mb-label">导师想法</div>
+              <p>最终可把 dyadic evaluator 结果变成 <code>auxiliary loss</code> / <code>reward signal</code> / small reward model / quality score，反向优化 generator。</p>
+            </div>
+            <div class="mod-block done">
+              <div class="mb-label">当前状态</div>
+              <p>还没加 loss、reward learning、synchrony loss；没有改训练。</p>
+            </div>
+            <div class="mod-block why">
+              <div class="mb-label">为什么现在不加</div>
+              <ul>
+                <li>offline synchrony 与 official-style 排名不一致；不知优化 synchrony 是否提升 official performance</li>
+                <li>可能牺牲 diversity / realism / appropriateness；intent 未 review；evaluator 仍是 diagnostic 非 validated reward model</li>
+              </ul>
+            </div>
+            <div class="mod-block next full">
+              <div class="mb-label">当前判断 + 下一步</div>
+              <p>暂不加入训练是正确的。等 intent 与 synchrony 分析更清楚后，再考虑 small auxiliary loss experiment / reward model pilot / intent-conditioned FiLM smoke test——<strong>现在不做大训练</strong>。</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-actions">
+          <button class="primary-button" data-jump="review">回到一图流总览</button>
+          <button class="secondary-button" id="printButtonReview">Print / PDF</button>
+        </div>
+      </section>
     </main>
   </div>
 
   <script>
-    const sectionIds = ["overview", "flow", "method", "design", "results", "export", "next"];
+    const sectionIds = ["overview", "flow", "method", "design", "results", "export", "next", "review", "review-detail"];
     const nav = document.querySelectorAll("#nav button");
     const sections = document.querySelectorAll(".section");
     let currentIndex = 0;
@@ -1484,6 +2200,7 @@
 
     document.getElementById("printButton").addEventListener("click", () => window.print());
     document.getElementById("printButtonBottom").addEventListener("click", () => window.print());
+    document.getElementById("printButtonReview").addEventListener("click", () => window.print());
   </script>
 </body>
 </html>
