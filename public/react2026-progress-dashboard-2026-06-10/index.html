@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>REACT2026 Progress Dashboard - 2026-06-10</title>
+  <title>REACT2026 Submission Readiness Dashboard - 2026-06-22</title>
   <style>
     :root {
       --bg: #f5f5f3;
@@ -1156,8 +1156,8 @@
     <aside class="sidebar" aria-label="Presentation navigation">
       <div class="brand">
         <div class="brand-kicker">Monash MPhil / REACT2026</div>
-        <div class="brand-title">Progress Dashboard</div>
-        <div class="brand-subtitle">Progress demonstration - 2026-06-10</div>
+        <div class="brand-title">Submission Readiness Dashboard</div>
+        <div class="brand-subtitle">Progress update - 2026-06-22</div>
       </div>
 
       <nav class="nav" id="nav">
@@ -1167,7 +1167,7 @@
         <button data-section="design"><span class="nav-index">04</span><span>Experiment Design</span></button>
         <button data-section="results"><span class="nav-index">05</span><span>Evidence Explorer</span></button>
         <button data-section="export"><span class="nav-index">06</span><span>Full Export</span></button>
-        <button data-section="next"><span class="nav-index">07</span><span>Next Steps</span></button>
+        <button data-section="next"><span class="nav-index">07</span><span>Submission Gate</span></button>
         <div class="nav-divider">导师理论板块 · 研究主线复盘</div>
         <button data-section="review"><span class="nav-index">08</span><span>主线复盘 · 一图流</span></button>
         <button data-section="review-detail"><span class="nav-index">09</span><span>九大流程 · 详情</span></button>
@@ -1181,11 +1181,11 @@
 
     <main class="main">
       <header class="topbar">
-        <h1>REACT2026 listener reaction generation progress</h1>
+        <h1>REACT2026 submission-readiness progress</h1>
         <div class="topbar-meta">
           Wei Liu<br>
-          Local validation evidence<br>
-          Not official result
+          Safe baseline candidate<br>
+          Not official submission
         </div>
       </header>
 
@@ -1193,27 +1193,27 @@
         <div class="section-grid">
           <div class="panel">
             <div class="panel-title">
-              <h2>From runnable baseline to controlled Big-Five evidence</h2>
-              <span class="tag red">Main update</span>
+              <h2>From local validation to safe submission candidate</h2>
+              <span class="tag red">June 22 update</span>
             </div>
-            <p class="lede">This week the project moved beyond smoke tests. Generic V0 is locked as the clean no-personality baseline, and Big-Five V1 now has matched controls, five-seed validation, and full-sequence export checks.</p>
-            <p class="caption">Latest matched-control dashboard, 2026-06-10.</p>
+            <p class="lede">Generic V0 is now the safe baseline candidate for REACT2026 submission-format confirmation. Training, validation export, all-625 test inference, PRED-only fallback packaging, and clean-unzip bundle smoke checks are complete.</p>
+            <p class="caption">Latest submission-readiness dashboard, 2026-06-22.</p>
             <div class="metric-grid">
               <div class="metric">
-                <span class="metric-value">5</span>
-                <span class="metric-label">matched seeds for Big-Five V1 FiLM controls</span>
+                <span class="metric-value">625</span>
+                <span class="metric-label">test speaker clips exported by Generic V0</span>
               </div>
               <div class="metric">
-                <span class="metric-value">571</span>
-                <span class="metric-label">validation samples exported per run</span>
+                <span class="metric-value">9.21 MB</span>
+                <span class="metric-label">safe bundle zip candidate with checksum</span>
               </div>
               <div class="metric">
                 <span class="metric-value">[10,T,25]</span>
-                <span class="metric-label">required prediction shape verified</span>
+                <span class="metric-label">validation and test prediction shape verified</span>
               </div>
               <div class="metric">
                 <span class="metric-value">0</span>
-                <span class="metric-label">test personality or EEG used in training</span>
+                <span class="metric-label">test failures, test personality use, or fabricated EEG</span>
               </div>
             </div>
           </div>
@@ -1221,18 +1221,18 @@
           <div class="callout">
             <h3>Current research claim</h3>
             <div class="language-block active" data-lang="en">
-              <p>Official-scale listener Big-Five FiLM is the current main local-validation candidate. Here, official-scale means the official 1-5 Big-Five scores are normalized to 0-1; it does not mean an official leaderboard result.</p>
+              <p>Generic V0 is the current safe submission candidate because it is auditable, runnable, and format-checked. Big-Five FiLM remains a controlled research extension, not the emergency final submission model, until the official submission route is confirmed.</p>
             </div>
           </div>
         </div>
 
         <div class="panel flat" style="margin-top: 20px;">
           <div class="progress-strip">
-            <div class="progress-item done"><strong>Data & safety</strong><span>train/val/test personality boundaries audited</span></div>
-            <div class="progress-item done"><strong>Generic V0</strong><span>locked as clean no-personality baseline</span></div>
-            <div class="progress-item done"><strong>Big-Five V1</strong><span>controls implemented and trained</span></div>
-            <div class="progress-item done"><strong>5-seed export</strong><span>full validation predictions verified</span></div>
-            <div class="progress-item next"><strong>Next</strong><span>official-style metric alignment and final V1 packaging</span></div>
+            <div class="progress-item done"><strong>Generic V0</strong><span>trained and selected as safe baseline</span></div>
+            <div class="progress-item done"><strong>Val export</strong><span>571 validation rows format-checked</span></div>
+            <div class="progress-item done"><strong>Test bridge</strong><span>625 wav2vec test features generated</span></div>
+            <div class="progress-item done"><strong>Safe bundle</strong><span>zip self-check and clean-unzip smoke passed</span></div>
+            <div class="progress-item next"><strong>Next</strong><span>confirm model-package route and deadline</span></div>
           </div>
         </div>
       </section>
@@ -1241,56 +1241,56 @@
         <div class="section-grid">
           <div class="panel">
             <div class="panel-title">
-              <h2>Complete project flow</h2>
+              <h2>Current submission-safety flow</h2>
               <span class="tag">Click steps</span>
             </div>
             <div class="flow" id="flowList">
               <div class="flow-step active" data-flow="0">
                 <div class="flow-num">1</div>
-                <div><div class="flow-title">Challenge target</div><div class="flow-copy">Generate 10 plausible listener facial reaction sequences from speaker behaviour.</div></div>
+                <div><div class="flow-title">Safe baseline candidate</div><div class="flow-copy">Use Generic V0 as the auditable no-personality and no-EEG route.</div></div>
               </div>
               <div class="flow-step" data-flow="1">
                 <div class="flow-num">2</div>
-                <div><div class="flow-title">Clean baseline</div><div class="flow-copy">Generic V0 uses speaker audio features and speaker facial attributes only.</div></div>
+                <div><div class="flow-title">Validation package check</div><div class="flow-copy">571 validation rows pass shape, finite, and official-style results.pt dry-run checks.</div></div>
               </div>
               <div class="flow-step" data-flow="2">
                 <div class="flow-num">3</div>
-                <div><div class="flow-title">Personality conditioning</div><div class="flow-copy">Big-Five FiLM tests listener personality as a conditioning signal.</div></div>
+                <div><div class="flow-title">Test feature bridge</div><div class="flow-copy">Missing test audio-features are bridged with local wav2vec extraction for all 625 clips.</div></div>
               </div>
               <div class="flow-step" data-flow="3">
                 <div class="flow-num">4</div>
-                <div><div class="flow-title">Controls and leakage checks</div><div class="flow-copy">Compare true traits with zero, shuffled, and no-condition controls.</div></div>
+                <div><div class="flow-title">All-625 test inference</div><div class="flow-copy">Generic V0 exports ten 25-d reaction candidates per test speaker clip.</div></div>
               </div>
               <div class="flow-step" data-flow="4">
                 <div class="flow-num">5</div>
-                <div><div class="flow-title">Export and next decision</div><div class="flow-copy">Export [10,T,25] predictions, then align with official-style evaluation.</div></div>
+                <div><div class="flow-title">Bundle and confirmation gate</div><div class="flow-copy">Freeze safe bundle and ask organiser to confirm route, EEG, video/3DMM, and deadline.</div></div>
               </div>
             </div>
           </div>
 
           <div class="panel">
             <div class="panel-title">
-              <h3 id="flowTitle">Challenge target</h3>
+              <h3 id="flowTitle">Safe baseline candidate</h3>
               <span class="tag green">verified</span>
             </div>
-            <p id="flowText" class="lede" style="font-size: 20px;">The task is to generate ten plausible listener facial reaction sequences from each speaker behaviour stream. The expected output shape is [10, T, 25].</p>
+            <p id="flowText" class="lede" style="font-size: 20px;">Generic V0 is the current safe baseline candidate because it is simple, auditable, trained, and runnable without personality labels, EEG, LLM intent, or new risky architecture changes.</p>
             <div class="fixed-contract" aria-label="Fixed workflow contract">
               <h4>Fixed project contract</h4>
               <div class="contract-grid">
                 <div class="contract-item">
                   <span class="contract-label">Input stream</span>
                   <strong>speaker audio features [768]</strong>
-                  <span>speaker facial attributes [25]</span>
+                  <span>speaker facial attributes [25], with wav2vec bridge for test audio</span>
                 </div>
                 <div class="contract-item">
                   <span class="contract-label">Prediction target</span>
                   <strong>listener facial attributes [25]</strong>
-                  <span>10 exported reactions in [10, T, 25] shape</span>
+                  <span>10 exported reactions in [10, T, 25] shape for validation and test</span>
                 </div>
                 <div class="contract-item">
                   <span class="contract-label">Safety boundary</span>
-                  <strong>no test personality in training</strong>
-                  <span>EEG remains audit-only for this stage</span>
+                  <strong>no test personality, EEG, or LLM labels in training</strong>
+                  <span>format and bundle status remain pending official route confirmation</span>
                 </div>
               </div>
             </div>
@@ -1544,28 +1544,28 @@
         <div class="section-grid">
           <div class="panel">
             <div class="panel-title">
-              <h2>Next research steps</h2>
-              <span class="tag">From evidence to final claim</span>
+              <h2>Submission confirmation gate</h2>
+              <span class="tag">2026-06-22</span>
             </div>
             <div class="language-block active" data-lang="en">
-              <p class="lede">The current result is strong enough to treat official-scale listener Big-Five FiLM as a promising V1 candidate, but it is still local validation and export evidence. The priority is to align evaluation with the newly updated official baseline code and then package the V1 result cleanly.</p>
-              <p class="caption">Official baseline code has been audited and smoke-tested, but full official reproduction is still blocked by missing diffusion / person-specific pretrained checkpoints.</p>
+              <p class="lede">The current safe route is a model package with source code, Generic V0 checkpoint, README, reproducible inference commands, and smoke-test evidence. Do not start new training or change the generator until the organiser confirms the exact submission format.</p>
+              <p class="caption">Candidate bundle: generic_v0_safe_submission_bundle_2026_06_22.zip; SHA256 7A3FE74D1C820FDDE66E59C68753D0DB60EC8EE990C458C9D84A385A23CC8D2E.</p>
               <div class="note-grid" style="margin-top: 18px;">
                 <div class="note">
-                  <h3>1. Official metric alignment</h3>
-                  <p>Compare the current validation/export outputs against the official metric implementation and simple baseline scripts.</p>
+                  <h3>1. Confirm route</h3>
+                  <p>Ask whether the primary submission should be code + checkpoint + README, precomputed predictions, or both.</p>
                 </div>
                 <div class="note">
-                  <h3>2. Baseline paper cross-check</h3>
-                  <p>Read the newly released official baseline paper and update claims, caveats, and evaluation wording if needed.</p>
+                  <h3>2. Confirm output scope</h3>
+                  <p>Clarify whether EEG, rendered videos, 3DMM, or AFR outputs are mandatory for the selected facial-reaction route.</p>
                 </div>
                 <div class="note">
-                  <h3>3. V1 candidate package</h3>
-                  <p>Freeze configs, seeds, summaries, and exported prediction checks for the current Big-Five V1 candidate.</p>
+                  <h3>3. Confirm deadline</h3>
+                  <p>Use June 26, 2026 as the internal freeze date unless organisers confirm the later June 28 deadline.</p>
                 </div>
                 <div class="note">
-                  <h3>4. EEG boundary</h3>
-                  <p>Keep EEG as audit-only until the facial-reaction result and official-style metric path are stable.</p>
+                  <h3>4. Freeze safely</h3>
+                  <p>Only make README or archive-layout changes after confirmation, then rerun clean-unzip smoke.</p>
                 </div>
               </div>
             </div>
@@ -1573,27 +1573,27 @@
 
           <div class="panel">
             <div class="panel-title">
-              <h3>What this page demonstrates</h3>
-              <span class="tag red">supervisor view</span>
+              <h3>Current package state</h3>
+              <span class="tag red">not final upload</span>
             </div>
             <div class="note">
-              <h3>Progress</h3>
-              <p>The project now has a locked clean baseline, a controlled Big-Five V1 comparison, five matched seeds, and full validation export checks.</p>
+              <h3>Ready</h3>
+              <p>Generic V0 training, 571-row validation export, 625-row test inference, PRED-only fallback, and safe bundle smoke checks are complete.</p>
             </div>
             <div class="note" style="margin-top: 12px;">
-              <h3>Evidence</h3>
-              <p>The main V1 branch improves over shuffled and no-condition controls in both cropped validation and full-sequence export summaries.</p>
+              <h3>Unconfirmed</h3>
+              <p>Exact official archive layout, prediction-file acceptance, EEG requirement, rendered-video/3DMM requirement, and final date still need confirmation.</p>
             </div>
             <div class="note" style="margin-top: 12px;">
-              <h3>Caveat</h3>
-              <p>The result is local validation/export evidence. It should not be presented as an official challenge result until the official metric path is aligned. The Big-Five + pooled personal-history V1.2 branch was tested, but current diagnostics were negative, so it is paused rather than scaled.</p>
+              <h3>Guardrail</h3>
+              <p>No new training, dataset-class change, loss change, EEG fabrication, or LLM-in-training connection is recommended before submission-format confirmation.</p>
             </div>
           </div>
         </div>
 
         <div class="footer-actions">
           <button class="primary-button" data-jump="overview">Back to overview</button>
-          <button class="secondary-button" data-jump="results">Show evidence</button>
+          <button class="secondary-button" data-jump="overview">Show status</button>
           <button class="secondary-button" id="printButtonBottom">Print / PDF</button>
         </div>
       </section>
@@ -1605,7 +1605,7 @@
             <h2>研究主线复盘 · 导师理论板块</h2>
             <span class="tag red">一图流</span>
           </div>
-          <p class="caption" style="margin-bottom: 16px;">导师想法 → 当前进度 → 下一步 · 2026-06-10</p>
+          <p class="caption" style="margin-bottom: 16px;">导师想法 → 当前进度 → 下一步 · 2026-06-22</p>
           <div class="review-conclusion">
             <div class="rc-star">★</div>
             <p><b>核心结论：</b>目前已经落实到 <b>"研究设计 + offline evidence layer"</b>，但还没有进入 <b>"model training intervention"</b>。这不是缺点，而是正确节奏——如果现在直接接入模型，很容易分不清提升究竟来自 personality、intent、FiLM 结构，还是 evaluator 偏差。</p>
@@ -2167,24 +2167,24 @@
 
     const flowCopy = [
       {
-        title: "Challenge target",
-        text: "The task is to generate ten plausible listener facial reaction sequences from each speaker behaviour stream. The expected output shape is [10, T, 25]."
+        title: "Safe baseline candidate",
+        text: "Generic V0 is the current safe baseline candidate because it is simple, auditable, trained, and runnable without personality labels, EEG, LLM intent, or new risky architecture changes."
       },
       {
-        title: "Clean baseline",
-        text: "Generic V0 is fixed as the clean internal comparison baseline. It uses speaker audio features and speaker facial attributes, and does not use personality or EEG."
+        title: "Validation package check",
+        text: "The 571-row validation export has passed local package validation and official-style results.pt dry-run checks with valid [10, T, 25] predictions."
       },
       {
-        title: "Personality conditioning",
-        text: "Big-Five V1 adds a FiLM conditioning pathway using listener Big-Five traits. The current strongest version uses official-scale 1-5 to 0-1 normalization."
+        title: "Test feature bridge",
+        text: "The missing test audio-feature blocker was resolved by local wav2vec extraction: all 625 test speaker clips now have valid [T, 768] audio features."
       },
       {
-        title: "Controls and leakage checks",
-        text: "The controls test whether the improvement comes from real listener personality, adapter capacity, random trait assignment, or the no-condition pathway."
+        title: "All-625 test inference",
+        text: "Generic V0 inference exported predictions for 625 / 625 test speaker clips, with zero failures and finite [10, T, 25] outputs."
       },
       {
-        title: "Export and next decision",
-        text: "Full validation export verifies [10, T, 25] prediction files. The next decision is official-style metric alignment versus final V1 candidate packaging."
+        title: "Bundle and confirmation gate",
+        text: "The safe submission bundle has passed self-check and clean-unzip CPU smoke. The next decision is organiser confirmation of route, EEG/video requirements, and deadline."
       }
     ];
 

@@ -8,8 +8,8 @@
             ECHO
           </router-link>
           <div class="min-w-0">
-            <p class="font-mono text-[10px] font-black uppercase tracking-[0.22em] text-[#00b8d9]">REACT2026 Progress Dashboard</p>
-            <h1 class="truncate text-lg font-black text-[#1c3a4b] dark:text-white sm:text-xl">Group Meeting Dashboard - 2026-06-10</h1>
+            <p class="font-mono text-[10px] font-black uppercase tracking-[0.22em] text-[#00b8d9]">REACT2026 Submission Readiness</p>
+            <h1 class="truncate text-lg font-black text-[#1c3a4b] dark:text-white sm:text-xl">Submission Readiness Dashboard - 2026-06-22</h1>
           </div>
         </div>
 
@@ -31,21 +31,21 @@
         <div>
           <p class="font-mono text-xs font-black uppercase tracking-[0.18em] text-[#00b8d9]">Dedicated presentation entry</p>
           <p class="mt-2 text-sm leading-7 text-slate-600 dark:text-slate-300">
-            This embedded dashboard summarizes the June 10 REACT2026 group meeting material: Generic V0, Big-Five V1 controls, five-seed validation, full export evidence, caveats, and next supervisor questions.
+            This embedded dashboard summarizes the June 22 REACT2026 submission-readiness state: Generic V0 safe bundle, 625-row test inference, PRED-only fallback, clean-unzip smoke checks, and organiser confirmation questions.
           </p>
         </div>
         <div class="grid grid-cols-3 gap-2 text-center">
           <div class="status-cell">
-            <p class="status-value">5</p>
-            <p class="status-label">Seeds</p>
+            <p class="status-value">625</p>
+            <p class="status-label">Test Rows</p>
           </div>
           <div class="status-cell">
-            <p class="status-value">571</p>
-            <p class="status-label">Val Rows</p>
+            <p class="status-value">9.21 MB</p>
+            <p class="status-label">Safe Bundle</p>
           </div>
           <div class="status-cell">
-            <p class="status-value">V1</p>
-            <p class="status-label">Candidate</p>
+            <p class="status-value">V0</p>
+            <p class="status-label">Safe Candidate</p>
           </div>
         </div>
       </section>

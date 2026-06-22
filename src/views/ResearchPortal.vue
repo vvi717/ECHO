@@ -121,9 +121,9 @@
                 <MonitorPlay class="w-6 h-6" />
               </div>
               <div>
-                <div class="text-[10px] font-mono font-bold tracking-widest text-[#00B8D9] uppercase mb-2">Presentation Entry</div>
-                <h3 class="text-2xl font-black text-slate-800 dark:text-slate-100 tracking-wide group-hover:text-[#00B8D9] transition-colors">REACT2026 Progress Dashboard</h3>
-                <p class="text-sm text-slate-500 dark:text-slate-400 font-medium mt-2 max-w-2xl">June 10 group meeting dashboard with 5-seed validation, full-export evidence, caveats, and supervisor questions.</p>
+                <div class="text-[10px] font-mono font-bold tracking-widest text-[#00B8D9] uppercase mb-2">Submission Entry</div>
+                <h3 class="text-2xl font-black text-slate-800 dark:text-slate-100 tracking-wide group-hover:text-[#00B8D9] transition-colors">REACT2026 Submission Readiness</h3>
+                <p class="text-sm text-slate-500 dark:text-slate-400 font-medium mt-2 max-w-2xl">June 22 dashboard with Generic V0 safe bundle, 625-row test inference, clean-unzip smoke, and submission-format confirmation questions.</p>
               </div>
             </div>
             <div class="inline-flex w-fit items-center gap-2 rounded-full border border-[#00F5FF]/35 bg-[#00F5FF]/10 px-4 py-2 text-xs font-mono font-black uppercase tracking-widest text-[#00B8D9]">
@@ -136,19 +136,19 @@
         <!-- Current Research Snapshot -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-2">
           <div class="glass-panel-glow p-5 rounded-xl">
-            <div class="text-[10px] font-mono font-bold tracking-widest text-[#00B8D9] uppercase mb-2">Locked Control</div>
+            <div class="text-[10px] font-mono font-bold tracking-widest text-[#00B8D9] uppercase mb-2">Safe Candidate</div>
             <div class="text-2xl font-black text-slate-800 dark:text-slate-100">Generic V0</div>
-            <p class="text-xs text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">Full 571-row validation export complete; no personality or EEG.</p>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">Training, 571-row validation export, and 625-row test inference are complete.</p>
           </div>
           <div class="glass-panel-glow p-5 rounded-xl">
-            <div class="text-[10px] font-mono font-bold tracking-widest text-[#00B8D9] uppercase mb-2">Main V1 Candidate</div>
-            <div class="text-2xl font-black text-slate-800 dark:text-slate-100">Official-Scale FiLM</div>
-            <p class="text-xs text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">Best 5-seed local validation branch against matched controls.</p>
+            <div class="text-[10px] font-mono font-bold tracking-widest text-[#00B8D9] uppercase mb-2">Bundle Status</div>
+            <div class="text-2xl font-black text-slate-800 dark:text-slate-100">9.21 MB Zip</div>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">Safe bundle self-check and clean-unzip CPU smoke both passed.</p>
           </div>
           <div class="glass-panel-glow p-5 rounded-xl">
             <div class="text-[10px] font-mono font-bold tracking-widest text-[#00B8D9] uppercase mb-2">Next Gate</div>
-            <div class="text-2xl font-black text-slate-800 dark:text-slate-100">Metric Alignment</div>
-            <p class="text-xs text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">Official-style evaluation remains the main caveat before claims.</p>
+            <div class="text-2xl font-black text-slate-800 dark:text-slate-100">Format Confirm</div>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">Confirm code/checkpoint route, PRED-only fallback, EEG/video requirements, and deadline.</p>
           </div>
         </div>
 
@@ -173,7 +173,7 @@
                 <div class="w-6 h-6 bg-[#00F5FF] rounded-full absolute" style="box-shadow: 0 0 25px #00F5FF, 0 0 50px #00F5FF;"></div>
               </div>
               <p class="font-mono text-sm font-bold tracking-widest text-[#00F5FF] uppercase animate-pulse drop-shadow-[0_0_8px_#00F5FF] mt-10 md:mt-14 relative z-10">
-                Official-Scale Big-Five Candidate Active
+                Generic V0 Safe Bundle Active
               </p>
             </div>
             
@@ -233,7 +233,7 @@
     <!-- Footer -->
     <footer class="mt-20 text-center relative z-10 text-xs font-mono font-bold text-slate-400 tracking-widest uppercase">
       <router-link to="/protocol-echo" class="md:hidden block mb-4 text-[#00F5FF] hover:underline">Sys.Admin</router-link>
-      <p>The ECHO AI Research Labs &bullet; Iteration 0.8</p>
+      <p>The ECHO AI Research Labs &bullet; Iteration 0.9</p>
     </footer>
   </div>
 </template>
@@ -284,16 +284,30 @@ const progressTimeline = [
   {
     phase: 'Jun 09-10',
     title: 'Big-Five V1 controlled experiments',
-    badge: 'current',
-    status: 'current',
+    badge: 'research',
+    status: 'done',
     summary: 'Injected listener Big-Five through FiLM, compared true traits against zero, shuffled, and no-condition controls, and ran five matched seeds.'
   },
   {
+    phase: 'Jun 18-21',
+    title: 'Official-style packaging and test bridge',
+    badge: 'package',
+    status: 'done',
+    summary: 'Validated 571-row Generic V0 exports, converted validation predictions to official-style results.pt, and generated wav2vec features for all 625 test clips.'
+  },
+  {
+    phase: 'Jun 22',
+    title: 'Generic V0 safe submission bundle',
+    badge: 'current',
+    status: 'current',
+    summary: 'Built the 9.21 MB safe bundle with source code, checkpoint, README, reports, and clean-unzip CPU smoke evidence. It is a candidate, not the final official upload.'
+  },
+  {
     phase: 'Next',
-    title: 'Official-style metric alignment',
+    title: 'Submission-format confirmation',
     badge: 'next',
     status: 'next',
-    summary: 'Keep the current claim conservative while packaging the V1 evidence, checking official metrics, and preparing the next supervisor-facing update.'
+    summary: 'Ask organiser or supervisor to confirm the model-package route, whether PRED-only results.pt is supplementary, EEG/video requirements, and whether June 26 or June 28 is the final deadline.'
   }
 ];
 </script>
