@@ -31,7 +31,7 @@
         <div>
           <p class="font-mono text-xs font-black uppercase tracking-[0.18em] text-[#00b8d9]">Dedicated presentation entry</p>
           <p class="mt-2 text-sm leading-7 text-slate-600 dark:text-slate-300">
-            This embedded dashboard summarizes the June 24 REACT2026 submission-readiness state: Generic V0 safe CSV package, 625/625 validated prediction files, code/checkpoint/README route, validation examples, and supervisor meeting talking points.
+            This embedded dashboard summarizes the June 24 REACT2026 submission-readiness state: Generic V0 safe CSV package, 625/625 validated prediction files, code/checkpoint/README route, validation examples, and research roadmap.
           </p>
         </div>
         <div class="grid grid-cols-3 gap-2 text-center">
