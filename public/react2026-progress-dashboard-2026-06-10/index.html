@@ -1650,7 +1650,7 @@
                 </div>
                 <div class="note">
                   <h3>4. Remaining action</h3>
-                  <p>Final review of package positioning, then upload/share the submission link.</p>
+                  <p>Final review of package positioning, then upload/share the submission link. The safe package should stay frozen while research pilots run separately.</p>
                 </div>
               </div>
             </div>
@@ -1672,6 +1672,10 @@
             <div class="note" style="margin-top: 12px;">
               <h3>Guardrail</h3>
               <p>No EEG, no Big-Five, no LLM intent labels, and no rendered AFR video are included in the safe package. These stay as research branches.</p>
+            </div>
+            <div class="note" style="margin-top: 12px;">
+              <h3>Next research plan</h3>
+              <p>After the safe package is frozen, run a medium-scale offline intent pilot: generate intent labels for roughly 200-500 train samples and 100-200 validation samples, audit 30-50 labels manually, then run a small true-intent vs shuffled-intent smoke test before any larger training.</p>
             </div>
           </div>
         </div>
@@ -1710,6 +1714,16 @@
                 <li>Synchrony metrics are diagnostic tools, not training losses.</li>
                 <li>EEG and online LLM inference are not used in the final safe package.</li>
               </ul>
+            </div>
+          </div>
+          <div class="note-grid" style="margin-top: 18px;">
+            <div class="note">
+              <h3>Near-term research pilot</h3>
+              <p>Freeze the safe Generic V0 package first. Then test whether offline semantic intent labels add signal through a medium-scale pilot and a shuffled-intent control.</p>
+            </div>
+            <div class="note">
+              <h3>Go / no-go rule</h3>
+              <p>Only scale up intent conditioning if true intent beats shuffled intent and improves validation behaviour in a stable, interpretable way.</p>
             </div>
           </div>
         </div>
@@ -1782,7 +1796,7 @@
               <div class="rt-cell">State</div>
             </div>
             <div class="rt-row"><div class="rt-cell rt-stage"><small>01 · INPUT</small>Speaker multimodal input</div><div class="rt-cell">Audio, video/facial, and personality data paths exist.</div><div class="rt-cell">Text/context is not yet a stable input.</div><div class="rt-cell">Keep the current input pipeline stable; add transcript/context later.</div><div class="rt-cell rt-status"><span class="sbadge sb-amber">Partial</span></div></div>
-            <div class="rt-row"><div class="rt-cell rt-stage"><small>02 · INTENT</small>LLM reaction intent predictor</div><div class="rt-cell">Offline intent/affect schema and pilot package exist.</div><div class="rt-cell">No online LLM is used in training.</div><div class="rt-cell">Use offline labels and small validation pilots first.</div><div class="rt-cell rt-status"><span class="sbadge sb-blue">Pre-layer ready</span></div></div>
+            <div class="rt-row"><div class="rt-cell rt-stage"><small>02 · INTENT</small>LLM reaction intent predictor</div><div class="rt-cell">Offline intent/affect schema and pilot package exist.</div><div class="rt-cell">No online LLM is used in training.</div><div class="rt-cell">Run a medium-scale offline label pilot, manually audit a small subset, then test true vs shuffled intent.</div><div class="rt-cell rt-status"><span class="sbadge sb-blue">Pre-layer ready</span></div></div>
             <div class="rt-row"><div class="rt-cell rt-stage"><small>03 · SCHEMA</small>Reaction intent, timing, intensity</div><div class="rt-cell">Two-layer affect + communicative intent schema exists.</div><div class="rt-cell">Labels still need careful review.</div><div class="rt-cell">Review top samples before using labels for analysis.</div><div class="rt-cell rt-status"><span class="sbadge sb-green">On track</span></div></div>
             <div class="rt-row"><div class="rt-cell rt-stage"><small>04 · CONDITION</small>Conditioning signal</div><div class="rt-cell">Design is documented.</div><div class="rt-cell">Not connected to model training.</div><div class="rt-cell">Only add a smoke test if analysis supports it.</div><div class="rt-cell rt-status"><span class="sbadge sb-grey">Hold</span></div></div>
             <div class="rt-row"><div class="rt-cell rt-stage"><small>05 · GENERATOR</small>Generator core</div><div class="rt-cell">Generic V0 and Big-Five FiLM controlled branches exist.</div><div class="rt-cell">Safe baseline and research branch are separated.</div><div class="rt-cell">Interpret results before any new large training run.</div><div class="rt-cell rt-status"><span class="sbadge sb-green">Ready</span></div></div>
@@ -1819,11 +1833,11 @@
         </div>
 
         <div class="mod-panel"><div class="mod-head"><div class="mod-grow"><div class="mod-kicker">P1 · Input</div><h3>Speaker multimodal input</h3></div><span class="sbadge sb-amber">Partial</span></div><div class="mod-blocks"><div class="mod-block done"><div class="mb-label">Implemented</div><p>Stable speaker audio features, speaker facial attributes, listener targets, and train/validation/test manifests.</p></div><div class="mod-block next"><div class="mb-label">Next</div><p>Add transcript or semantic context only after the safe submission path is complete.</p></div></div></div>
-        <div class="mod-panel"><div class="mod-head"><div class="mod-grow"><div class="mod-kicker">P2 · Intent</div><h3>Offline reaction intent labels</h3></div><span class="sbadge sb-blue">Pre-layer ready</span></div><div class="mod-blocks"><div class="mod-block done"><div class="mb-label">Implemented</div><p>Offline annotation schema, validator, review app, and LLM-assisted draft workflow. No external LLM is called during training.</p></div><div class="mod-block risk"><div class="mb-label">Boundary</div><p>Intent labels are internal research labels, not official REACT2026 labels.</p></div></div></div>
+        <div class="mod-panel"><div class="mod-head"><div class="mod-grow"><div class="mod-kicker">P2 · Intent</div><h3>Offline reaction intent labels</h3></div><span class="sbadge sb-blue">Pre-layer ready</span></div><div class="mod-blocks"><div class="mod-block done"><div class="mb-label">Implemented</div><p>Offline annotation schema, validator, review app, and LLM-assisted draft workflow. No external LLM is called during training.</p></div><div class="mod-block next"><div class="mb-label">Next pilot</div><p>Generate offline intent labels for roughly 200-500 train samples and 100-200 validation samples, then manually audit 30-50 labels before using them in any smoke test.</p></div><div class="mod-block risk"><div class="mb-label">Boundary</div><p>Intent labels are internal research labels, not official REACT2026 labels.</p></div></div></div>
         <div class="mod-panel"><div class="mod-head"><div class="mod-grow"><div class="mod-kicker">P3 · Generator</div><h3>Generic V0 and Big-Five FiLM</h3></div><span class="sbadge sb-green">Ready</span></div><div class="mod-blocks"><div class="mod-block done"><div class="mb-label">Implemented</div><p>Generic V0 is the safe no-personality/no-EEG package. Big-Five FiLM has true, shuffled, zero, and no-condition controls.</p></div><div class="mod-block next"><div class="mb-label">Next</div><p>Use validation results to interpret when personality helps before changing the final generator.</p></div></div></div>
         <div class="mod-panel"><div class="mod-head"><div class="mod-grow"><div class="mod-kicker">P4 · Output</div><h3>25-dimensional facial attributes</h3></div><span class="sbadge sb-green">Validated</span></div><div class="mod-blocks"><div class="mod-block done"><div class="mb-label">Output format</div><p>Each speaker behaviour produces 10 listener reactions with shape <code>[10, T, 25]</code>. For submission, these are flattened into one CSV file per speaker behaviour.</p></div><div class="mod-block risk"><div class="mb-label">Limitation</div><p>The safe package focuses on 25-d facial-attribute CSV output. A mature rendered AFR video path is not included.</p></div></div></div>
         <div class="mod-panel"><div class="mod-head"><div class="mod-grow"><div class="mod-kicker">P5 · Evaluation</div><h3>Validation metrics and diagnostics</h3></div><span class="sbadge sb-green">Available</span></div><div class="mod-blocks"><div class="mod-block done"><div class="mb-label">Implemented</div><p>MSE/MAE tables, generated-output visualization, official-style diagnostic checks, and offline synchrony metrics.</p></div><div class="mod-block why"><div class="mb-label">Interpretation</div><p>Big-Five FiLM is slightly better on full-validation MSE/MAE, but the claim remains controlled and cautious because the gaps are modest.</p></div></div></div>
-        <div class="mod-panel"><div class="mod-head"><div class="mod-grow"><div class="mod-kicker">P6 · Future training</div><h3>Intent conditioning and synchrony loss</h3></div><span class="sbadge sb-grey">Held back</span></div><div class="mod-blocks"><div class="mod-block risk"><div class="mb-label">Why held back</div><p>The current evidence does not yet justify adding intent conditioning or synchrony loss to training.</p></div><div class="mod-block next"><div class="mb-label">Next</div><p>After submission, run small smoke tests only if offline analysis shows a clear explanatory signal.</p></div></div></div>
+        <div class="mod-panel"><div class="mod-head"><div class="mod-grow"><div class="mod-kicker">P6 · Future training</div><h3>Intent conditioning and synchrony loss</h3></div><span class="sbadge sb-grey">Held back</span></div><div class="mod-blocks"><div class="mod-block risk"><div class="mb-label">Why held back</div><p>The current evidence does not yet justify adding synchrony loss or large intent-conditioned training.</p></div><div class="mod-block next"><div class="mb-label">Next</div><p>Run a small intent-conditioning smoke test only after label audit: Generic V0, intent-only, Big-Five + intent, shuffled intent, and no-intent controls. Scale up only if true intent clearly beats shuffled intent.</p></div></div></div>
 
         <div class="footer-actions">
           <button class="primary-button" data-jump="review">Back to Research Roadmap</button>
