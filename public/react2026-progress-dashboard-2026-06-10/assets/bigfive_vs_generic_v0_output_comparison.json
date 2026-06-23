@@ -1,0 +1,25 @@
+{
+  "sample_index": 0,
+  "session": "session0",
+  "clip_id": "Camera-2024-07-15-110902-110933",
+  "generic_shape": [
+    10,
+    958,
+    25
+  ],
+  "bigfive_shape": [
+    10,
+    958,
+    25
+  ],
+  "target_shape": [
+    958,
+    25
+  ],
+  "generic_mse": 0.08833958208560944,
+  "generic_mae": 0.1940685659646988,
+  "bigfive_mse": 0.09474128484725952,
+  "bigfive_mae": 0.2096858024597168,
+  "figure": "talks\\react2026_progress_dashboard_2026_06_10\\assets\\bigfive_vs_generic_v0_output_comparison.png",
+  "note": "Validation visualization only. Generic V0 is the safe submission route; Big-Five FiLM is a research branch."
+}
