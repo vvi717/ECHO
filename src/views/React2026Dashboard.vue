@@ -9,7 +9,7 @@
           </router-link>
           <div class="min-w-0">
             <p class="font-mono text-[10px] font-black uppercase tracking-[0.22em] text-[#00b8d9]">REACT2026 Submission Readiness</p>
-            <h1 class="truncate text-lg font-black text-[#1c3a4b] dark:text-white sm:text-xl">Submission Readiness Dashboard - 2026-06-22</h1>
+            <h1 class="truncate text-lg font-black text-[#1c3a4b] dark:text-white sm:text-xl">Submission Readiness Dashboard - 2026-06-24</h1>
           </div>
         </div>
 
@@ -31,7 +31,7 @@
         <div>
           <p class="font-mono text-xs font-black uppercase tracking-[0.18em] text-[#00b8d9]">Dedicated presentation entry</p>
           <p class="mt-2 text-sm leading-7 text-slate-600 dark:text-slate-300">
-            This embedded dashboard summarizes the June 22 REACT2026 submission-readiness state: Generic V0 safe bundle, 625-row test inference, PRED-only fallback, clean-unzip smoke checks, and organiser confirmation questions.
+            This embedded dashboard summarizes the June 24 REACT2026 submission-readiness state: Generic V0 safe CSV package, 625/625 validated prediction files, code/checkpoint/README route, validation examples, and supervisor meeting talking points.
           </p>
         </div>
         <div class="grid grid-cols-3 gap-2 text-center">
@@ -40,8 +40,8 @@
             <p class="status-label">Test Rows</p>
           </div>
           <div class="status-cell">
-            <p class="status-value">9.21 MB</p>
-            <p class="status-label">Safe Bundle</p>
+            <p class="status-value">1.66 GB</p>
+            <p class="status-label">CSV Bundle</p>
           </div>
           <div class="status-cell">
             <p class="status-value">V0</p>
