@@ -1581,6 +1581,24 @@
               <img src="assets/official_style_proxy_percent_change_2026_06_24.png" alt="Official-style validation proxy metric percent change versus Generic V0">
             </div>
             <p class="caption" style="margin-top: 10px;">120 validation samples per run, computed through the official baseline metric implementation. Big-Five FiLM improves FRC by +12.0%, FRD by +0.4%, and official-style MAE by +2.1% versus Generic V0, but it does not improve TLCC lag or FRVar. This is a validation proxy, not a hidden-test leaderboard result.</p>
+            <div class="note-grid" style="margin-top: 14px;">
+              <div class="note">
+                <h3>What the figure shows</h3>
+                <p>Big-Five FiLM has a positive signal, not a clean win. FRC rises from 0.450 to 0.504, FRD improves slightly from 132.29 to 131.76, and official-style MAE improves from 0.170 to 0.166.</p>
+              </div>
+              <div class="note">
+                <h3>Why the claim stays cautious</h3>
+                <p>Shuffled Big-Five is almost identical on FRC: 0.503 versus 0.504 for true Big-Five. This means the gain may partly come from the adapter branch, extra capacity, or regularisation rather than clean trait-specific information.</p>
+              </div>
+              <div class="note">
+                <h3>Metric trap</h3>
+                <p>No-condition has the strongest FRC proxy at 0.534, which is higher than true Big-Five. Therefore the correct claim is not that Big-Five clearly improves official performance, but that Big-Five FiLM is a useful personalised conditioning branch whose trait-specific benefit is not fully proven.</p>
+              </div>
+              <div class="note">
+                <h3>Timing and diversity</h3>
+                <p>Big-Five does not clearly improve timing or synchrony: TLCC lag is almost unchanged. FRVar drops from 0.00286 to 0.00259, about -9.4%, so Big-Five may make outputs more concentrated rather than more diverse.</p>
+              </div>
+            </div>
             <h3>Generic V0 output example</h3>
             <div class="visual-frame">
               <img src="assets/generic_v0_generated_output_overview.png" alt="Generic V0 generated output overview with valence arousal AU and expression curves">
@@ -1639,6 +1657,10 @@
             <div class="note" style="margin-top: 16px;">
               <h3>Official-aligned readout</h3>
               <p>FRC and FRVar are better when higher; FRD, TLCC lag, and official-style MAE are better when lower. Big-Five FiLM has measurable gains over Generic V0 on FRC, FRD, and official-style MAE, but no-condition is stronger on FRC and FRVar. The correct claim is selective improvement plus metric-aware interpretation.</p>
+            </div>
+            <div class="note" style="margin-top: 12px;">
+              <h3>Metric glossary</h3>
+              <p><b>FRC:</b> facial reaction correlation or CCC-style agreement with plausible listener reactions. <b>FRD:</b> DTW-style distance to plausible listener reaction sequences. <b>TLCC lag:</b> temporal synchrony lag between speaker behaviour and generated listener reaction. <b>FRVar:</b> diversity or variation across generated reactions. <b>Official-style MAE:</b> auxiliary error check on generated facial attributes. These are validation proxy metrics from the official baseline code path, not hidden-test scores.</p>
             </div>
             <h3 style="margin-top: 18px;">Local full-validation sanity table</h3>
             <div class="compact-result-table" aria-label="Full export aggregate">
