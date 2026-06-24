@@ -1,0 +1,62 @@
+{
+  "source_csv": "C:\\Users\\PC\\Desktop\\prediff\\PerFRDiff\\outputs\\official_metric_proxy_report_2026_06_24\\official_style_proxy_120_summary.csv",
+  "figure": "C:\\Users\\PC\\Desktop\\prediff\\PerFRDiff\\talks\\react2026_progress_dashboard_2026_06_10\\assets\\official_style_proxy_percent_change_2026_06_24.png",
+  "baseline": "Generic V0",
+  "scope": "validation-set official-style proxy metrics, not official hidden-test result",
+  "metric_direction": {
+    "FRC": "higher",
+    "FRD": "lower",
+    "TLCC lag": "lower",
+    "Official MAE": "lower",
+    "FRVar": "higher"
+  },
+  "percentage_change_vs_generic_v0": [
+    {
+      "condition": "Big-Five FiLM",
+      "pct_improvements_vs_generic_v0": {
+        "FRC": 11.959096275758485,
+        "FRD": 0.39392056408728326,
+        "TLCC lag": -0.4689446719479616,
+        "Official MAE": 2.0676614210527826,
+        "FRVar": -9.379374073580758
+      }
+    },
+    {
+      "condition": "Shuffled Big-Five",
+      "pct_improvements_vs_generic_v0": {
+        "FRC": 11.669629468657469,
+        "FRD": 0.5441158788607123,
+        "TLCC lag": -1.0775017734962342,
+        "Official MAE": 1.4095794152343188,
+        "FRVar": 6.442915710970644
+      }
+    },
+    {
+      "condition": "Zero Big-Five",
+      "pct_improvements_vs_generic_v0": {
+        "FRC": 8.72407211440161,
+        "FRD": 0.6704008694611384,
+        "TLCC lag": -0.3006980473999339,
+        "Official MAE": 1.7320164785088428,
+        "FRVar": -4.400235925046542
+      }
+    },
+    {
+      "condition": "No-condition",
+      "pct_improvements_vs_generic_v0": {
+        "FRC": 18.61102281652565,
+        "FRD": 0.7007319720148054,
+        "TLCC lag": 0.1575080640391943,
+        "Official MAE": 1.8820886392831526,
+        "FRVar": 24.06188470385338
+      }
+    }
+  ],
+  "headline": {
+    "bigfive_frc": 11.959096275758485,
+    "bigfive_frd": 0.39392056408728326,
+    "bigfive_tlcc": -0.4689446719479616,
+    "bigfive_official_mae": 2.0676614210527826,
+    "bigfive_frvar": -9.379374073580758
+  }
+}

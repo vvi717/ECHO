@@ -680,6 +680,10 @@
       border-bottom: 1px solid var(--line);
     }
 
+    .compact-result-row.official-metric-row {
+      grid-template-columns: minmax(0, 1fr) 68px 74px 78px;
+    }
+
     .compact-result-row:last-child {
       border-bottom: 0;
     }
@@ -717,6 +721,14 @@
 
     .compact-result-row.best .run-name {
       color: var(--accent-ink);
+    }
+
+    .mini-delta {
+      display: inline-block;
+      margin-top: 2px;
+      color: var(--ok);
+      font-size: 10px;
+      font-weight: 800;
     }
 
     .callout {
@@ -1561,9 +1573,14 @@
           <div class="panel">
             <div class="panel-title">
               <h2>Validation numbers and generated output example</h2>
-              <span class="tag green">validation view</span>
+              <span class="tag green">official-style proxy view</span>
             </div>
-            <p class="lede">This page combines the compact validation table requested for review with concrete generated-output visualizations. It separates the safe submission package from the research interpretation branch.</p>
+            <p class="lede">This page combines the compact validation table requested for review with official-style proxy metrics and concrete generated-output visualizations. It separates the safe submission package from the research interpretation branch.</p>
+            <h3>Official-style metric proxy comparison</h3>
+            <div class="visual-frame">
+              <img src="assets/official_style_proxy_percent_change_2026_06_24.png" alt="Official-style validation proxy metric percent change versus Generic V0">
+            </div>
+            <p class="caption" style="margin-top: 10px;">120 validation samples per run, computed through the official baseline metric implementation. Big-Five FiLM improves FRC by +12.0%, FRD by +0.4%, and official-style MAE by +2.1% versus Generic V0, but it does not improve TLCC lag or FRVar. This is a validation proxy, not a hidden-test leaderboard result.</p>
             <h3>Generic V0 output example</h3>
             <div class="visual-frame">
               <img src="assets/generic_v0_generated_output_overview.png" alt="Generic V0 generated output overview with valence arousal AU and expression curves">
@@ -1578,9 +1595,52 @@
 
           <div class="panel">
             <div class="panel-title">
-              <h3>Compact validation table</h3>
-              <span class="tag">571 full-val rows + 24 diagnostic rows</span>
+              <h3>Compact official-style table</h3>
+              <span class="tag">571 full-val sanity + 120 proxy rows</span>
             </div>
+            <div class="compact-result-table" aria-label="Official-style metric proxy aggregate">
+              <div class="compact-result-row header official-metric-row">
+                <div class="compact-result-cell">Condition</div>
+                <div class="compact-result-cell value-cell">FRC</div>
+                <div class="compact-result-cell value-cell">FRD</div>
+                <div class="compact-result-cell value-cell">Off. MAE</div>
+              </div>
+              <div class="compact-result-row official-metric-row">
+                <div class="compact-result-cell run-name">Generic V0</div>
+                <div class="compact-result-cell value-cell">0.450</div>
+                <div class="compact-result-cell value-cell">132.29</div>
+                <div class="compact-result-cell value-cell">0.170</div>
+              </div>
+              <div class="compact-result-row best official-metric-row">
+                <div class="compact-result-cell run-name">Big-Five FiLM</div>
+                <div class="compact-result-cell value-cell">0.504<br><span class="mini-delta">+12.0%</span></div>
+                <div class="compact-result-cell value-cell">131.76<br><span class="mini-delta">+0.4%</span></div>
+                <div class="compact-result-cell value-cell">0.166<br><span class="mini-delta">+2.1%</span></div>
+              </div>
+              <div class="compact-result-row official-metric-row">
+                <div class="compact-result-cell run-name">Shuffled Big-Five</div>
+                <div class="compact-result-cell value-cell">0.503</div>
+                <div class="compact-result-cell value-cell">131.57</div>
+                <div class="compact-result-cell value-cell">0.167</div>
+              </div>
+              <div class="compact-result-row official-metric-row">
+                <div class="compact-result-cell run-name">Zero Big-Five</div>
+                <div class="compact-result-cell value-cell">0.490</div>
+                <div class="compact-result-cell value-cell">131.40</div>
+                <div class="compact-result-cell value-cell">0.167</div>
+              </div>
+              <div class="compact-result-row official-metric-row">
+                <div class="compact-result-cell run-name">No-condition</div>
+                <div class="compact-result-cell value-cell">0.534</div>
+                <div class="compact-result-cell value-cell">131.36</div>
+                <div class="compact-result-cell value-cell">0.167</div>
+              </div>
+            </div>
+            <div class="note" style="margin-top: 16px;">
+              <h3>Official-aligned readout</h3>
+              <p>FRC and FRVar are better when higher; FRD, TLCC lag, and official-style MAE are better when lower. Big-Five FiLM has measurable gains over Generic V0 on FRC, FRD, and official-style MAE, but no-condition is stronger on FRC and FRVar. The correct claim is selective improvement plus metric-aware interpretation.</p>
+            </div>
+            <h3 style="margin-top: 18px;">Local full-validation sanity table</h3>
             <div class="compact-result-table" aria-label="Full export aggregate">
               <div class="compact-result-row header">
                 <div class="compact-result-cell">Condition</div>
@@ -1615,7 +1675,7 @@
             </div>
             <div class="note" style="margin-top: 16px;">
               <h3>Interpretation</h3>
-              <p>Big-Five FiLM is slightly better on full-validation MSE/MAE, but no-condition is strong on some official-style diagnostics. The correct claim is a controlled interpretation framework, not a simple Big-Five victory.</p>
+              <p>Full-validation MSE/MAE remain useful sanity metrics, but the presentation claim should be anchored to official-style FRC, FRD, TLCC, FRVar, SMSE, and official-style MAE. Big-Five FiLM is useful, but not a universal winner.</p>
             </div>
             <div class="note" style="margin-top: 12px;">
               <h3>Submission boundary</h3>
@@ -1736,7 +1796,7 @@
             </div>
             <div class="status-line"><strong>Submission engineering</strong><span>88-90% complete. Remaining work is final human review, upload link preparation, and final send.</span></div>
             <div class="status-line"><strong>Overall REACT2026 project</strong><span>65-70% complete. The safe baseline is ready; research extensions need post-submission development.</span></div>
-            <div class="status-line"><strong>LLM-intent and synchrony direction</strong><span>45-55% complete. Offline schema and diagnostic layers exist, but they are not connected to the generator yet.</span></div>
+            <div class="status-line"><strong>LLM-intent and synchrony direction</strong><span>55-60% complete as an analysis layer. A 700-row offline annotation batch is prepared, but labels are not connected to the generator yet.</span></div>
             <div class="status-line"><strong>Honest position</strong><span>The submission package is runnable; the research contribution is controlled evaluation and interpretation, not a claimed leaderboard-winning model.</span></div>
           </div>
 
@@ -1796,14 +1856,35 @@
               <div class="rt-cell">State</div>
             </div>
             <div class="rt-row"><div class="rt-cell rt-stage"><small>01 · INPUT</small>Speaker multimodal input</div><div class="rt-cell">Audio, video/facial, and personality data paths exist.</div><div class="rt-cell">Text/context is not yet a stable input.</div><div class="rt-cell">Keep the current input pipeline stable; add transcript/context later.</div><div class="rt-cell rt-status"><span class="sbadge sb-amber">Partial</span></div></div>
-            <div class="rt-row"><div class="rt-cell rt-stage"><small>02 · INTENT</small>LLM reaction intent predictor</div><div class="rt-cell">Offline intent/affect schema and pilot package exist.</div><div class="rt-cell">No online LLM is used in training.</div><div class="rt-cell">Run a medium-scale offline label pilot, manually audit a small subset, then test true vs shuffled intent.</div><div class="rt-cell rt-status"><span class="sbadge sb-blue">Pre-layer ready</span></div></div>
-            <div class="rt-row"><div class="rt-cell rt-stage"><small>03 · SCHEMA</small>Reaction intent, timing, intensity</div><div class="rt-cell">Two-layer affect + communicative intent schema exists.</div><div class="rt-cell">Labels still need careful review.</div><div class="rt-cell">Review top samples before using labels for analysis.</div><div class="rt-cell rt-status"><span class="sbadge sb-green">On track</span></div></div>
+            <div class="rt-row"><div class="rt-cell rt-stage"><small>02 · INTENT</small>LLM reaction intent predictor</div><div class="rt-cell">Offline intent/affect schema and 700-row batch template exist.</div><div class="rt-cell">No online LLM is used in training.</div><div class="rt-cell">Run offline labels, manually audit 30-50 rows, then test true vs shuffled intent.</div><div class="rt-cell rt-status"><span class="sbadge sb-blue">Batch ready</span></div></div>
+            <div class="rt-row"><div class="rt-cell rt-stage"><small>03 · SCHEMA</small>Reaction intent, timing, intensity</div><div class="rt-cell">Two-layer affect + communicative intent schema exists.</div><div class="rt-cell">The large batch is a template, not reviewed labels.</div><div class="rt-cell">Validate reviewed/frozen labels before any analysis or smoke training.</div><div class="rt-cell rt-status"><span class="sbadge sb-green">On track</span></div></div>
             <div class="rt-row"><div class="rt-cell rt-stage"><small>04 · CONDITION</small>Conditioning signal</div><div class="rt-cell">Design is documented.</div><div class="rt-cell">Not connected to model training.</div><div class="rt-cell">Only add a smoke test if analysis supports it.</div><div class="rt-cell rt-status"><span class="sbadge sb-grey">Hold</span></div></div>
             <div class="rt-row"><div class="rt-cell rt-stage"><small>05 · GENERATOR</small>Generator core</div><div class="rt-cell">Generic V0 and Big-Five FiLM controlled branches exist.</div><div class="rt-cell">Safe baseline and research branch are separated.</div><div class="rt-cell">Interpret results before any new large training run.</div><div class="rt-cell rt-status"><span class="sbadge sb-green">Ready</span></div></div>
             <div class="rt-row"><div class="rt-cell rt-stage"><small>06 · OUTPUT</small>Generated facial attributes</div><div class="rt-cell">Validation and test exports are generated.</div><div class="rt-cell">Output shape [10, T, 25] is validated.</div><div class="rt-cell">Use this as the shared output format for all analysis.</div><div class="rt-cell rt-status"><span class="sbadge sb-green">Closed loop</span></div></div>
             <div class="rt-row"><div class="rt-cell rt-stage"><small>07 · EVALUATOR</small>Dyadic reaction evaluator</div><div class="rt-cell">Offline synchrony metrics have been implemented.</div><div class="rt-cell">Evaluator is diagnostic only.</div><div class="rt-cell">Keep it as an analysis tool, not a loss.</div><div class="rt-cell rt-status"><span class="sbadge sb-green">First version</span></div></div>
             <div class="rt-row"><div class="rt-cell rt-stage"><small>08 · SCORE</small>Synchrony / quality score</div><div class="rt-cell">Synchrony diagnostics exist.</div><div class="rt-cell">They do not always match official-style rankings.</div><div class="rt-cell">Use careful interpretation, not a single-score claim.</div><div class="rt-cell rt-status"><span class="sbadge sb-amber">Interpret carefully</span></div></div>
             <div class="rt-row"><div class="rt-cell rt-stage"><small>09 · LOSS</small>Loss / reward signal</div><div class="rt-cell">Not added to training.</div><div class="rt-cell">Evidence is not strong enough for a loss yet.</div><div class="rt-cell">Consider later after intent/synchrony analysis is clearer.</div><div class="rt-cell rt-status"><span class="sbadge sb-grey">Hold</span></div></div>
+          </div>
+        </div>
+
+        <div class="panel" style="margin-top: 16px;">
+          <div class="panel-title">
+            <h3>Medium-scale intent batch prepared</h3>
+            <span class="tag green">500 train + 200 val</span>
+          </div>
+          <div class="note-grid">
+            <div class="note">
+              <h3>What was prepared</h3>
+              <p>A 700-row candidate set, a two-layer annotation template, an offline LLM prompt, and a 9-step pipeline status table are ready for the next annotation round.</p>
+            </div>
+            <div class="note">
+              <h3>What it tests</h3>
+              <p>Whether semantic listener intent can explain when Big-Five helps or fails, before adding intent conditioning to the generator.</p>
+            </div>
+            <div class="note">
+              <h3>Guardrail</h3>
+              <p>These are not official labels and not training labels yet. They must be generated offline, frozen, and audited before any true-intent versus shuffled-intent smoke test.</p>
+            </div>
           </div>
         </div>
 
